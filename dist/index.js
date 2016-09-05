@@ -1,55 +1,26 @@
 'use strict';
 
-<<<<<<< HEAD
 var express = require('express');
-config = require('./keys');
+config = require('./config');
+keys = require('./keys');
 bodyParser = require('body-parser');
 cors = require('cors');
 massive = require('massive');
 jwt = require('jwt-simple');
 AWS = require('aws-sdk');
-// import connectString from config.connectString;
-// import massiveInstance from massive.connectSync({connectionString: connectString});
-// app.set('db', massiveInstance);
-// import salesOrders from('./controllers/salesController.js')
-// import login from require('./controllers/loginController.js')
-AWS.config.update({
-  accessKeyId: config.AWS.ACCESS_KEY,
-  secretAccessKey: config.AWS.SECRET_KEY,
+
+AWS.keys.update({
+  accessKeyId: keys.AWS.ACCESS_KEY,
+  secretAccessKey: keys.AWS.SECRET_KEY,
   region: 'us-west-2'
 });
 
 var s3 = new AWS.S3();
 
-var app = express();
-=======
-var _express = require('express');
+var connectString = config.connectString;
+var app = module.exports = express();
 
-var _express2 = _interopRequireDefault(_express);
-
-var _config = require('./config.js');
-
-var _config2 = _interopRequireDefault(_config);
-
-var _bodyParser = require('body-parser');
-
-var _bodyParser2 = _interopRequireDefault(_bodyParser);
-
-var _cors = require('cors');
-
-var _cors2 = _interopRequireDefault(_cors);
-
-var _massive = require('massive');
-
-var _massive2 = _interopRequireDefault(_massive);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-// import jwt from 'jwt-simple';
-var connectString = _config2.default.connectString;
-var app = module.exports = (0, _express2.default)();
-
-var massiveInstance = _massive2.default.connectSync({ connectionString: connectString });
+var massiveInstance = massive.connectSync({ connectionString: connectString });
 app.set('db', massiveInstance);
 var users = require('./controllers/userCtrl.js');
 var lists = require('./controllers/listCtrl.js');
@@ -57,28 +28,9 @@ var homes = require('./controllers/homeCtrl.js');
 var priorities = require('./controllers/priorityCtrl.js');
 var ratings = require('./controllers/ratingCtrl.js');
 var images = require('./controllers/imageCtrl.js');
->>>>>>> a90ca4eb1e2b6ffcdd6302dc1cd4510a199ec0b6
 
 app.use(bodyParser.json());
 app.use(cors());
-
-<<<<<<< HEAD
-app.get('test', function (req, res, next) {
-  res.json('suh dude');
-});
-
-var dan = function dan(name) {}
-// app.get('/orders',login.authorize, salesOrders.getSalesOrders);
-// app.get('/orders/:id',login.authorize, salesOrders.getSalesOrderById);
-// app.put('/orders/:id', login.authorize, salesOrders.updateSalesOrderById);
-// app.post('/orders', login.authorize, salesOrders.createSalesOrder);
-// app.put('/orders/complete/:id', login.authorize, salesOrders.completeSalesOrderById);
-// app.get('/customers', salesOrders.getCustomers);
-// app.post('/auth/login',login.verifyEmail, login.login);
-// app.post('/auth/logout', salesOrders.logout);
-// app.put('/ob', salesOrders.editSalesOrder);
-
-;
 
 app.use(bodyParser.json({ limit: '50mb' })); //limits file size, default limit is 100kb
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
@@ -110,13 +62,6 @@ app.post('/api/newimage', function (req, res, next) {
   });
 });
 
-app.listen(3000, function () {
-  console.log('listening on port: ', 3000);
-=======
-app.get('/test', function (req, res, next) {
-    res.json('suh dude');
-});
-
 // USER ENDPOINTS
 app.get('/users/:email', users.readUserById);
 
@@ -138,7 +83,6 @@ app.post('/ratings', ratings.createRating);
 //IMAGES ENDPOINTS
 app.post('/images', images.addImage);
 
-app.listen(_config2.default.port, function () {
-    console.log('listening on port: ', _config2.default.port);
->>>>>>> a90ca4eb1e2b6ffcdd6302dc1cd4510a199ec0b6
+app.listen(config.port, function () {
+  console.log('listening on port: ', config.port);
 });
