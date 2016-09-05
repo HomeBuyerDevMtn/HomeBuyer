@@ -1,9 +1,10 @@
+<<<<<<< HEAD
 "use strict";
 
+=======
 module.exports = {
-  AWS: {
-    ACCESS_KEY: "AKIAIYHEHQKXFTOPK2IA",
-    ACCESS_SECRET: "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",
-    REGION: 'us-west-2'
-  }
-};
+port: 3000,
+connectString: 'postgres://danielwood@localhost/homebuyer',
+secret: 'kdjffiEikfsdE#$%323A*2342*&^%'
+}
+>>>>>>> a90ca4eb1e2b6ffcdd6302dc1cd4510a199ec0b6
