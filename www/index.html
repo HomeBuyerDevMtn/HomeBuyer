@@ -28,7 +28,32 @@
         <h1 class="title">Ionic Blank Starter</h1>
       </ion-header-bar>
       <ion-content>
+
+        <!-- Camera test -->
+        <section ng-controller="cameraCtrl">
+          <div class="list card">
+            <div class="item item-image">
+              <img ng-src="{{pictureUrl}}" />
+            </div>
+          </div>
+          <div class="padding">
+            <button ng-click="takePicture()" type="button" class="button button-block button-calm" name="button" >Take Picture</button>
+
+            <button ng-click="uploadToS3()" type="button" name="button" class="button button-block button-energized">Upload from Assets</button>
+          </div>
+
+
+        </section>
+
+
+
+
+
+
       </ion-content>
     </ion-pane>
+
+    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+    <!-- <script src="cordova.js"></script> -->
   </body>
 </html>
