@@ -1,36 +1,57 @@
 import express from 'express';
-// import config from require('./config.js')
+import config from './config.js'
 import bodyParser from 'body-parser';
 import cors from 'cors';
 import massive from 'massive';
-import jwt from 'jwt-simple';
-// import connectString from config.connectString;
-const app = express();
-// import massiveInstance from massive.connectSync({connectionString: connectString});
-// app.set('db', massiveInstance);
-// import salesOrders from('./controllers/salesController.js')
-// import login from require('./controllers/loginController.js')
+// import jwt from 'jwt-simple';
+const connectString = config.connectString;
+const app = module.exports = express();
+
+const massiveInstance = massive.connectSync({connectionString: connectString});
+app.set('db', massiveInstance);
+const users = require('./controllers/userCtrl.js');
+const lists = require('./controllers/listCtrl.js');
+const homes = require('./controllers/homeCtrl.js');
+const priorities = require('./controllers/priorityCtrl.js');
+const ratings = require('./controllers/ratingCtrl.js');
+const images = require('./controllers/imageCtrl.js')
+
 
 
 app.use(bodyParser.json());
 app.use(cors());
 
-app.get('test', (req, res, next) => {
+app.get('/test', (req, res, next) => {
     res.json('suh dude')
 }) 
 
-let dan = name => {'kitty kat'} 
-// app.get('/orders',login.authorize, salesOrders.getSalesOrders);
-// app.get('/orders/:id',login.authorize, salesOrders.getSalesOrderById);
-// app.put('/orders/:id', login.authorize, salesOrders.updateSalesOrderById);
-// app.post('/orders', login.authorize, salesOrders.createSalesOrder);
-// app.put('/orders/complete/:id', login.authorize, salesOrders.completeSalesOrderById);
-// app.get('/customers', salesOrders.getCustomers);
-// app.post('/auth/login',login.verifyEmail, login.login);
-// app.post('/auth/logout', salesOrders.logout);
-// app.put('/ob', salesOrders.editSalesOrder);
+// USER ENDPOINTS
+app.get('/users/:email', users.readUserById);
 
-; 
-app.listen(3000, function() {
-    console.log('listening on port: ', 3000)
+//LIST ENDPOINTS
+app.get('/lists/:user_id', lists.readListByUserId);
+app.get('/lists/homes/:list_id', lists.readHomesByListId);
+app.get('/lists/homes/id/:home_id',homes.readHomesByHomeId);
+app.post('/lists', lists.createList);
+
+
+//HOME ENDPOINTS
+app.post('/lists/homes', homes.createHome);
+
+//PRIORITIES ENDPOINTS
+app.post('/priorities', priorities.createPriorities);
+
+//RATINGS ENDPOINTS
+app.post('/ratings', ratings.createRating);
+
+//IMAGES ENDPOINTS
+app.post('/images', images.addImage);
+
+
+
+
+
+
+app.listen(config.port, () => {
+    console.log('listening on port: ', config.port)
 })
