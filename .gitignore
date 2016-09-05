@@ -6,4 +6,4 @@ platforms/
 plugins/
 bundle.js
 styles.css
-config.js
+keys.js

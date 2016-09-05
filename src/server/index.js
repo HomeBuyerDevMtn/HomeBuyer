@@ -1,5 +1,5 @@
 const express = require('express');
-      config = require('./config')
+      config = require('./keys')
       bodyParser = require('body-parser');
       cors = require('cors');
       massive = require('massive');
