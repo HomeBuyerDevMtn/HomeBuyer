@@ -17,9 +17,9 @@ app.use(cors());
 
 app.get('test', (req, res, next) => {
     res.json('suh dude')
-}) 
+});
 
-let dan = name => {'kitty kat'} 
+let dan = name => {'kitty kat'}
 // app.get('/orders',login.authorize, salesOrders.getSalesOrders);
 // app.get('/orders/:id',login.authorize, salesOrders.getSalesOrderById);
 // app.put('/orders/:id', login.authorize, salesOrders.updateSalesOrderById);
@@ -30,7 +30,7 @@ let dan = name => {'kitty kat'}
 // app.post('/auth/logout', salesOrders.logout);
 // app.put('/ob', salesOrders.editSalesOrder);
 
-; 
+;
 app.listen(3000, function() {
     console.log('listening on port: ', 3000)
 })
