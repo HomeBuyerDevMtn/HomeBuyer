@@ -14,7 +14,8 @@ AWS.keys.update({
 });
 
 const s3 = new AWS.S3();
-=======
+
+
 const connectString = config.connectString;
 const app = module.exports = express();
 
@@ -63,6 +64,7 @@ app.post('/api/newimage', function(req, res, next) {
     console.log('upload', data);
   });
 });
+
 
 
 // USER ENDPOINTS
