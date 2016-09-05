@@ -1,0 +1,1 @@
+select * from homes where list_id = $1;
