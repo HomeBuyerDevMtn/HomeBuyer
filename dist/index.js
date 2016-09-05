@@ -1,42 +1,32 @@
 'use strict';
 
-var _express = require('express');
-
-var _express2 = _interopRequireDefault(_express);
-
-var _bodyParser = require('body-parser');
-
-var _bodyParser2 = _interopRequireDefault(_bodyParser);
-
-var _cors = require('cors');
-
-var _cors2 = _interopRequireDefault(_cors);
-
-var _massive = require('massive');
-
-var _massive2 = _interopRequireDefault(_massive);
-
-var _jwtSimple = require('jwt-simple');
-
-var _jwtSimple2 = _interopRequireDefault(_jwtSimple);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
+var express = require('express');
+config = require('./config');
+bodyParser = require('body-parser');
+cors = require('cors');
+massive = require('massive');
+jwt = require('jwt-simple');
+AWS = require('aws-sdk');
 // import connectString from config.connectString;
-
-// import config from require('./config.js')
-var app = (0, _express2.default)();
 // import massiveInstance from massive.connectSync({connectionString: connectString});
 // app.set('db', massiveInstance);
 // import salesOrders from('./controllers/salesController.js')
 // import login from require('./controllers/loginController.js')
+AWS.config.update({
+  accessKeyId: config.AWS.ACCESS_KEY,
+  secretAccessKey: config.AWS.SECRET_KEY,
+  region: 'us-west-2'
+});
 
+var s3 = new AWS.S3();
 
-app.use(_bodyParser2.default.json());
-app.use((0, _cors2.default)());
+var app = express();
+
+app.use(bodyParser.json());
+app.use(cors());
 
 app.get('test', function (req, res, next) {
-    res.json('suh dude');
+  res.json('suh dude');
 });
 
 var dan = function dan(name) {}
@@ -51,6 +41,37 @@ var dan = function dan(name) {}
 // app.put('/ob', salesOrders.editSalesOrder);
 
 ;
+
+app.use(bodyParser.json({ limit: '50mb' })); //limits file size, default limit is 100kb
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+
+app.use(express.static('../../www'));
+app.use('/node_modules', express.static('./node_modules'));
+
+app.get('/test', function (req, res, next) {
+  res.json({ 'hi': 'test' });
+});
+
+app.post('/api/newimage', function (req, res, next) {
+  console.log('here in the server');
+  var buf = new Buffer(req.body.imageBody.replace(/^dat:image\/\w+;base64,/, ''), 'base64');
+  console.log(req.body.imageBody);
+  var bucketName = 'homebuyer-bucket/' + req.body.userEmail;
+  var params = {
+    Bucket: bucketName,
+    Key: req.body.imageName,
+    Body: buf,
+    ContentType: 'image/' + req.body.imageExtension,
+    ACL: 'public-read'
+  };
+
+  s3.upload(params, function (err, data) {
+    if (err) res.status(500).send(err);
+    res.status(200).json(data);
+    console.log('upload', data);
+  });
+});
+
 app.listen(3000, function () {
-    console.log('listening on port: ', 3000);
+  console.log('listening on port: ', 3000);
 });

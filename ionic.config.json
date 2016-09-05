@@ -1,4 +1,5 @@
 {
   "name": "HomeBuyer",
-  "app_id": ""
+  "app_id": "",
+  "defaultBrowser": true
 }
