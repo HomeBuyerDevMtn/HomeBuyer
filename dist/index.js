@@ -4,6 +4,10 @@ var _express = require('express');
 
 var _express2 = _interopRequireDefault(_express);
 
+var _config = require('./config.js');
+
+var _config2 = _interopRequireDefault(_config);
+
 var _bodyParser = require('body-parser');
 
 var _bodyParser2 = _interopRequireDefault(_bodyParser);
@@ -16,41 +20,49 @@ var _massive = require('massive');
 
 var _massive2 = _interopRequireDefault(_massive);
 
-var _jwtSimple = require('jwt-simple');
-
-var _jwtSimple2 = _interopRequireDefault(_jwtSimple);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// import connectString from config.connectString;
+// import jwt from 'jwt-simple';
+var connectString = _config2.default.connectString;
+var app = module.exports = (0, _express2.default)();
 
-// import config from require('./config.js')
-var app = (0, _express2.default)();
-// import massiveInstance from massive.connectSync({connectionString: connectString});
-// app.set('db', massiveInstance);
-// import salesOrders from('./controllers/salesController.js')
-// import login from require('./controllers/loginController.js')
-
+var massiveInstance = _massive2.default.connectSync({ connectionString: connectString });
+app.set('db', massiveInstance);
+var users = require('./controllers/userCtrl.js');
+var lists = require('./controllers/listCtrl.js');
+var homes = require('./controllers/homeCtrl.js');
+var priorities = require('./controllers/priorityCtrl.js');
+var ratings = require('./controllers/ratingCtrl.js');
+var images = require('./controllers/imageCtrl.js');
 
 app.use(_bodyParser2.default.json());
 app.use((0, _cors2.default)());
 
-app.get('test', function (req, res, next) {
+app.get('/test', function (req, res, next) {
     res.json('suh dude');
 });
 
-var dan = function dan(name) {}
-// app.get('/orders',login.authorize, salesOrders.getSalesOrders);
-// app.get('/orders/:id',login.authorize, salesOrders.getSalesOrderById);
-// app.put('/orders/:id', login.authorize, salesOrders.updateSalesOrderById);
-// app.post('/orders', login.authorize, salesOrders.createSalesOrder);
-// app.put('/orders/complete/:id', login.authorize, salesOrders.completeSalesOrderById);
-// app.get('/customers', salesOrders.getCustomers);
-// app.post('/auth/login',login.verifyEmail, login.login);
-// app.post('/auth/logout', salesOrders.logout);
-// app.put('/ob', salesOrders.editSalesOrder);
+// USER ENDPOINTS
+app.get('/users/:email', users.readUserById);
 
-;
-app.listen(3000, function () {
-    console.log('listening on port: ', 3000);
+//LIST ENDPOINTS
+app.get('/lists/:user_id', lists.readListByUserId);
+app.get('/lists/homes/:list_id', lists.readHomesByListId);
+app.get('/lists/homes/id/:home_id', homes.readHomesByHomeId);
+app.post('/lists', lists.createList);
+
+//HOME ENDPOINTS
+app.post('/lists/homes', homes.createHome);
+
+//PRIORITIES ENDPOINTS
+app.post('/priorities', priorities.createPriorities);
+
+//RATINGS ENDPOINTS
+app.post('/ratings', ratings.createRating);
+
+//IMAGES ENDPOINTS
+app.post('/images', images.addImage);
+
+app.listen(_config2.default.port, function () {
+    console.log('listening on port: ', _config2.default.port);
 });
