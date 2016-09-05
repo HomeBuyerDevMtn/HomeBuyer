@@ -1,6 +1,6 @@
 const express = require('express');
       config = require('./config');
-      keys = require('./keys');
+      keys = require('./secretkeys');
       bodyParser = require('body-parser');
       cors = require('cors');
       massive = require('massive');
