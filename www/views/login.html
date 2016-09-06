@@ -1,0 +1,14 @@
+<ion-view view-title="Dashboard">
+ <ion-content class="padding">
+   <div>
+ <a href="" ng-click="googleLogin()"><button class="button button-block button-positive">Login With Google</button></a>
+</div>
+<div ng-show="showProfile" class="list">
+ <a class="item item-avatar" href="#">
+   <img ng-src="{{details.image.url}}">
+   <h2>{{details.displayName}}</h2>
+   <p>Back off, man. I'm a scientist.</p>
+ </a>
+</div>
+ </ion-content>
+</ion-view>

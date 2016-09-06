@@ -14,7 +14,7 @@ create table lists (
     id serial primary key,
     user_id int references users(id) not null,
     name varchar(255) not null,
-    create_date timestamptz not null -- I will change to add time zone. Hopefully just store as UTC
+    create_date timestamptz not null 
 );
 
 create table priorities (
@@ -44,7 +44,7 @@ create table homes (
     sq_feet int null,
     year_build int null,
     description text null,
-    days_listed int null --I think this might be better as a list date and then find the difference
+    days_listed int null 
 );
 
 create table ratings (
@@ -82,11 +82,11 @@ insert into lists (user_id, name, create_date) values (1, 'My List', CURRENT_TIM
 insert into lists (user_id, name, create_date) values (2, 'Cool List', CURRENT_TIMESTAMP(2));
 
 --priorities
-insert into priorities (user_id, list_id, neighborhood, commute, safety, schools, yard, kitchen) values (1, 3, 6, 7, 5, 7, 9, 9);
+insert into priorities (user_id, list_id, neighborhood, commute, safety, schools, yard, kitchen) values (1, 1, 6, 7, 5, 7, 9, 9);
 
 --homes
-insert into homes(list_id, price, address_1, address_2, city, zip, province, bathrooms, bedrooms, sq_feet, year_build, description, days_listed)
-values (1, 234928, '4842 Winterbrook Circle', 'basement apt', 'Herriman', '84096', 'UT', 1, 1, 850, 2005, 'basement apt i dont really like', 25);
+insert into homes(list_id, nickname, price, address_1, address_2, city, zip, province, bathrooms, bedrooms, sq_feet, year_build, description, days_listed)
+values (1, 'dans house', 234928, '4842 Winterbrook Circle', 'basement apt', 'Herriman', '84096', 'UT', 1, 1, 850, 2005, 'basement apt i dont really like', 25);
 
 --images 
 insert into images(home_id, url) values (1, 'http://redriverunited.org/wp-content/uploads/2014/10/home.png');
