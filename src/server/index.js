@@ -1,11 +1,12 @@
 const express = require('express');
-const config = require('./config.js');
-const keys = require('./secretkeys');
-      bodyParser = require('body-parser');
-      cors = require('cors');
-      massive = require('massive');
-      jwt = require('jwt-simple');
-      AWS = require('aws-sdk');
+
+const config = require('./config');
+const keys = require('./keys');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const massive = require('massive');
+const jwt = require('jwt-simple');
+const AWS = require('aws-sdk');
 
 AWS.config.update({
   accessKeyId: keys.AWS.ACCESS_KEY,

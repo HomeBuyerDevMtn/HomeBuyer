@@ -1,13 +1,14 @@
 'use strict';
 
 var express = require('express');
-var config = require('./config.js');
-var keys = require('./secretkeys');
-bodyParser = require('body-parser');
-cors = require('cors');
-massive = require('massive');
-jwt = require('jwt-simple');
-AWS = require('aws-sdk');
+
+var config = require('./config');
+var keys = require('./keys');
+var bodyParser = require('body-parser');
+var cors = require('cors');
+var massive = require('massive');
+var jwt = require('jwt-simple');
+var AWS = require('aws-sdk');
 
 AWS.config.update({
   accessKeyId: keys.AWS.ACCESS_KEY,
