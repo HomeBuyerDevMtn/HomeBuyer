@@ -1,0 +1,13 @@
+<!-- Camera test -->
+<section ng-controller="cameraCtrl">
+  <div class="list card">
+    <div class="item item-image">
+      <img ng-src="{{pictureUrl}}" />
+    </div>
+  </div>
+  <div class="padding">
+    <button ng-click="takePicture()" type="button" class="button button-block button-calm" name="button" >Take Picture</button>
+
+    <button ng-click="upload(home_id, url)" type="button" name="button" class="button button-block button-energized">Upload from Assets</button>
+  </div>
+</section>

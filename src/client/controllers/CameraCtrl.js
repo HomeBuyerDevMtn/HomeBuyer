@@ -1,5 +1,5 @@
 angular.module('homeBuyer')
-  .controller('cameraCtrl', function($scope, $cordovaCamera, dataService) {
+  .controller('cameraCtrl', function($scope, $cordovaCamera, CameraService) {
 
     $scope.pictureUrl= 'http://placehold.it/300x300';
 
@@ -42,7 +42,7 @@ angular.module('homeBuyer')
 
   }) //end camera controller
 
-  .service('dataService', function($http) {
+  .service('cameraService', function($http) {
 
       //for AWS S3
       this.storeImage = function(imageData, fileName) {
