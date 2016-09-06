@@ -1,5 +1,5 @@
 angular.module('homeBuyer')
-  .controller('cameraCtrl', function($scope, $cordovaCamera, $cordovaFileTransfer, dataService) {
+  .controller('cameraCtrl', function($scope, $cordovaCamera, dataService) {
 
     $scope.pictureUrl= 'http://placehold.it/300x300';
 
@@ -21,19 +21,30 @@ angular.module('homeBuyer')
         });
     };
 
-    $scope.uploadToS3 = function() {
+    // $scope.uploadToS3 = function() {
+    //
+    //   console.log('Attempting to upload from click', $scope.fileread)
+    //   dataService.storeImage($scope.fileread, 'test');
+    // };
 
-      console.log('Attempting to upload from click', $scope.fileread)
-      dataService.storeImage($scope.fileread, 'test');
+    //upload to sql db
+    $scope.upload = function() {
+      //home_id to test
+      var newImage = {
+        url: $scope.pictureUrl,
+        home_id: 4
+      }
+      console.log('clicked upload', newImage.url, newImage.home_id);
+
+      dataService.upload(newImage);
     };
-
 
 
   }) //end camera controller
 
   .service('dataService', function($http) {
 
-
+      //for AWS S3
       this.storeImage = function(imageData, fileName) {
 
       var newImage = {
@@ -46,7 +57,7 @@ angular.module('homeBuyer')
 
       $http({
         method: "POST",
-        url: "/api/newimage",
+        url: "http://localhost:3000/api/newimage",
         data: newImage,
       }).then(function( response) {
         console.log("POOOOSTTTT: ", response);
@@ -57,4 +68,11 @@ angular.module('homeBuyer')
       // return $http.post('/api/newimage', newImage);
 
       }
-    })
+
+      //to store new image in DB associated with a home_id
+      this.upload = function(newImage) {
+
+        console.log('in service', newImage.home_id, newImage.url);
+        $http.post('/images', newImage);
+      }
+    }) //end service

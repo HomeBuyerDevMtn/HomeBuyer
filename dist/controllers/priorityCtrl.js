@@ -1,12 +1,7 @@
 'use strict';
 
-var _index = require('../index.js');
-
-var _index2 = _interopRequireDefault(_index);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var db = _index2.default.get('db');
+var app = require('../index.js');
+var db = app.get('db');
 module.exports = {
 
     createPriorities: function createPriorities(req, res, next) {

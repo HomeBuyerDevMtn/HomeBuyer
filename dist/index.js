@@ -1,15 +1,15 @@
 'use strict';
 
 var express = require('express');
-config = require('./config');
-keys = require('./secretkeys');
+var config = require('./config.js');
+var keys = require('./secretkeys');
 bodyParser = require('body-parser');
 cors = require('cors');
 massive = require('massive');
 jwt = require('jwt-simple');
 AWS = require('aws-sdk');
 
-AWS.keys.update({
+AWS.config.update({
   accessKeyId: keys.AWS.ACCESS_KEY,
   secretAccessKey: keys.AWS.SECRET_KEY,
   region: 'us-west-2'
