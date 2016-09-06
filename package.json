@@ -18,6 +18,7 @@
     "gulp-watch": "^4.3.9",
     "jwt-simple": "^0.5.0",
     "massive": "^2.5.0",
+    "ng-cordova-oauth": "^0.2.10",
     "satellizer": "^0.15.5"
   },
   "devDependencies": {
