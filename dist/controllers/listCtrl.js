@@ -10,6 +10,7 @@ var db = _index2.default.get('db');
 module.exports = {
 
     createList: function createList(req, res, next) {
+        console.log('hello there');
         db.create_list([req.body.user_id, req.body.list_name], function (error, response) {
             if (error) {
                 res.json({

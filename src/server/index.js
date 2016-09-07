@@ -1,25 +1,25 @@
 const express = require('express');
 const config = require('./config');
-const keys = require('./keys');
+// const keys = require('./keys');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const massive = require('massive');
 const jwt = require('jwt-simple');
-const AWS = require('aws-sdk');
+// const AWS = require('aws-sdk');
+//
+// AWS.keys.update({
+//   accessKeyId: keys.AWS.ACCESS_KEY,
+//   secretAccessKey: keys.AWS.SECRET_KEY,
+//   region: 'us-west-2'
+// });
+//
+// const s3 = new AWS.S3();
 
-AWS.keys.update({
-  accessKeyId: keys.AWS.ACCESS_KEY,
-  secretAccessKey: keys.AWS.SECRET_KEY,
-  region: 'us-west-2'
-});
 
-const s3 = new AWS.S3();
-
-
-const connectString = config.connectString;
+const connectionString = config.connectString;
+const massiveInstance = massive.connectSync({ connectionString: connectionString });
 const app = module.exports = express();
 
-const massiveInstance = massive.connectSync({connectionString: connectString});
 app.set('db', massiveInstance);
 const users = require('./controllers/userCtrl.js');
 const lists = require('./controllers/listCtrl.js');
@@ -73,7 +73,7 @@ app.get('/users/:email', users.readUserById);
 //LIST ENDPOINTS
 app.get('/lists/:user_id', lists.readListByUserId);
 app.get('/lists/homes/:list_id', lists.readHomesByListId);
-app.get('/lists/homes/id/:home_id',homes.readHomesByHomeId);
+app.get('/lists/homes/id/:home_id', homes.readHomesByHomeId);
 app.post('/lists', lists.createList);
 
 

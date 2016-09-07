@@ -7,5 +7,11 @@ angular.module('homeBuyer').config(function($stateProvider, $urlRouterProvider){
    controller: 'loginCtrl'
  })
 
+ .state('addHome', {
+   url: '/addHome',
+   templateUrl: './views/createHome.html',
+   controller: 'loginCtrl'
+ })
+
  $urlRouterProvider.otherwise('/login');
 })

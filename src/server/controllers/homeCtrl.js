@@ -3,6 +3,7 @@ const db = app.get('db');
 module.exports = {
 
     createHome: (req, res, next) => {
+      console.log(req.body);
         db.create_home([req.body.list_id, req.body.nickname, req.body.price, req.body.address_1, req.body.address_2, req.body.city, req.body.zip, req.body.province, req.body.bathrooms, req.body.bedrooms, req.body.sq_feet, req.body.year_build, req.body.description, req.body.days_listed],(error,response) => {
              if (error) {
                 res.json({

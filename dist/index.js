@@ -2,25 +2,26 @@
 
 var express = require('express');
 var config = require('./config');
-var keys = require('./keys');
+// const keys = require('./keys');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var massive = require('massive');
 var jwt = require('jwt-simple');
-var AWS = require('aws-sdk');
+// const AWS = require('aws-sdk');
+//
+// AWS.keys.update({
+//   accessKeyId: keys.AWS.ACCESS_KEY,
+//   secretAccessKey: keys.AWS.SECRET_KEY,
+//   region: 'us-west-2'
+// });
+//
+// const s3 = new AWS.S3();
 
-AWS.keys.update({
-  accessKeyId: keys.AWS.ACCESS_KEY,
-  secretAccessKey: keys.AWS.SECRET_KEY,
-  region: 'us-west-2'
-});
 
-var s3 = new AWS.S3();
-
-var connectString = config.connectString;
+var connectionString = config.connectString;
+var massiveInstance = massive.connectSync({ connectionString: connectionString });
 var app = module.exports = express();
 
-var massiveInstance = massive.connectSync({ connectionString: connectString });
 app.set('db', massiveInstance);
 var users = require('./controllers/userCtrl.js');
 var lists = require('./controllers/listCtrl.js');

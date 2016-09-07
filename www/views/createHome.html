@@ -1,0 +1,66 @@
+<!--
+  1.  Nickname
+  2.  Price
+  3.  Address 1
+  4. Address 2
+  5.  City
+  6.  Zip
+  7.  Province/state
+  8.  Bathrooms
+  9.  Bedrooms
+  10.  Square footage
+  11.  year built
+  12.  description
+  13.  Days listed
+  14. Add image
+-->
+<ion-view>
+  <ion-content>
+      <div class="list">
+        <label class=" item item-input">
+          <input type='text' placeholder="House Nickname" ng-model='home.nickname'>
+        </label>
+        <label class=" item item-input">
+          <input type='number' placeholder="Price" ng-model='home.price'>
+        </label>
+        <label class=" item item-input">
+          <input type='text' placeholder="Street Address" ng-model='home.address1'>
+        </label>
+        <label class=" item item-input">
+          <input type='text' placeholder="Apt/Unit #" ng-model='home.address2'>
+        </label>
+        <label class=" item item-input">
+          <input type='text' placeholder="City" ng-model='home.city'>
+        </label>
+        <label class=" item item-input">
+          <input type='text' placeholder="State/Province" ng-model='home.state'>
+        </label>
+        <label class=" item item-input">
+          <input type='number' placeholder="Zip" ng-model='home.zip'>
+        </label>
+        <label class=" item item-input">
+          <input type='number' placeholder="# of Bathrooms" ng-model='home.bathrooms'>
+        </label>
+        <label class=" item item-input">
+          <input type='number' placeholder="# of Bedrooms" ng-model='home.bedrooms'>
+        </label>
+        <label class=" item item-input">
+          <input type='number' placeholder="Square Footage" ng-model='home.sqFootage'>
+        </label>
+        <label class=" item item-input">
+          <input type='number' placeholder="Year built" ng-model='home.year'>
+        </label>
+        <label class=" item item-input">
+          <textarea placeholder="Description" ng-model='home.description'></textarea>
+        </label>
+        <label class=" item item-input">
+          <input type='number' placeholder="# Days Listed" ng-model='home.daysListed'>
+        </label>
+      </div>
+      <button class="button button-block button-positive" ng-click='createHome(home)'>Create Home</button>
+  </ion-content>
+
+        <a class="button icon-left ion-chevron-left button-clear button-dark" ui-sref='login'>Back</a>
+
+
+</ion-view>
