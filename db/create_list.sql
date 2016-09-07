@@ -1,0 +1,1 @@
+insert into lists (user_id, name, create_date) values ($1, $2, CURRENT_TIMESTAMP(2));
