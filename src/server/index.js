@@ -16,8 +16,7 @@ AWS.config.update({
 
 
 const app = module.exports = express();
-app.use(bodyParser.json({limit: '50mb'})); //limits file size, default limit is 100kb
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
 
 const s3 = new AWS.S3();
 
@@ -39,9 +38,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 
-
-
-
+app.use(bodyParser.json({limit: '50mb'})); //limits file size, default limit is 100kb
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
 app.use(express.static('../../www'));
 app.use('/node_modules', express.static('./node_modules'));
