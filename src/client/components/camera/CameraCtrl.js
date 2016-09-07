@@ -1,31 +1,26 @@
 angular.module('homeBuyer')
   .controller('cameraCtrl', function($scope, $cordovaCamera, cameraService) {
 
-    $scope.pictureUrl= 'http://placehold.it/300x300';
+    $scope.pictureUrl= 'http://placehold.it/100x100';
 
     $scope.takePicture = function() {
-      console.log('here in camera');
       var options = {
         destinationType: Camera.DestinationType.DATA_URL,
         encodingType: Camera.EncodingType.JPEG
       };
       $cordovaCamera.getPicture(options)
         .then(function(data) {
-          // console.log("camera data is: ", angular.toJson(data));
           $scope.pictureUrl = 'data:image/jpeg;base64,' + data;
-
           $scope.fileread = angular.toJson($scope.pictureUrl);
-
         }, function(error) {
           console.log('camera error is: ', angular.toJson(data));
         });
-    };
+    }; // end $scope.takePicture()
 
     $scope.uploadToS3 = function() {
-
       console.log('Attempting to upload from click', $scope.fileread)
       cameraService.storeImage($scope.fileread, 'test');
-    };
+    }; //end uploadToS3
 
     //upload to sql db
     $scope.upload = function() {
@@ -53,7 +48,6 @@ angular.module('homeBuyer')
         imageExtension: 'jpeg',
         userEmail: 'heathermhargreaves@gmail.com'
       }
-      console.log('Hello from service');
 
       return $http({
         method: "POST",
@@ -68,7 +62,7 @@ angular.module('homeBuyer')
 
       // return $http.post('/api/newimage', newImage);
 
-      }
+    } //end storeImage() in aws
 
       //to store new image in DB associated with a home_id
       this.upload = function(newImage) {

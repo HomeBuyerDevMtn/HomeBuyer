@@ -7,12 +7,12 @@ angular.module('homeBuyer').config(function($stateProvider, $urlRouterProvider){
    templateUrl: './views/login.html',
    controller: 'loginCtrl'
  })
-  .state('camera', {
-    url: '/addpicture',
+  .state('priorities', {
+    url: '/priorities',
     cache: false,
-    templateUrl: './views/cameraTmpl.html',
-    controller: 'cameraCtrl'
-  })
+    templateUrl: './views/prioritiesTempl.html',
+    controller: 'prioritiesCtrl'
+  });
 
  $urlRouterProvider.otherwise('/login');
-})
+});
