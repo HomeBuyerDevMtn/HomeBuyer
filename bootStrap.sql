@@ -4,17 +4,17 @@ create table users (
   id serial primary key,
   name varchar(255) not null,
   email varchar(255) not null,
-  password varchar(255) not null,
-  google_id varchar(255) null,
-  facebook_id varchar(255) null,
-  local boolean
+  password varchar(255) null,
+  third_party_id varchar(255) null,
+  user_auth_type_id int null,
+  token varchar(255)
 );
 
 create table lists (
     id serial primary key,
     user_id int references users(id) not null,
     name varchar(255) not null,
-    create_date timestamptz not null 
+    create_date timestamptz not null
 );
 
 create table priorities (
@@ -44,7 +44,7 @@ create table homes (
     sq_feet int null,
     year_build int null,
     description text null,
-    days_listed int null 
+    days_listed int null
 );
 
 create table ratings (
@@ -88,12 +88,9 @@ insert into priorities (user_id, list_id, neighborhood, commute, safety, schools
 insert into homes(list_id, nickname, price, address_1, address_2, city, zip, province, bathrooms, bedrooms, sq_feet, year_build, description, days_listed)
 values (1, 'dans house', 234928, '4842 Winterbrook Circle', 'basement apt', 'Herriman', '84096', 'UT', 1, 1, 850, 2005, 'basement apt i dont really like', 25);
 
---images 
+--images
 insert into images(home_id, url) values (1, 'http://redriverunited.org/wp-content/uploads/2014/10/home.png');
 
 --ratings
 insert into ratings(home_id, user_id, neighborhood, commute, safety, schools, yard, kitchen)
 values (1, 1, 7, 9, 8, 7, 8, 9);
-
-
-
