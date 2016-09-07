@@ -6,7 +6,7 @@
             "type": "node",
             "request": "launch",
             "program": "${workspaceRoot}/dist/index.js",
-            "stopOnEntry": false,
+            "stopOnEntry": true,
             "args": [],
             "cwd": "${workspaceRoot}",
             "preLaunchTask": null,

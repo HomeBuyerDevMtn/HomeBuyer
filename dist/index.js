@@ -24,6 +24,7 @@ var connectString = config.connectString;
 
 var massiveInstance = massive.connectSync({ connectionString: connectString });
 app.set('db', massiveInstance);
+var db = app.get('db');
 var users = require('./controllers/userCtrl.js');
 var lists = require('./controllers/listCtrl.js');
 var homes = require('./controllers/homeCtrl.js');
@@ -39,10 +40,6 @@ app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 app.use(express.static('../../www'));
 app.use('/node_modules', express.static('./node_modules'));
-
-app.get('/test', function (req, res, next) {
-  res.json({ 'hi': 'test' });
-});
 
 app.post('/api/newimage', function (req, res, next) {
   console.log('here in the server');
@@ -86,6 +83,10 @@ app.post('/ratings', ratings.createRating);
 
 //IMAGES ENDPOINTS
 app.post('/images', images.addImage);
+
+//AUTH ENDPOINTS
+app.post('/auth/google', users.googleLogin);
+app.post('/auth/local/register', users.localRegister);
 
 app.listen(config.port, function () {
   console.log('listening on port: ', config.port);
