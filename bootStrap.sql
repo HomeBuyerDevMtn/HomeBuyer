@@ -4,10 +4,10 @@ create table users (
   id serial primary key,
   name varchar(255) not null,
   email varchar(255) not null,
-  password varchar(255) not null,
-  google_id varchar(255) null,
-  facebook_id varchar(255) null,
-  local boolean
+  password varchar(255) null,
+  third_party_id varchar(255) null,
+  user_auth_type_id int null,
+  token varchar(255)
 );
 
 create table lists (
