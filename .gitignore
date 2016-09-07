@@ -7,3 +7,5 @@ plugins/
 bundle.js
 styles.css
 keys.js
+secretkeys.js
+config.js
