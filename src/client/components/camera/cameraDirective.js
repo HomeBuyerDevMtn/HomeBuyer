@@ -3,7 +3,8 @@ angular.module('homeBuyer')
 
     return {
       restrict: 'E',
-      templateUrl: '<div>heloooooooooo</div>'
+      templateUrl: './views/cameraTmpl.html',
+      controller: 'cameraCtrl'
     };
 
   }); //end camera directive

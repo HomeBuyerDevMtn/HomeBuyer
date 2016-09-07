@@ -3,7 +3,7 @@
 var express = require('express');
 
 var config = require('./config');
-var keys = require('./keys');
+var secretkeys = require('./secretkeys.js');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var massive = require('massive');
@@ -11,15 +11,18 @@ var jwt = require('jwt-simple');
 var AWS = require('aws-sdk');
 
 AWS.config.update({
-  accessKeyId: keys.AWS.ACCESS_KEY,
-  secretAccessKey: keys.AWS.SECRET_KEY,
+  accessKeyId: secretkeys.aws.ACCESS_KEY,
+  secretAccessKey: secretkeys.aws.ACCESS_SECRET,
   region: 'us-west-2'
 });
+
+var app = module.exports = express();
+app.use(bodyParser.json({ limit: '50mb' })); //limits file size, default limit is 100kb
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 var s3 = new AWS.S3();
 
 var connectString = config.connectString;
-var app = module.exports = express();
 
 var massiveInstance = massive.connectSync({ connectionString: connectString });
 app.set('db', massiveInstance);
@@ -33,9 +36,6 @@ var images = require('./controllers/imageCtrl.js');
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use(bodyParser.json({ limit: '50mb' })); //limits file size, default limit is 100kb
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
-
 app.use(express.static('../../www'));
 app.use('/node_modules', express.static('./node_modules'));
 
@@ -46,7 +46,8 @@ app.get('/test', function (req, res, next) {
 app.post('/api/newimage', function (req, res, next) {
   console.log('here in the server');
   var buf = new Buffer(req.body.imageBody.replace(/^dat:image\/\w+;base64,/, ''), 'base64');
-  console.log(req.body.imageBody);
+  console.log(req.body);
+
   var bucketName = 'homebuyer-bucket/' + req.body.userEmail;
   var params = {
     Bucket: bucketName,
@@ -60,6 +61,7 @@ app.post('/api/newimage', function (req, res, next) {
     if (err) res.status(500).send(err);
     res.status(200).json(data);
     console.log('upload', data);
+    console.log(err);
   });
 });
 

@@ -1,5 +1,5 @@
 angular.module('homeBuyer')
-  .controller('cameraCtrl', function($scope, $cordovaCamera, CameraService) {
+  .controller('cameraCtrl', function($scope, $cordovaCamera, cameraService) {
 
     $scope.pictureUrl= 'http://placehold.it/300x300';
 
@@ -21,22 +21,22 @@ angular.module('homeBuyer')
         });
     };
 
-    // $scope.uploadToS3 = function() {
-    //
-    //   console.log('Attempting to upload from click', $scope.fileread)
-    //   dataService.storeImage($scope.fileread, 'test');
-    // };
+    $scope.uploadToS3 = function() {
+
+      console.log('Attempting to upload from click', $scope.fileread)
+      cameraService.storeImage($scope.fileread, 'test');
+    };
 
     //upload to sql db
     $scope.upload = function() {
-      //home_id to test
+      //home_id of 4 is only to test
       var newImage = {
         url: $scope.pictureUrl,
         home_id: 4
       }
       console.log('clicked upload', newImage.url, newImage.home_id);
 
-      dataService.upload(newImage);
+      cameraService.upload(newImage);
     };
 
 
@@ -55,9 +55,10 @@ angular.module('homeBuyer')
       }
       console.log('Hello from service');
 
-      $http({
+      return $http({
         method: "POST",
-        url: "http://localhost:3000/api/newimage",
+        //different server for browser v. emulator, this is for android emulator
+        url: "http://192.168.56.1:3000/api/newimage",
         data: newImage,
       }).then(function( response) {
         console.log("POOOOSTTTT: ", response);
