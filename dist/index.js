@@ -43,8 +43,8 @@ app.use('/node_modules', express.static('./node_modules'));
 
 app.post('/api/newimage', function (req, res, next) {
   console.log('here in the server');
-  var buf = new Buffer(req.body.imageBody.replace(/^dat:image\/\w+;base64,/, ''), 'base64');
-  console.log(req.body);
+  var buf = new Buffer(req.body.imageBody.replace(/^data:image\/\w+;base64,/, ''), 'base64');
+  // console.log(req.body);
 
   var bucketName = 'homebuyer-bucket/' + req.body.userEmail;
   var params = {
@@ -54,6 +54,8 @@ app.post('/api/newimage', function (req, res, next) {
     ContentType: 'image/' + req.body.imageExtension,
     ACL: 'public-read'
   };
+
+  console.log(req.body.imageBody);
 
   s3.upload(params, function (err, data) {
     if (err) res.status(500).send(err);

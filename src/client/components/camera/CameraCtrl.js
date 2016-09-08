@@ -6,7 +6,7 @@ angular.module('homeBuyer')
     $scope.takePicture = function() {
       var options = {
         destinationType: Camera.DestinationType.DATA_URL,
-        encodingType: Camera.EncodingType.JPEG
+        encodingType: Camera.EncodingType.JPEG,
       };
       $cordovaCamera.getPicture(options)
         .then(function(data) {
@@ -18,8 +18,23 @@ angular.module('homeBuyer')
     }; // end $scope.takePicture()
 
     $scope.uploadToS3 = function() {
-      console.log('Attempting to upload from click', $scope.fileread)
-      cameraService.storeImage($scope.fileread, 'test');
+      console.log('Attempting to upload from click', $scope.pictureUrl)
+      //guid to generate random string for file name
+      function guid() {
+          function s4() {
+            return Math.floor((1 + Math.random()) * 0x10000)
+              .toString(16)
+              .substring(1);
+          }
+          return s4() + s4() + '-' + s4() + '-' + s4() + '-' +
+            s4() + '-' + s4() + s4() + s4();
+        }
+
+        var uuid = guid() + ".jpeg";
+        console.log(uuid);
+
+
+      cameraService.storeImage($scope.pictureUrl, uuid);
     }; //end uploadToS3
 
     //upload to sql db
@@ -49,10 +64,13 @@ angular.module('homeBuyer')
         userEmail: 'heathermhargreaves@gmail.com'
       }
 
+      console.log("");
+
+
       return $http({
         method: "POST",
         //different server for browser v. emulator, this is for android emulator
-        url: "http://192.168.56.1:3000/api/newimage",
+        url: "http://192.168.1.49:3000/api/newimage",
         data: newImage,
       }).then(function( response) {
         console.log("POOOOSTTTT: ", response);
@@ -66,6 +84,8 @@ angular.module('homeBuyer')
 
       //to store new image in DB associated with a home_id
       this.upload = function(newImage) {
+
+
 
         console.log('in service', newImage.home_id, newImage.url);
         $http.post('/images', newImage);
