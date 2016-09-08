@@ -1,12 +1,18 @@
 'use strict';
 
 var express = require('express');
+
 var config = require('./config');
+
 // const keys = require('./keys');
+
+var secretkeys = require('./secretkeys.js');
+
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var massive = require('massive');
 var jwt = require('jwt-simple');
+
 // const AWS = require('aws-sdk');
 //
 // AWS.keys.update({
@@ -21,6 +27,21 @@ var jwt = require('jwt-simple');
 var connectionString = config.connectString;
 var massiveInstance = massive.connectSync({ connectionString: connectionString });
 var app = module.exports = express();
+
+var AWS = require('aws-sdk');
+
+AWS.config.update({
+  accessKeyId: secretkeys.aws.ACCESS_KEY,
+  secretAccessKey: secretkeys.aws.ACCESS_SECRET,
+  region: 'us-west-2'
+});
+
+var app = module.exports = express();
+
+var s3 = new AWS.S3();
+
+var connectString = config.connectString;
+
 
 app.set('db', massiveInstance);
 
@@ -42,8 +63,9 @@ app.use('/node_modules', express.static('./node_modules'));
 
 app.post('/api/newimage', function (req, res, next) {
   console.log('here in the server');
-  var buf = new Buffer(req.body.imageBody.replace(/^dat:image\/\w+;base64,/, ''), 'base64');
-  console.log(req.body.imageBody);
+  var buf = new Buffer(req.body.imageBody.replace(/^data:image\/\w+;base64,/, ''), 'base64');
+  // console.log(req.body);
+
   var bucketName = 'homebuyer-bucket/' + req.body.userEmail;
   var params = {
     Bucket: bucketName,
@@ -53,10 +75,13 @@ app.post('/api/newimage', function (req, res, next) {
     ACL: 'public-read'
   };
 
+  console.log(req.body.imageBody);
+
   s3.upload(params, function (err, data) {
     if (err) res.status(500).send(err);
     res.status(200).json(data);
     console.log('upload', data);
+    console.log(err);
   });
 });
 
