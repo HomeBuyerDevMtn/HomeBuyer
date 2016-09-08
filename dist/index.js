@@ -3,22 +3,31 @@
 var express = require('express');
 
 var config = require('./config');
-var secretkeys = require('./secretkeys.js');
+// const keys = require('./keys');
+// const secretkeys = require('./secretkeys.js');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var massive = require('massive');
 var jwt = require('jwt-simple');
-var AWS = require('aws-sdk');
+// const AWS = require('aws-sdk');
 
-AWS.config.update({
-  accessKeyId: secretkeys.aws.ACCESS_KEY,
-  secretAccessKey: secretkeys.aws.ACCESS_SECRET,
-  region: 'us-west-2'
-});
+// AWS.keys.update({
+//   accessKeyId: keys.AWS.ACCESS_KEY,
+//   secretAccessKey: keys.AWS.SECRET_KEY,
+//   region: 'us-west-2'
+// });
+
+// const s3 = new AWS.S3();
+// AWS.config.update({
+//   accessKeyId: secretkeys.aws.ACCESS_KEY,
+//   secretAccessKey: secretkeys.aws.ACCESS_SECRET,
+//   region: 'us-west-2'
+// });
+
 
 var app = module.exports = express();
 
-var s3 = new AWS.S3();
+// const s3 = new AWS.S3();
 
 var connectString = config.connectString;
 
@@ -35,34 +44,41 @@ var images = require('./controllers/imageCtrl.js');
 app.use(bodyParser.json());
 app.use(cors());
 
-app.use(bodyParser.json({ limit: '50mb' })); //limits file size, default limit is 100kb
-app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+// app.use(bodyParser.json({limit: '50mb'})); //limits file size, default limit is 100kb
+// app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 
-app.use(express.static('../../www'));
-app.use('/node_modules', express.static('./node_modules'));
+// app.use(express.static('../../www'));
+// app.use('/node_modules', express.static('./node_modules'));
 
-app.post('/api/newimage', function (req, res, next) {
-  console.log('here in the server');
-  var buf = new Buffer(req.body.imageBody.replace(/^data:image\/\w+;base64,/, ''), 'base64');
-  // console.log(req.body);
 
-  var bucketName = 'homebuyer-bucket/' + req.body.userEmail;
-  var params = {
-    Bucket: bucketName,
-    Key: req.body.imageName,
-    Body: buf,
-    ContentType: 'image/' + req.body.imageExtension,
-    ACL: 'public-read'
-  };
+// app.post('/api/newimage', function(req, res, next) {
+//   console.log('here in the server');
+//   const buf = new Buffer(req.body.imageBody.replace(/^data:image\/\w+;base64,/,''), 'base64')
+//   // console.log(req.body);
 
-  console.log(req.body.imageBody);
+//   const bucketName = 'homebuyer-bucket/' + req.body.userEmail;
+//   const params = {
+//     Bucket: bucketName,
+//     Key: req.body.imageName,
+//     Body: buf,
+//     ContentType: 'image/' + req.body.imageExtension,
+//     ACL: 'public-read'
+//   };
 
-  s3.upload(params, function (err, data) {
-    if (err) res.status(500).send(err);
-    res.status(200).json(data);
-    console.log('upload', data);
-    console.log(err);
-  });
+//   console.log(req.body.imageBody);
+
+//   s3.upload(params, function(err, data) {
+//     if (err) res.status(500).send(err);
+//     res.status(200).json(data);
+//     console.log('upload', data);
+//     console.log(err);
+//   });
+// });
+
+//TEST ENDPOINTS
+
+app.get('/test', users.authenticateRequest, function (req, res, next) {
+  res.json('You got through');
 });
 
 // USER ENDPOINTS
@@ -89,6 +105,7 @@ app.post('/images', images.addImage);
 //AUTH ENDPOINTS
 app.post('/auth/google', users.googleLogin);
 app.post('/auth/local/register', users.localRegister);
+app.post('/auth/local/login', users.localLogin);
 
 app.listen(config.port, function () {
   console.log('listening on port: ', config.port);
