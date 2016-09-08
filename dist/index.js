@@ -1,8 +1,10 @@
 'use strict';
 
 var express = require('express');
+
 var config = require('./config');
 // const keys = require('./keys');
+// const secretkeys = require('./secretkeys.js');
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var massive = require('massive');
@@ -16,10 +18,18 @@ var jwt = require('jwt-simple');
 // });
 
 // const s3 = new AWS.S3();
+// AWS.config.update({
+//   accessKeyId: secretkeys.aws.ACCESS_KEY,
+//   secretAccessKey: secretkeys.aws.ACCESS_SECRET,
+//   region: 'us-west-2'
+// });
 
+
+var app = module.exports = express();
+
+// const s3 = new AWS.S3();
 
 var connectString = config.connectString;
-var app = module.exports = express();
 
 var massiveInstance = massive.connectSync({ connectionString: connectString });
 app.set('db', massiveInstance);
@@ -43,8 +53,9 @@ app.use(cors());
 
 // app.post('/api/newimage', function(req, res, next) {
 //   console.log('here in the server');
-//   const buf = new Buffer(req.body.imageBody.replace(/^dat:image\/\w+;base64,/,''), 'base64')
-//   console.log(req.body.imageBody);
+//   const buf = new Buffer(req.body.imageBody.replace(/^data:image\/\w+;base64,/,''), 'base64')
+//   // console.log(req.body);
+
 //   const bucketName = 'homebuyer-bucket/' + req.body.userEmail;
 //   const params = {
 //     Bucket: bucketName,
@@ -54,13 +65,21 @@ app.use(cors());
 //     ACL: 'public-read'
 //   };
 
+//   console.log(req.body.imageBody);
+
 //   s3.upload(params, function(err, data) {
 //     if (err) res.status(500).send(err);
 //     res.status(200).json(data);
 //     console.log('upload', data);
+//     console.log(err);
 //   });
 // });
 
+//TEST ENDPOINTS
+
+app.get('/test', users.authenticateRequest, function (req, res, next) {
+  res.json('You got through');
+});
 
 // USER ENDPOINTS
 app.get('/users/:email', users.readUserById);
@@ -86,7 +105,8 @@ app.post('/images', images.addImage);
 //AUTH ENDPOINTS
 app.post('/auth/google', users.googleLogin);
 app.post('/auth/local/register', users.localRegister);
+app.post('/auth/local/login', users.localLogin);
 
 app.listen(config.port, function () {
-    console.log('listening on port: ', config.port);
+  console.log('listening on port: ', config.port);
 });

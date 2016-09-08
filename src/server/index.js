@@ -1,6 +1,8 @@
 const express = require('express');
+
 const config = require('./config');
 // const keys = require('./keys');
+// const secretkeys = require('./secretkeys.js');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const massive = require('massive');
@@ -14,10 +16,20 @@ const jwt = require('jwt-simple');
 // });
 
 // const s3 = new AWS.S3();
+// AWS.config.update({
+//   accessKeyId: secretkeys.aws.ACCESS_KEY,
+//   secretAccessKey: secretkeys.aws.ACCESS_SECRET,
+//   region: 'us-west-2'
+// });
 
+
+const app = module.exports = express();
+
+
+// const s3 = new AWS.S3();
 
 const connectString = config.connectString;
-const app = module.exports = express();
+
 
 const massiveInstance = massive.connectSync({connectionString: connectString});
 app.set('db', massiveInstance);
@@ -44,10 +56,12 @@ app.use(cors());
 
 
 
+
 // app.post('/api/newimage', function(req, res, next) {
 //   console.log('here in the server');
-//   const buf = new Buffer(req.body.imageBody.replace(/^dat:image\/\w+;base64,/,''), 'base64')
-//   console.log(req.body.imageBody);
+//   const buf = new Buffer(req.body.imageBody.replace(/^data:image\/\w+;base64,/,''), 'base64')
+//   // console.log(req.body);
+
 //   const bucketName = 'homebuyer-bucket/' + req.body.userEmail;
 //   const params = {
 //     Bucket: bucketName,
@@ -57,14 +71,21 @@ app.use(cors());
 //     ACL: 'public-read'
 //   };
 
+//   console.log(req.body.imageBody);
+
 //   s3.upload(params, function(err, data) {
 //     if (err) res.status(500).send(err);
 //     res.status(200).json(data);
 //     console.log('upload', data);
+//     console.log(err);
 //   });
 // });
 
+//TEST ENDPOINTS
 
+app.get('/test', users.authenticateRequest, (req, res, next) => {
+  res.json('You got through')
+})
 
 // USER ENDPOINTS
 app.get('/users/:email', users.readUserById);
@@ -91,6 +112,7 @@ app.post('/images', images.addImage);
 //AUTH ENDPOINTS
 app.post('/auth/google', users.googleLogin);
 app.post('/auth/local/register', users.localRegister);
+app.post('/auth/local/login', users.localLogin);
 
 
 
