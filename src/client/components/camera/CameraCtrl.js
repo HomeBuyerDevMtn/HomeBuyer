@@ -1,7 +1,7 @@
 angular.module('homeBuyer')
   .controller('cameraCtrl', function($scope, $cordovaCamera, cameraService) {
 
-    $scope.pictureUrl= 'http://placehold.it/100x100';
+    $scope.pictureUrl= 'http://placehold.it/300x300';
 
     $scope.takePicture = function() {
       var options = {
@@ -35,19 +35,23 @@ angular.module('homeBuyer')
 
 
       cameraService.storeImage($scope.pictureUrl, uuid);
+
+
+      $scope.upload = function() {
+        //home_id of 4 is only to test
+        var newImage = {
+          url: "http://s3-us-west-2.amazonaws.com/homebuyer-bucket/" + 4 + "/" + uuid,
+          home_id: 4
+        };
+
+        console.log('clicked upload', newImage.url, newImage.home_id);
+
+        cameraService.upload(newImage);
+      };
     }; //end uploadToS3
 
     //upload to sql db
-    $scope.upload = function() {
-      //home_id of 4 is only to test
-      var newImage = {
-        url: $scope.pictureUrl,
-        home_id: 4
-      }
-      console.log('clicked upload', newImage.url, newImage.home_id);
 
-      cameraService.upload(newImage);
-    };
 
 
   }) //end camera controller
@@ -63,8 +67,6 @@ angular.module('homeBuyer')
         imageExtension: 'jpeg',
         userEmail: 'heathermhargreaves@gmail.com'
       }
-
-      console.log("");
 
 
       return $http({

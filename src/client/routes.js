@@ -12,7 +12,7 @@ angular.module('homeBuyer').config(function($stateProvider, $urlRouterProvider){
     cache: false,
     templateUrl: './views/prioritiesTempl.html',
     controller: 'prioritiesCtrl'
-  });
+  })
 
  $urlRouterProvider.otherwise('/login');
 });
