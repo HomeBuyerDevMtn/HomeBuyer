@@ -1,15 +1,10 @@
 'use strict';
 
-var _index = require('../index.js');
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-var _index2 = _interopRequireDefault(_index);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } // import app from '../index.js';
-
-
-var db = _index2.default.get('db');
+// import app from '../index.js';
+var app = require('../index.js');
+var db = app.get('db');
 var jwt = require('jwt-simple');
 var config = require('../config.js');
 
