@@ -2,7 +2,7 @@ angular.module('homeBuyer')
   .directive('sideMenu', function(){
 
     return {
-      restrict: 'E',
+      restrict: 'EA',
       templateUrl: "./views/sidemenuTmpl.html",
       controller: 'sidemenuCtrl'
     }
