@@ -1,5 +1,5 @@
 // import app from '../index.js';
-const app = require('../index.js');
+import app from '../index.js';
 const db = app.get('db');
 var jwt = require('jwt-simple');
 var config = require('../config.js')
@@ -81,7 +81,51 @@ module.exports = {
         })       
     },
     localLogin: (req, res, next) => {
-
+        //Check to see if email exists as local user in the database
+        db.read_user_local(req.body.email, (error, response) => {
+            if (error) {
+                res.json({
+                    status: 500,
+                    message: error,
+                    method: 'localLogin, read_user_local'
+                })
+            }
+            //if it does exist check to see if they passed in the correct password
+            else if (response.length > 0) {
+                   db.read_user_local_email_password([req.body.email, req.body.password], (error, response) => {
+                       console.log(response);
+                 if (error) {
+                     res.json({
+                         status: 500,
+                         message: error,
+                         method: 'localLogin, read_user_local_email_password'
+                     })
+                 }
+                 else if (response.length > 0){
+                     let currentUser = new User(response[0].id, response[0].name, response[0].email, response[0].token, 1);
+                     res.json(currentUser);
+                 }
+                 else if (response.length === 0) {
+                     res.json({
+                         status: 200,
+                         message: 'The password entered did not match the email provided.',
+                         method: 'localLogin, read_user_local_email_password'
+                     })
+                 }
+             })
+            }
+            //if email isn't found respond with that info
+            else if (response.length === 0) {
+                res.json({
+                    status: 200,
+                    message: 'localAuth account using this email was not found in the database',
+                    method: 'localLogin, read_user_local'
+                })
+            }
+             
+          
+        })
+           
     },
     localRegister: (req, res, next) => {
         //#1Check to see if email already exists in the users table
@@ -115,8 +159,7 @@ module.exports = {
                                 status: 500,
                                 message: error,
                                 method: 'localRegister'
-                            })
-                            
+                            })   
                         }
                         else if (response) {
                             res.json(currentUser);
@@ -130,6 +173,34 @@ module.exports = {
             
 
     },
+authenticateRequest: (req, res, next) => {
+    //check to see if the user_id and token are a match
+    db.read_user_id_token([Number(req.query.user_id), req.query.token], (error, response) => {
+        console.log(req.query)
+        if (error) {
+            console.log(error);
+            res.json({
+                status: 500,
+                message: error,
+                method: 'authenticateRequest, read_user_id_token'
+            })
+        }
+        else if (response.length > 0){
+            next();
+        }
+        else if (response.length === 0) {
+            res.json({
+                status: 200,
+                message: 'User is not authenicated, redirect.',
+                method: 'authenticateRequest, read_user_id_token',
+                redirect: true
+            })
+        }
+    })
+        //if they are call next()
+        //if they don't match send back a reponse saying to gtfo
+}
+
 
 
 }
