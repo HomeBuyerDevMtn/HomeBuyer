@@ -6,6 +6,7 @@
     <title></title>
 
     <link href="lib/ionic/css/ionic.css" rel="stylesheet">
+    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link href="css/styles.css" rel="stylesheet">
 
     <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
@@ -41,12 +42,13 @@
     <script src="lib/ng-cordova-oauth/dist/ng-cordova-oauth.js"></script>
 
 
-    <ion-pane>
-        <ion-nav-view></ion-nav-view>
-    </ion-pane>
 
     <!--<script src="lib/ngCordova/dist/ng-cordova.js"></script>-->
     <script src="lib/ng-cordova-oauth/dist/ng-cordova-oauth.js"></script>
+    <script src="./components/camera/cameraDirective.js" charset="utf-8"></script>
+
+    <!-- AMAZON SDK -->
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.5.5.min.js"></script>
 
 
     <!-- <script src="cordova.js"></script> -->
