@@ -1,7 +1,11 @@
 <ion-view view-title="Dashboard">
+
+
+  <!-- <side-menu></side-menu> -->
+
  <ion-content class="padding">
    <div>
- <a href="" ng-click="googleLogin()"><button class="button button-block button-positive">Login With Google</button></a>
+ <a href="" ng-click="googleLogin()" ng-hide="showProfile"><button class="button button-block button-positive">Login With Google</button></a>
 </div>
 <div ng-show="showProfile" class="list">
  <a class="item item-avatar" href="#">
@@ -11,7 +15,11 @@
  </a>
 </div>
 
+
+
   <camera-dir></camera-dir>
+
+
 
  </ion-content>
 </ion-view>
