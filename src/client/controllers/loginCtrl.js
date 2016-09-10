@@ -1,4 +1,4 @@
-angular.module('homeBuyer').controller('loginCtrl', function($scope, $cordovaOauth, $http, homeService){
+angular.module('homeBuyer').controller('loginCtrl', function($scope, $cordovaOauth, $http, homeService, $ionicModal){
 
 
 $scope.googleLogin = function(){
@@ -29,28 +29,6 @@ $scope.googleLogin = function(){
    }
 
 
-  $scope.createHome = function(home) {
-    var newHome = {
-      list_id: 1,
-      nickname: home.nickname,
-      price: home.price,
-      address_1: home.address1,
-      address_2: home.address2,
-      city: home.city,
-      zip: home.zip,
-      province: home.state,
-      bathrooms: home.bathrooms,
-      bedrooms: home.bedrooms,
-      sq_feet: home.sqFootage,
-      year_build: home.year,
-      description: home.description,
-      days_listed: home.daysListed
-    }
 
-    console.log(newHome);
-    homeService.createHome(newHome).then(function(response){
-      console.log(response);
-    })
-  }
 
 })

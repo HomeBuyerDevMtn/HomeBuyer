@@ -12,7 +12,7 @@ var watch = require('gulp-watch')
 
 var paths = {
   sass: ['./scss/**/*.scss'],
-  jsSource: ['./src/client/app.module.js', './src/client/**/*.js'],
+  jsSource: ['./src/client/app.module.js', './src/client/**/**/*.js'],
   serverSource: ['./src/server/**/*.js'],
   scssSource: ['./src/client/scss/**/*.scss']
 };

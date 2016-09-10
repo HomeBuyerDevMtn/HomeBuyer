@@ -6,15 +6,15 @@ var config = require('./config');
 
 // const keys = require('./keys');
 
-var secretkeys = require('./secretkeys.js');
+// const secretkeys = require('./secretkeys.js');
 
 var bodyParser = require('body-parser');
 var cors = require('cors');
 var massive = require('massive');
 var jwt = require('jwt-simple');
 
-// const AWS = require('aws-sdk');
-//
+var AWS = require('aws-sdk');
+
 // AWS.keys.update({
 //   accessKeyId: keys.AWS.ACCESS_KEY,
 //   secretAccessKey: keys.AWS.SECRET_KEY,
@@ -28,20 +28,21 @@ var connectionString = config.connectString;
 var massiveInstance = massive.connectSync({ connectionString: connectionString });
 var app = module.exports = express();
 
-var AWS = require('aws-sdk');
-
-AWS.config.update({
-  accessKeyId: secretkeys.aws.ACCESS_KEY,
-  secretAccessKey: secretkeys.aws.ACCESS_SECRET,
-  region: 'us-west-2'
-});
-
-var app = module.exports = express();
-
-var s3 = new AWS.S3();
+// const AWS = require('aws-sdk');
+//
+// AWS.config.update({
+//   accessKeyId: secretkeys.aws.ACCESS_KEY,
+//   secretAccessKey: secretkeys.aws.ACCESS_SECRET,
+//   region: 'us-west-2'
+// });
+//
+//
+// const app = module.exports = express();
+//
+//
+// const s3 = new AWS.S3();
 
 var connectString = config.connectString;
-
 
 app.set('db', massiveInstance);
 

@@ -32,9 +32,8 @@ module.exports = {
             }
         })
 
-    }
-
     },
+
     googleLogin: (req, res, next) => {
         //#1 check to see if the user is already in the database
         db.read_email_google([req.body.email], (error, response) => {
@@ -111,8 +110,8 @@ module.exports = {
                 else if (response.length === 0) {
                     console.log("user does not exist")
                     var newUser = { name: req.body.name, email: req.body.email };
-                    var token = jwt.encode(newUser, config.secret)
-                    var currentUser = new User(req.body.name, req.body.email, token, 1)
+                    var token = jwt.encode(newUser, config.secret);
+                    var currentUser = new User(req.body.name, req.body.email, token, 1);
                     db.add_user_local([req.body.name, req.body.email, req.body.password, token], (error, response) => {
                         if (error) {
                             console.log(error);

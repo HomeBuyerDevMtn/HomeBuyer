@@ -2,22 +2,10 @@
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
-<<<<<<< HEAD
-var _index2 = _interopRequireDefault(_index);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var db = _index2.default.get('db'); // import app from '../index.js';
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } // import app from '../index.js';
-
-
-var db = _index2.default.get('db');
-=======
 // import app from '../index.js';
 var app = require('../index.js');
 var db = app.get('db');
->>>>>>> 53f54f628d236cc31e6992a8a19c67a75aea4f69
+
 var jwt = require('jwt-simple');
 var config = require('../config.js');
 
@@ -30,7 +18,6 @@ var User = function User(user_id, name, email, token, auth_user_type_id) {
     this.token = token;
     this.auth_user_type_id = auth_user_type_id;
 };
-
 
 module.exports = {
     readUserById: function readUserById(req, res, next) {
@@ -46,6 +33,7 @@ module.exports = {
             }
         });
     },
+
     googleLogin: function googleLogin(req, res, next) {
         //#1 check to see if the user is already in the database
         db.read_email_google([req.body.email], function (error, response) {
