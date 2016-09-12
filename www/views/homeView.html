@@ -2,29 +2,100 @@
 
 
   <ion-header-bar class="bar-stable">
+    <a class="button icon-left ion-chevron-left button-clear button-dark" ui-sref='addHome'></a>
     <h1 class="title">Home</h1>
   </ion-header-bar>
 
   <ion-content>
-    <section>
-      <img class='home-picture' src="./img/house.jpg"/>
+    <section class='main-house-pic-section'>
+      <img id='home-picture' src="./img/house3.jpg"/>
       <div class='home-top-right'>
         <h1 id='house-score'>98</h1>
       </div>
 
-      <img-slider-dir></img-slider-dir>
-      <!-- <div class='home-top-right-background'>
-        <h1 id='house-score'>91</h1>
-      </div> -->
+      <div id='bottom-opaque-bar'>
+      </div>
+      <p id='house-price'>$195,000</p>
+      <p id='bed-bath-sqft'>4 beds - 3 baths - 1,700 sqft</p>
+      <div class='home-top-right-background'>
+        <h1 id='house-score'>98</h1>
+      </div>
     </section>
+    <img-slider-dir></img-slider-dir>
     <section class='home-info-section'>
-      <p>491 S Freedom Blvd,</p>
-      <p>Provo, UT 84601</p>
-      <p><b>4 beds - 3 baths - 1,700 sqft</b></p>
-      <p>Fixer upper. Partially finished attic space not yet included in the total square footage. Newer kitchen, new flooring in kitchen and bath.  Loads of possibilities for this one.</p>
-      <h3>Ratings</h3>
 
+      <div id='house-address'>491 S Freedom Blvd, <i class="icon ion-edit" id='edit'></i><br>
+          Provo, UT 84601 </div>
+<!-- <img id='map' src='./img/google.jpg'/>  -->
+      <p id='house-description'>Fixer upper. Partially finished attic space not yet included in the total square footage. Newer kitchen, new flooring in kitchen and bath.  Loads of possibilities for this one.</p>
+
+      <button id='rate-home-button' class='button button-block button-energized' ng-click='showPriorities()'> Rate this home! </button>
     </section>
+    <!-- <section>
+      <div id='house-ratings-header'>House Ratings</div>
+      <div class="list ratings-list">
+
+
+        <div class="rating-title">
+        Safety &nbsp<span id='rating'>{{safetyNumber}}</span>
+        </div>
+        <div id='range-sliders'  class="item range range-positive">
+          <i class="icon ion-ios-unlocked"></i>
+          <input type="range" name="volume" min="0" max="100" ng-model="safetyNumber" accept=""value="50">
+          <i class="icon ion-ios-locked"></i>
+        </div>
+
+        <div class="rating-title">
+          Commute {{commuteNumber}}
+        </div>
+        <div id='range-sliders' class="item range range-positive">
+          <i class="icon ion-android-car"></i>
+          <input type="range" name="volume" min="0" max="100" value="50" ng-model="commuteNumber">
+          <i class="icon ion-android-bicycle"></i>
+        </div>
+
+        <div class="rating-title">
+          Schools {{schoolNumber}}
+        </div>
+        <div id='range-sliders' class="item range range-positive">
+          <i class="icon ion-android-radio-button-off"></i>
+          <input type="range" name="volume" min="0" max="100" value="50" ng-model="schoolNumber">
+          <i class="icon ion-android-checkmark-circle"></i>
+        </div>
+
+        <div id='range-sliders' class="rating-title">
+          Yard {{yardNumber}}
+        </div>
+        <div id='range-sliders' class="item range range-positive">
+          <i class="icon ion-leaf"></i>
+          <input type="range" name="volume" min="0" max="100" value="50" ng-model="yardNumber">
+          <i class="icon ion-ios-rose"></i>
+        </div>
+
+        <div class="rating-title">
+          Neighorhood {{neighborhoodNumber}}
+        </div>
+        <div id='range-sliders' class="item range range-positive">
+          <i class="icon ion-nuclear"></i>
+          <input type="range" name="volume" min="0" max="100" value="50" ng-model="neighborhoodNumber">
+          <i class="icon ion-android-color-palette"></i>
+        </div>
+
+        <div class="rating-title">
+          Kitchen {{kitchenNumber}}
+        </div>
+        <div id='range-sliders' class="item range range-positive">
+          <i class="icon ion-pizza"></i>
+          <input type="range" name="volume" min="0" max="100" value="50" ng-model="kitchenNumber">
+          <i class="icon ion-android-restaurant"></i>
+        </div>
+
+      </div>
+      <button class="button button-energized" ng-click="setPriorities()">
+        Save your priority preferences
+      </button>
+    </section> -->
+
 
 
 

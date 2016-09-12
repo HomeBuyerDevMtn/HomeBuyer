@@ -20,6 +20,7 @@
   <ion-header-bar class="bar-stable">
     <a class="button icon-left ion-chevron-left button-clear button-dark" ui-sref='login'></a>
     <h1 class="title">Add a new Home</h1>
+    <a class="button icon-right ion-chevron-right button-clear button-dark" ui-sref='myHome'></a>
   </ion-header-bar>
 
   <ion-content class='add-home-content'>
@@ -53,7 +54,7 @@
           <input id="house-input-right-bottom" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Zip'" type='text' placeholder="State/Province" ng-model='home.state'>
           <input id="house-input-left-bottom" onfocus="this.placeholder = ''" onblur="this.placeholder = 'State/Province'" type='number' placeholder="Zip" ng-model='home.zip'>
 
-      <button class="button button-block button-positive" id='add-home-button' ng-click='createHome(home)'>Add Home</button>
+      <button class="button button-block button-energized" id='add-home-button' ng-click='createHome(home)'>Add Home</button>
  </section>
   </ion-content>
 </ion-view>
