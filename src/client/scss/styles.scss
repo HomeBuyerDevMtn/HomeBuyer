@@ -1,3 +1,5 @@
+@import 'https://fonts.googleapis.com/css?family=Lato';
+
 .dark-primary-color    { background: #00796B; }
 .default-primary-color { background: #009688; }
 .light-primary-color   { background: #B2DFDB; }
@@ -8,11 +10,11 @@
 .divider-color         { border-color: #BDBDBD; }
 
 input::-webkit-input-placeholder {
-   color: #303F9F;
+   color: #757575;
 }
 
 textarea::-webkit-input-placeholder {
-   color: #303F9F;
+   color: #757575;
 }
 
 :-moz-placeholder { /* Firefox 18- */
@@ -195,7 +197,7 @@ textarea::-webkit-input-placeholder {
 
 #add-home-button {
   height: 19%;
-  background-color: #303F9F;
+  background-color: #FFC900;
 }
 
 #house-score {
@@ -228,7 +230,7 @@ textarea::-webkit-input-placeholder {
   border-radius: 5px;
 }
 
-.home-picture {
+#home-picture {
   width: 100%;
 }
 
@@ -291,6 +293,104 @@ textarea::-webkit-input-placeholder {
   padding: 0;
 }
 
-.home-view {
+#bottom-opaque-bar {
+  height: 60px;
+  background: black;
+  position: absolute;
+  width: 100%;
+  bottom: 5px;
+  opacity: .6;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+}
+
+#bottom-bar {
+  height: 60px;
+  background-color: transparent;
+  position: absolute;
+  width: 100%;
+  bottom: 5px;
+  z-index: 50000;
+  color: white;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+}
+
+#house-price {
+  font-size: 6vw;
+  margin: 0;
+}
+
+#bed-bath-sqft {
+  font-size: 4vw;
+  margin: 0;
+}
+
+#house-address {
+  margin-bottom: 20px;
+  line-height: 1.5em;
+  color: black;
+}
+
+#house-description {
+  margin-bottom: 20px;
+  font-family: 'Lato', sans-serif;
+  font-size: 2.5vh;
+  border-top: 1px solid #757575;
+  padding-top: 25px;
+  padding-bottom:  25px;
+  border-bottom: 1px solid #757575;
+}
+
+.main-house-pic-section {
+  position: relative;
+}
+
+#rate-home-button {
+  width: 50%;
+  margin: auto;
+  border-radius: 25px;
+  // background: white;
+  // color: #FFC900;
+  // border: 4px solid #FFC900;
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
+}
+
+#rate-home-button:focus {
+  background-color: #FFC900;
+  color: white;
 
 }
+
+#camera-icon-button {
+  bottom: 0px;
+  right: 10px;
+  position: fixed;
+
+}
+
+.slider-pager-page {
+  color: white !important;
+}
+
+#save-ratings-button {
+  width: 50%;
+  margin: auto;
+  border-radius: 25px;
+  // background: white;
+  // color: #FFC900;
+  // border: 4px solid #FFC900;
+  margin-top: 20px;
+}
+// .slider-pager-page.active {
+//   color: $golden-color !important;
+// }

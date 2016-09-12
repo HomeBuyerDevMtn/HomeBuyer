@@ -57,18 +57,7 @@
     'src' : 'img/house4.jpg'
 	}, {
 		'src' : 'img/house.jpg'
-	}, {
-		'src' : 'img/house2.jpeg'
-	}, {
-		'src' : 'img/house3.jpg'
-  }, {
-    'src' : 'img/house3.jpg'
-  }, {
-    'src' : 'img/house3.jpg'
-  }, {
-    'src' : 'img/house4.jpg'
 	}
-
 ];
 
 	$scope.showImages = function(index) {
