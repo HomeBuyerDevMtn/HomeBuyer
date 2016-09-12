@@ -1,0 +1,62 @@
+<div class="list ratings-list">
+
+
+  <div class="rating-title">
+    Safety {{safetyNumber}}
+  </div>
+  <div class="item range range-positive">
+    <i class="icon ion-ios-unlocked"></i>
+    <input type="range" name="volume" min="0" max="100" ng-model="safetyNumber" accept=""value="50">
+    <i class="icon ion-ios-locked"></i>
+  </div>
+
+  <div class="rating-title">
+    Commute {{commuteNumber}}
+  </div>
+  <div class="item range range-positive">
+    <i class="icon ion-android-car"></i>
+    <input type="range" name="volume" min="0" max="100" value="50" ng-model="commuteNumber">
+    <i class="icon ion-android-bicycle"></i>
+  </div>
+
+  <div class="rating-title">
+    Schools {{schoolNumber}}
+  </div>
+  <div class="item range range-positive">
+    <i class="icon ion-android-radio-button-off"></i>
+    <input type="range" name="volume" min="0" max="100" value="50" ng-model="schoolNumber">
+    <i class="icon ion-android-checkmark-circle"></i>
+  </div>
+
+  <div class="rating-title">
+    Yard {{yardNumber}}
+  </div>
+  <div class="item range range-positive">
+    <i class="icon ion-leaf"></i>
+    <input type="range" name="volume" min="0" max="100" value="50" ng-model="yardNumber">
+    <i class="icon ion-ios-rose"></i>
+  </div>
+
+  <div class="rating-title">
+    Neighorhood {{neighborhoodNumber}}
+  </div>
+  <div class="item range range-positive">
+    <i class="icon ion-nuclear"></i>
+    <input type="range" name="volume" min="0" max="100" value="50" ng-model="neighborhoodNumber">
+    <i class="icon ion-android-color-palette"></i>
+  </div>
+
+  <div class="rating-title">
+    Kitchen {{kitchenNumber}}
+  </div>
+  <div class="item range range-positive">
+    <i class="icon ion-pizza"></i>
+    <input type="range" name="volume" min="0" max="100" value="50" ng-model="kitchenNumber">
+    <i class="icon ion-android-restaurant"></i>
+  </div>
+
+</div>
+
+<button class="button button-energized" ng-click="setPriorities()">
+Save your home ratings
+</button>

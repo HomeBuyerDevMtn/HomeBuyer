@@ -1,8 +1,16 @@
 angular.module('homeBuyer')
   .controller('cameraCtrl', function($scope, $cordovaCamera, cameraService) {
 
-    $scope.pictureUrl= 'http://placehold.it/100x100';
+       var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+       console.log("this is the current user:", currentUser);
+      //  if(currentUser.token === null){
+      //      $state.go('login')
+      //   }
 
+    //placeholder picture
+    $scope.pictureUrl= 'http://placehold.it/300x300';
+
+    //take picture with carmea on device
     $scope.takePicture = function() {
       var options = {
         destinationType: Camera.DestinationType.DATA_URL,
@@ -11,13 +19,14 @@ angular.module('homeBuyer')
       $cordovaCamera.getPicture(options)
         .then(function(data) {
           $scope.pictureUrl = 'data:image/jpeg;base64,' + data;
-          $scope.fileread = angular.toJson($scope.pictureUrl);
         }, function(error) {
           console.log('camera error is: ', angular.toJson(data));
         });
     }; // end $scope.takePicture()
 
+    //upload picture to s3 and give it a guid as the file name
     $scope.uploadToS3 = function() {
+      // console.log("this is the current user:", currentUser);
       console.log('Attempting to upload from click', $scope.pictureUrl)
       //guid to generate random string for file name
       function guid() {
@@ -35,15 +44,17 @@ angular.module('homeBuyer')
 
 
       cameraService.storeImage($scope.pictureUrl, uuid);
+
     }; //end uploadToS3
 
     //upload to sql db
     $scope.upload = function() {
       //home_id of 4 is only to test
       var newImage = {
-        url: $scope.pictureUrl,
+        url: "http://s3-us-west-2.amazonaws.com/homebuyer-bucket/" + 4 + "/" + uuid,
         home_id: 4
-      }
+      };
+
       console.log('clicked upload', newImage.url, newImage.home_id);
 
       cameraService.upload(newImage);
@@ -63,8 +74,6 @@ angular.module('homeBuyer')
         imageExtension: 'jpeg',
         userEmail: 'heathermhargreaves@gmail.com'
       }
-
-      console.log("");
 
 
       return $http({
