@@ -2,30 +2,28 @@ angular.module('homeBuyer')
   .controller('cameraCtrl', function($scope, $cordovaCamera, cameraService) {
 
 
-       var currentUser = JSON.parse(localStorage.getItem('localUser'));
-      //  console.log("this is the current user from camera:", currentUser.name);
-      //  if(currentUser.token === null){
-      //      $state.go('login')
-      //   }
-      if(currentUser) {
-        console.log("in camera ctrl", currentUser.user_id);
-      }
-     //placeholder picture
-    $scope.pictureUrl= 'http://placehold.it/300x300';
-
-    //take picture with carmea on device
-    $scope.takePicture = function() {
-      var options = {
-        destinationType: Camera.DestinationType.DATA_URL,
-        encodingType: Camera.EncodingType.JPEG,
-      };
-      $cordovaCamera.getPicture(options)
-        .then(function(data) {
-          $scope.pictureUrl = 'data:image/jpeg;base64,' + data;
-        }, function(error) {
-          console.log('camera error is: ', angular.toJson(data));
-        });
-    }; // end $scope.takePicture()
+    //    var currentUser = JSON.parse(localStorage.getItem('localUser'));
+    //    var userid = currentUser.user_id;
+    //
+    //   if(currentUser) {
+    //     console.log("in camera ctrl", currentUser.user_id);
+    //   }
+    //  //placeholder picture
+    // $scope.pictureUrl= 'http://placehold.it/300x300';
+    //
+    // //take picture with carmea on device
+    // $scope.takePicture = function() {
+    //   var options = {
+    //     destinationType: Camera.DestinationType.DATA_URL,
+    //     encodingType: Camera.EncodingType.JPEG,
+    //   };
+    //   $cordovaCamera.getPicture(options)
+    //     .then(function(data) {
+    //       $scope.pictureUrl = 'data:image/jpeg;base64,' + data;
+    //     }, function(error) {
+    //       console.log('camera error is: ', angular.toJson(data));
+    //     });
+    // }; // end $scope.takePicture()
 
     $scope.uuid;
     //upload picture to s3 and give it a guid as the file name
@@ -91,8 +89,8 @@ angular.module('homeBuyer')
     }; //end storeImage() in aws
 
       //to store new image in DB associated with a home_id
-      this.upload = function(userImage) {
-        console.log('in service', userImage.home_id, userImage.url);
-        $http.post('http://172.19.245.68:3000/images', userImage);
-      }
+      // this.upload = function(userImage) {
+      //   console.log('in service', userImage.home_id, userImage.url);
+      //   $http.post('/images', userImage);
+      // }
     }) //end service
