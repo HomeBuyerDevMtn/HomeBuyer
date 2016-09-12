@@ -1,4 +1,5 @@
-angular.module('homeBuyer').controller('loginCtrl', function($scope, $cordovaOauth, $http, homeService, $ionicModal){
+angular.module('homeBuyer').controller('loginCtrl', function($scope, $cordovaOauth, $http, loginService, $ionicModal){
+
 
 
 $scope.googleLogin = function(){
@@ -18,6 +19,25 @@ $scope.googleLogin = function(){
           $scope.details = res.data;
           $scope.token = res;
 
+////////////////////////////
+/// storing user's token ///
+////////////////////////////
+          var currentUser = {
+            name: res.data.displayName,
+            email: res.data.emails[0].value,
+            id: res.data.id
+          };
+
+          $scope.googleLogin = function(currentUser) {
+            console.log("in login ctrl");
+            loginService.googleLogin(currentUser)
+              .then(function(response) {
+                console.log(JSON.stringify(response.data));
+                return response;
+              });
+          };
+          $scope.googleLogin(currentUser);
+
          }, function(error) {
              alert("Error: " + error);
          });
@@ -27,8 +47,22 @@ $scope.googleLogin = function(){
          $scope.details = 'got error';
        });
    }
+}) // end loginCtrl
+
+.service('loginService', function($http) {
+    this.googleLogin = function(currentUser) {
+      return $http({
+        method: 'POST',
+        //change IP address to the server you are working on
+        url: 'http://172.19.245.68:3000/auth/google',
+        data: currentUser
+      }).then(function(response) {
+        console.log("this is a response from service", JSON.stringify(response));
+        localStorage.setItem('currentUser', JSON.stringify(response));
+        return response;
+      })
+
+    }
 
 
-
-
-})
+}) //end loginService

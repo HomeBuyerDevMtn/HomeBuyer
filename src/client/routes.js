@@ -9,7 +9,7 @@ $urlRouterProvider.otherwise('/login');
    cache: false,
    templateUrl: './views/login.html',
    controller: 'loginCtrl'
- })
+  })
 
   .state('priorities', {
     url: '/priorities',
