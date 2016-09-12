@@ -3,18 +3,73 @@ const db = app.get('db');
 module.exports = {
 
 createPriorities: (req, res, next)=>{
-    db.create_priorities([req.body.user_id, req.body.list_id, req.body.neighborhood, req.body.commute, req.body.safety, req.body.schools, req.body.yard, req.body.kitchen], (error, response) => {
+    for (var i = 0; i < req.body.priorities.length; i++){
+    db.create_priorities([req.body.list_id, req.body.user_id, req.body.priorities[i].priority_description, req.body.priorities[i].priority_value], (error, response) => {
         if (error) {
-            res.status(500).json(error);
+                res.json({
+                    status: 500,
+                    message: error,
+                    method: 'createPriorities, create_priorities'
+                })
+            }
+
+    })
+    }
+    res.json({
+        message: "Priorities added successfully",
+        status: 200,
+        method: 'createPriorities, create_priorities'
+    })
+},
+readPriorities: (req, res, next) => {
+    db.read_priorities([Number(req.query.list_id),Number(req.query.user_id)],(error, response) => {
+        if (error) {
+                res.json({
+                    status: 500,
+                    message: error,
+                    method: 'readPriorities, read_priorities'
+                })
+            }
+        else if (response) {
+            res.json(response);
         }
-        else {
+    })
+},
+editPriorities: (req, res, next) => {
+    console.log(req.body);
+    for (var i = 0; i < req.body.priorities.length; i++) {
+        db.update_priorities([req.body.priorities[i].priority_description, req.body.priorities[i].priority_value, req.body.priorities[i].id], (error, response) => {
+            if (error) {
+                res.json({
+                    status: 500,
+                    message: error,
+                    method: 'editPriorities, update_priorities'
+                })
+            }
+        })
+    }
+    res.json({
+                message: "Priorities updated successfully",
+                status: 200,
+                method: 'editPriorities, update_priorities'
+            })
+},
+deletePriority: (req, res, next) => {
+    db.delete_priority(req.params.id, (error, response) => {
+        if (error) {
+                res.json({
+                    status: 500,
+                    message: error,
+                    method: 'deletePriority, delete_priority'
+                })
+            }
+        else if (response) {
             res.json({
-                message: "Priorites added successfully",
-                status: 200
+                message: "Priorities updated successfully",
+                status: 200,
+                method: 'deletePriority, delete_priority'
             })
         }
     })
 }
-
-
 }

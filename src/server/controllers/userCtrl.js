@@ -33,6 +33,7 @@ module.exports = {
         })
     },
     googleLogin: (req, res, next) => {
+        console.log(req.body)
         //#1 check to see if the user is already in the database
         db.read_email_google([req.body.email], (error, response) => {
             if (error) {
@@ -71,7 +72,7 @@ module.exports = {
                                 })
                             }
                             else if (response){
-                              console.log(response);
+                            //   console.log(response);
                               let currentUser = new User(response[0].id, response[0].name, response[0].email, response[0].token, 2)
                               res.json(currentUser);
                             }
