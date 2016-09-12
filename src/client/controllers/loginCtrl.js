@@ -27,10 +27,11 @@ $scope.googleLogin = function(){
             console.log("in login ctrl");
             loginService.googleLogin(currentUser)
               .then(function(response) {
-                console.log(JSON.stringify(response.data));
+                // console.log("here from ctrl", JSON.stringify(response.data));
                 return response;
               });
           };
+          // console.log(currentUser.name, currentUser.email, currentUser.id);
           $scope.googleLogin(currentUser);
 
          }, function(error) {
@@ -53,8 +54,11 @@ $scope.googleLogin = function(){
         url: 'http://172.19.245.68:3000/auth/google',
         data: currentUser
       }).then(function(response) {
-        console.log("this is a response from service", JSON.stringify(response));
-        localStorage.setItem('currentUser', JSON.stringify(response));
+        // console.log("this is a response from service", JSON.stringify(response.data));
+        localStorage.setItem('localUser', JSON.stringify(response.data));
+        var local = localStorage.getItem('localUser')
+        console.log(local.user_id);
+        console.log("here is localUser", localStorage.getItem('localUser'));
         return response;
       })
 

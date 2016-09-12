@@ -1,13 +1,16 @@
 angular.module('homeBuyer')
   .controller('cameraCtrl', function($scope, $cordovaCamera, cameraService) {
 
-       var currentUser = JSON.parse(localStorage.getItem('currentUser'));
-       console.log("this is the current user:", currentUser);
+
+       var currentUser = JSON.parse(localStorage.getItem('localUser'));
+      //  console.log("this is the current user from camera:", currentUser.name);
       //  if(currentUser.token === null){
       //      $state.go('login')
       //   }
-
-    //placeholder picture
+      if(currentUser) {
+        console.log("in camera ctrl", currentUser.user_id);
+      }
+     //placeholder picture
     $scope.pictureUrl= 'http://placehold.it/300x300';
 
     //take picture with carmea on device
@@ -24,6 +27,7 @@ angular.module('homeBuyer')
         });
     }; // end $scope.takePicture()
 
+    $scope.uuid;
     //upload picture to s3 and give it a guid as the file name
     $scope.uploadToS3 = function() {
       // console.log("this is the current user:", currentUser);
@@ -39,27 +43,25 @@ angular.module('homeBuyer')
             s4() + '-' + s4() + s4() + s4();
         }
 
-        var uuid = guid() + ".jpeg";
-        console.log(uuid);
+        $scope.uuid = guid() + ".jpeg";
+        console.log($scope.uuid);
 
 
-      cameraService.storeImage($scope.pictureUrl, uuid);
+      cameraService.storeImage($scope.pictureUrl, $scope.uuid);
 
     }; //end uploadToS3
 
     //upload to sql db
-    $scope.upload = function() {
-      //home_id of 4 is only to test
-      var newImage = {
-        url: "http://s3-us-west-2.amazonaws.com/homebuyer-bucket/" + 4 + "/" + uuid,
-        home_id: 4
+      $scope.upload = function() {
+        //home_id of 1 is only to test
+        var userImage = {
+          url: "http://s3-us-west-2.amazonaws.com/homebuyer-bucket/" + 4 + "/" + $scope.uuid,
+          home_id: 1
+        };
+
+        console.log('clicked upload', userImage.url, userImage.home_id);
+        cameraService.upload(userImage);
       };
-
-      console.log('clicked upload', newImage.url, newImage.home_id);
-
-      cameraService.upload(newImage);
-    };
-
 
   }) //end camera controller
 
@@ -72,31 +74,25 @@ angular.module('homeBuyer')
         imageName: fileName,
         imageBody: imageData,
         imageExtension: 'jpeg',
-        userEmail: 'heathermhargreaves@gmail.com'
+        userEmail: "heathermhargreaves@gmail.com"
       }
 
 
       return $http({
         method: "POST",
         //different server for browser v. emulator, this is for android emulator
-        url: "http://192.168.1.49:3000/api/newimage",
+        url: "http://172.19.245.13:3000/api/newimage",
         data: newImage,
       }).then(function( response) {
         console.log("POOOOSTTTT: ", response);
       }, function(error){
         console.log('ERRRORRRR', JSON.stringify(error));
-      })
-
-      // return $http.post('/api/newimage', newImage);
-
-    } //end storeImage() in aws
+      });
+    }; //end storeImage() in aws
 
       //to store new image in DB associated with a home_id
-      this.upload = function(newImage) {
-
-
-
-        console.log('in service', newImage.home_id, newImage.url);
-        $http.post('/images', newImage);
+      this.upload = function(userImage) {
+        console.log('in service', userImage.home_id, userImage.url);
+        $http.post('http://172.19.245.68:3000/images', userImage);
       }
     }) //end service
