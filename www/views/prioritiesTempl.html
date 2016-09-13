@@ -3,22 +3,29 @@
     <h1 class="title">Set your overall priorities</h1>
   </div> -->
 
+<!-- sort by priority value -->
 
-  <div class="list ratings-list" ng-repeat="priority in defaultPriorities">
+  <ion-list show-delete="false" can-swipe='true' class="list ratings-list" ng-repeat="priority in defaultPriorities" >
+
+    <ion-item>
+      <div class="rating-title">
+        {{priority.priority_description}} {{priority.priority_value}}
+      </div>
+      <div class="item range range-positive">
+        <i class="icon ion-android-radio-button-off"></i>
+        <input type="range" name="volume" min="0" max="100" value="50" ng-model=priority.priority_value >
+        <i class="icon ion-android-checkmark-circle"></i>
+      </div>
+      <ion-option-button class="button-assertive ion ion-trash-a" ng-click="deletePriority(priority.id, $index)"></ion-option-button>
+    </ion-item>
+
+  </ion-list>
 
 
-    <!-- sort by priority value -->
 
-    <div class="rating-title">
-      {{priority.priority_description}} {{priority.priority_value}}
-    </div>
-    <div class="item range range-positive">
-      <i class="icon ion-android-radio-button-off"></i>
-      <input type="range" name="volume" min="0" max="100" value="50" ng-model=priority.priority_value >
-      <i class="icon ion-android-checkmark-circle"></i>
-    </div>
 
-  </div>
+
+
 
 
   <button type="button" class="button button-block button-energized" name="button" ng-click="hideAdd = !hideAdd">Add a priority</button>

@@ -1,21 +1,28 @@
 angular.module('homeBuyer')
-  .controller('prioritiesCtrl', function($scope, prioritiesService) {
+  .controller('prioritiesCtrl', function($scope, prioritiesService, $state) {
 
   //  var currentUser = JSON.parse(localStorage.getItem('localUser'));
   //  var userid = currentUser.user_id;
 
     $scope.defaultPriorities = prioritiesService.getDefaultPriorities();
 
+    //to test
+    var list_id = 1;
+    var user_id = 1;
 
+    $scope.getPriorities = function() {
+      prioritiesService.getPriorities(list_id, user_id)
+        .then(function(response) {
+          console.log("helooooo",response);
+          $scope.myPriorities = response;
+           if($scope.myPriorities.length > 0) {
+              $scope.defaultPriorities = $scope.myPriorities;
+              console.log($scope.defaultPriorities);
+           }
+        });
+    };
+    $scope.getPriorities(list_id, user_id);
 
-    //
-    // $scope.getPriorities = function() {
-    //   prioritiesService.getPriorities()
-    //     .then(function(response) {
-    //       console.log(response)
-    //       $scope.myPriorities = response.data;
-    //     });
-    // }
     $scope.showAdd = function() {
       $scope.hideAdd = !$scope.hideAdd;
     };
@@ -27,13 +34,36 @@ angular.module('homeBuyer')
 
     $scope.addPriority = function() {
       var newPriority = {
-        priority_description: $scope.priority_name,
-        priority_value: $scope.priority_value
+        user_id: 1,
+        list_id: 1,
+        priorities: [
+          {
+            priority_description: $scope.priority_name,
+            priority_value: $scope.priority_value
+          }
+        ]
       };
-      $scope.defaultPriorities.push(newPriority);
-      console.log($scope.defaultPriorities);
+       $scope.defaultPriorities.push(newPriority.priorities[0]);
+      // $scope.getPriorities();
+
+      prioritiesService.addPriority(newPriority)
+        .then(function(response) {
+          return response;
+        });
+
       $scope.clearInput();
     };
+
+    $scope.deletePriority = function(id, index) {
+
+        console.log(id);
+        prioritiesService.deletePriority(id)
+          .then(function(response) {
+            console.log(response);
+            return response;
+          })
+         $scope.defaultPriorities.splice(index, 1);
+      };
 
     $scope.setPriorities = function() {
       var newPriorities = {
@@ -44,7 +74,7 @@ angular.module('homeBuyer')
       prioritiesService.setPriorities(newPriorities)
         .then(function(response) {
           console.log(response);
-          return response;
+          // return response;
         });
     };
 
@@ -52,6 +82,7 @@ angular.module('homeBuyer')
 
   .service('prioritiesService', function($http) {
 
+    //default values for priorities
     var defaultPriorities = [
       {
         priority_description: 'Safety',
@@ -87,19 +118,38 @@ angular.module('homeBuyer')
     //saving new priorities list set by user
     this.setPriorities = function(newPriorities) {
         console.log('from service', newPriorities);
-        $http.post('http://172.19.245.69:3000/priorities', newPriorities)
+        return $http.put('http://192.168.1.24:3000/priorities', newPriorities)
           .then(function(response) {
             console.log(response);
             return response;
           });
     };
-    //
-    // this.getPriorities = function() {
-    //   $http.get('/priorities/' + userid)
-    //     .then(function(response) {
-    //       console.log(response);
-    //       return response;
-    //     });
-    // };
+
+    //get priority list by user and user's list
+    this.getPriorities = function(list_id, user_id) {
+      return $http.get('http://192.168.1.24:3000/priorities?list_id=' + list_id + "&user_id=" + user_id)
+        .then(function(response) {
+          console.log(response);
+          return response.data;
+        });
+    };
+
+    //adding a priority to db
+    this.addPriority = function(newPriority) {
+      console.log("add p in service", newPriority);
+      return $http.post("http://192.168.1.24:3000/priorities", newPriority)
+        .then(function(response) {
+          return response.data;
+        });
+    };
+
+    //deleting priority from db
+    this.deletePriority = function(id) {
+      return $http.delete("http://192.168.1.24:3000/priorities/" + id)
+        .then(function(response) {
+          console.log(response);
+          return response.data;
+        })
+    }
 
   }); //end service
