@@ -13,6 +13,12 @@ angular.module('homeBuyer').config(function($stateProvider, $urlRouterProvider){
     templateUrl: './views/prioritiesTempl.html',
     controller: 'prioritiesCtrl'
   })
+  .state('ratings', {
+    url: '/ratings',
+    cache: false,
+    templateUrl: './views/homeratingsTmpl.html',
+    controller: 'ratingsCtrl'
+  });
 
  $urlRouterProvider.otherwise('/login');
 });

@@ -23,15 +23,19 @@ create table lists (
     id serial primary key,
     user_id int references users(id) not null,
     name varchar(255) not null,
-    create_date timestamptz not null 
+    create_date timestamptz not null
 );
 
 create table priorities (
     id serial primary key,
     list_id int references lists(id) not null,
     user_id int references users(id) not null,
+<<<<<<< HEAD
+    priority_description varchar(100) not null
+=======
     priority_description varchar(100) not null,
     priority_value int not null
+>>>>>>> master
 );
 
 create table homes (
@@ -39,7 +43,7 @@ create table homes (
     list_id int references lists(id) not null,
     nickname varchar(255) not null,
     price int null,
-    address_1 varchar(255) null,    
+    address_1 varchar(255) null,
     address_2 varchar(255) null,
     city varchar(100) null,
     zip varchar(100) null,
@@ -49,7 +53,7 @@ create table homes (
     sq_feet int null,
     year_build int null,
     description text null,
-    days_listed int null 
+    days_listed int null
 );
 
 create table ratings (
@@ -59,7 +63,11 @@ create table ratings (
     priority_id int references priorities(id) not null,
     rating_description varchar(100) not null,
     rating_value int not null
-    
+<<<<<<< HEAD
+
+=======
+
+>>>>>>> master
 );
 
 create table list_users (
@@ -88,10 +96,7 @@ insert into priorities (list_id, user_id, priority_description) values (1, 1, 'Y
 insert into homes(list_id, nickname, price, address_1, address_2, city, zip, province, bathrooms, bedrooms, sq_feet, year_build, description, days_listed)
 values (1, 'dans house', 234928, '4842 Winterbrook Circle', 'basement apt', 'Herriman', '84096', 'UT', 1, 1, 850, 2005, 'basement apt i dont really like', 25);
 
---images 
+--images
 insert into images(home_id, url) values (1, 'http://redriverunited.org/wp-content/uploads/2014/10/home.png');
 
 --ratings
-
-
-

@@ -119,9 +119,6 @@ app.post('/auth/local/login', users.localLogin);
 
 
 
-
-
-
 app.listen(config.port, () => {
     console.log('listening on port: ', config.port)
 })
