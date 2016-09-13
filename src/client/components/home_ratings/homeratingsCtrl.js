@@ -4,7 +4,6 @@ angular.module('homeBuyer')
     //  var currentUser = JSON.parse(localStorage.getItem('localUser'));
     //  var userid = currentUser.user_id;
 
-
       //to test
       var home_id = 1;
       var user_id = 1;
@@ -12,27 +11,23 @@ angular.module('homeBuyer')
 
       //get user's priorities
       $scope.myRatings = [];
-      console.log($scope.myRatings);
       $scope.setPrioritiesAsRatings = function() {
         prioritiesService.getPriorities(list_id, user_id)
           .then(function(response) {
             $scope.myPriorities = response;
-            console.log('service response',response)
 
             for (var i = 0; i < $scope.myPriorities.length; i++) {
 
               var ratingObj = {
                 // home_id: home_id,
-                id: $scope.myPriorities[i].id,
+                priority_id: $scope.myPriorities[i].id,
                 rating_description: $scope.myPriorities[i].priority_description,
                 rating_value: 50
               };
-              console.log('ratingObj', ratingObj);
               $scope.myRatings.push(ratingObj);
             }
           });
       };
-      console.log('myRatings', $scope.myRatings);
 
       $scope.setPrioritiesAsRatings();
 
@@ -49,7 +44,6 @@ angular.module('homeBuyer')
             return response;
           });
       };
-      $scope.setRatings();
 
       // $scope.getRatings= function() {
       //   ratingsService.getRatings(home_id, user_id)
@@ -61,7 +55,7 @@ angular.module('homeBuyer')
       // $scope.getRatings(home_id, user_id);
 
 
-      $scope.setRating = function() {
+      $scope.editRatings = function() {
         var newRatings = {
           home_id: 1,
           user_id: 1,
