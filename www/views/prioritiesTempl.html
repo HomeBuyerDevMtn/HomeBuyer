@@ -12,11 +12,11 @@
     <div class="rating-title">
       {{priority.priority_description}} {{priority.priority_value}}
     </div>
-    <!-- <div class="item range range-positive">
+    <div class="item range range-positive">
       <i class="icon ion-android-radio-button-off"></i>
-      <input type="range" name="volume" min="0" max="100" value="50" ng-model=priority.priority_value>
+      <input type="range" name="volume" min="0" max="100" value="50" ng-model=priority.priority_value >
       <i class="icon ion-android-checkmark-circle"></i>
-    </div> -->
+    </div>
 
   </div>
 
@@ -36,7 +36,7 @@
       <i class="icon ion-android-checkmark-circle"></i>
     </div>
 
-    <button type="button" name="button" class="button button-calm" ng-click="showAdd();  clearInput(); setPriority(priority_name, priority_value)">Save this Priority</button>
+    <button type="button" name="button" class="button button-calm" ng-click="showAdd(); addPriority(priority_name, priority_value) ">Save this Priority</button>
 
   </div>
 

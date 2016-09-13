@@ -6,6 +6,8 @@ angular.module('homeBuyer')
 
     $scope.defaultPriorities = prioritiesService.getDefaultPriorities();
 
+
+
     //
     // $scope.getPriorities = function() {
     //   prioritiesService.getPriorities()
@@ -23,14 +25,23 @@ angular.module('homeBuyer')
       $scope.priority_value = 50;
     };
 
-    $scope.setPriority = function() {
+    $scope.addPriority = function() {
       var newPriority = {
-        list_id: 1,
-        user_id: 1,
         priority_description: $scope.priority_name,
         priority_value: $scope.priority_value
       };
-      prioritiesService.setPriority(newPriority)
+      $scope.defaultPriorities.push(newPriority);
+      console.log($scope.defaultPriorities);
+      $scope.clearInput();
+    };
+
+    $scope.setPriorities = function() {
+      var newPriorities = {
+        list_id: 1,
+        user_id: 1,
+        priorities: $scope.defaultPriorities
+      };
+      prioritiesService.setPriorities(newPriorities)
         .then(function(response) {
           console.log(response);
           return response;
@@ -73,10 +84,10 @@ angular.module('homeBuyer')
       return defaultPriorities;
     };
 
-    //saving new priority set by user
-    this.setPriority = function(newPriority) {
-        console.log('from service', newPriority);
-        $http.post('http://172.19.245.69:3000/priorities', newPriority)
+    //saving new priorities list set by user
+    this.setPriorities = function(newPriorities) {
+        console.log('from service', newPriorities);
+        $http.post('http://172.19.245.69:3000/priorities', newPriorities)
           .then(function(response) {
             console.log(response);
             return response;
