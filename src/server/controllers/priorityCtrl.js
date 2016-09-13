@@ -3,8 +3,11 @@ const db = app.get('db');
 module.exports = {
 
 createPriorities: (req, res, next)=>{
+    console.log(req.body.length);
+    console.log(req.body.priorities);
+    
     for (var i = 0; i < req.body.priorities.length; i++){
-    db.create_priorities([req.body.list_id, req.body.user_id, req.body.priorities[i].priority_description, req.body.priorities[i].priority_value], (error, response) => {
+    db.create_priorities([Number(req.body.list_id), Number(req.body.user_id), req.body.priorities[i].priority_description, Number(req.body.priorities[i].priority_value)], (error, response) => {
         if (error) {
                 res.json({
                     status: 500,
@@ -22,8 +25,10 @@ createPriorities: (req, res, next)=>{
     })
 },
 readPriorities: (req, res, next) => {
+    console.log(req.query);
     db.read_priorities([Number(req.query.list_id),Number(req.query.user_id)],(error, response) => {
         if (error) {
+                console.log(error);
                 res.json({
                     status: 500,
                     message: error,
@@ -55,6 +60,7 @@ editPriorities: (req, res, next) => {
             })
 },
 deletePriority: (req, res, next) => {
+    console.log(req.params)
     db.delete_priority(req.params.id, (error, response) => {
         if (error) {
                 res.json({

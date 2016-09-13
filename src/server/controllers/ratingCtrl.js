@@ -2,19 +2,17 @@ const app = require('../index.js');
 const db = app.get('db');
 module.exports = {
     createRatings: (req, res, next) => {
-
+        console.log(req.body)
         for (var i = 0; i < req.body.ratings.length; i++) {
-            // console.log(req.body.ratings[i].rating_description)
-            db.create_ratings([req.body.home_id, req.body.user_id, req.body.ratings[i].priority_id, req.body.ratings[i].rating_description, req.body.ratings[i].rating_value], (error, response) => {
-                if (error) {
+            db.create_ratings([Number(req.body.home_id), Number(req.body.user_id), Number(req.body.ratings[i].priority_id), req.body.ratings[i].rating_description, Number(req.body.ratings[i].rating_value)], (error, response) => {
                     if (error) {
+                        console.log(error)
                         res.json({
                             status: 500,
                             message: error,
                             method: 'createRatings, create_ratings'
                         })
-                    }
-                }
+                    }                
             })
         }
         res.json({
