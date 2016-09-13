@@ -69,6 +69,10 @@
     $scope.showModal('./views/prioritiesTempl.html');
   }
 
+  $scope.showEditHome = function() {
+    $scope.showModal('./views/editHome.html');
+  }
+  
 	$scope.showModal = function(templateUrl) {
 		$ionicModal.fromTemplateUrl(templateUrl, {
 			scope: $scope,

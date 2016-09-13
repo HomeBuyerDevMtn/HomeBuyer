@@ -1,0 +1,58 @@
+<ion-view class='home-view'>
+
+
+  <ion-header-bar class="bar-stable" id='header-bar'>
+    <a class="button icon-left ion-chevron-left button-clear button-dark" ui-sref='login'></a>
+    <h1 class="title">Utah Valley Home List</h1>
+      <a class="button icon-right ion-chevron-right button-clear button-dark" ui-sref='myHome'></a>
+  </ion-header-bar>
+
+<ion-content>
+  <ion-list class='list'>
+  <ion-item class='item' id='list-card' ng-repeat="image in allImages" ui-sref='myHome' show-delete="shouldShowDelete"
+          show-reorder="shouldShowReorder"
+          can-swipe="listCanSwipe">
+
+        <img id='list-pic'  ng-src="{{image.src}}"/>
+        <div id='list-item-info'>
+            <div id='score-box'>
+              <h2 id='list-score'>{{image.score}}</h2>
+            </div>
+            <h3 id='list-price'>${{image.price}}</h3>
+            <span id='list-bed-bath-sqft'>{{image.bed}} beds - {{image.bath}} baths - {{image.sqft}} sqft</span>
+        </div>
+
+        <ion-option-button class="button-energized"
+                           ng-click='showEditHome()' >
+          Edit
+        </ion-option-button>
+        <ion-option-button class="button-assertive"
+                           ng-click="delete(item)">
+          Delete
+        </ion-option-button>
+  </ion-item>
+</ion-list>
+  <!-- <ion-list  type='list' show-delete="shouldShowDelete"
+          show-reorder="shouldShowReorder"
+          can-swipe="listCanSwipe">
+  <ion-item id='list-card'  ng-repeat="image in allImages" ui-sref='myHome'>
+
+            <img id='list-pic'  ng-src="{{image.src}}"/>
+            <h1 id='list-score'>{{image.score}}</h1>
+            <h3 id='list-price'>${{image.price}}</h3>
+            <h5 id='list-bed-bath-sqft'>{{image.bed}} beds - {{image.bath}} baths - {{image.sqft}} sqft</h5>
+    <ion-option-button class="button-energized"
+                       ng-click='showEditHome()' >
+      Edit
+    </ion-option-button>
+    <ion-option-button class="button-assertive"
+                       ng-click="delete(item)">
+      Delete
+    </ion-option-button>
+
+  </ion-item>
+</ion-list> -->
+
+</ion-content>
+<i id='add-home-to-list-button' class='ion-plus-circled'></i>
+</ion-view>

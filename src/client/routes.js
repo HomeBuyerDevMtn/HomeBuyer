@@ -30,4 +30,10 @@ $urlRouterProvider.otherwise('/login');
    controller: 'homeCtrl'
  })
 
+ .state('list', {
+   url: '/list',
+   templateUrl: './views/listView.html',
+   controller: 'listCtrl'
+ })
+
 });
