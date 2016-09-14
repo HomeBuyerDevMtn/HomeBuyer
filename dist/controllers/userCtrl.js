@@ -2,31 +2,20 @@
 
 var _index = require('../index.js');
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 3005c1e98fecce68c91487d1389b42717f22da27
+
 var _index2 = _interopRequireDefault(_index);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-<<<<<<< HEAD
-var db = _index2.default.get('db'); // import app from '../index.js';
 
-=======
->>>>>>> 3005c1e98fecce68c91487d1389b42717f22da27
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } // import app from '../index.js';
 
 
 var db = _index2.default.get('db');
-<<<<<<< HEAD
-=======
+
 // import app from '../index.js';
 var app = require('../index.js');
-var db = app.get('db');
->>>>>>> 53f54f628d236cc31e6992a8a19c67a75aea4f69
-=======
->>>>>>> 3005c1e98fecce68c91487d1389b42717f22da27
+
 var jwt = require('jwt-simple');
 var bcrypt = require('bcrypt');
 var config = require('../config.js');
@@ -57,6 +46,7 @@ module.exports = {
         });
     },
     googleLogin: function googleLogin(req, res, next) {
+        console.log(req.body);
         //#1 check to see if the user is already in the database
         db.read_email_google([req.body.email], function (error, response) {
             if (error) {
@@ -93,7 +83,7 @@ module.exports = {
                                             method: 'googleLogin'
                                         });
                                     } else if (response) {
-                                        console.log(response);
+                                        //   console.log(response);
                                         var _currentUser = new User(response[0].id, response[0].name, response[0].email, response[0].token, 2);
                                         res.json(_currentUser);
                                     }
@@ -189,15 +179,7 @@ module.exports = {
                             });
                         })();
                     }
-<<<<<<< HEAD
-            // else{
-            //     res.send('you aren\'t hitting shit')
-            // }
-        });
-    }
 
-};
-=======
         });
     },
     authenticateRequest: function authenticateRequest(req, res, next) {

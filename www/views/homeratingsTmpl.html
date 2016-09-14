@@ -1,62 +1,20 @@
-<div class="list ratings-list">
 
+<ion-list show-delete="false" can-swipe='true' class="list ratings-list" ng-repeat="rating in myRatings" >
 
-  <div class="rating-title">
-    Safety {{safetyNumber}}
-  </div>
-  <div class="item range range-positive">
-    <i class="icon ion-ios-unlocked"></i>
-    <input type="range" name="volume" min="0" max="100" ng-model="safetyNumber" accept=""value="50">
-    <i class="icon ion-ios-locked"></i>
-  </div>
+  <ion-item>
+    <div class="rating-title">
+      {{rating.rating_description}} {{rating.rating_value}}
+    </div>
+    <div class="item range range-positive">
+      <i class="icon ion-android-radio-button-off"></i>
+      <input type="range" name="volume" min="0" max="100" value="50" ng-model=rating.rating_value >
+      <i class="icon ion-android-checkmark-circle"></i>
+    </div>
+    <!-- <ion-option-button class="button-assertive ion ion-trash-a" ng-click="deletePriority(priority.id, $index)"></ion-option-button> -->
+  </ion-item>
 
-  <div class="rating-title">
-    Commute {{commuteNumber}}
-  </div>
-  <div class="item range range-positive">
-    <i class="icon ion-android-car"></i>
-    <input type="range" name="volume" min="0" max="100" value="50" ng-model="commuteNumber">
-    <i class="icon ion-android-bicycle"></i>
-  </div>
+</ion-list>
 
-  <div class="rating-title">
-    Schools {{schoolNumber}}
-  </div>
-  <div class="item range range-positive">
-    <i class="icon ion-android-radio-button-off"></i>
-    <input type="range" name="volume" min="0" max="100" value="50" ng-model="schoolNumber">
-    <i class="icon ion-android-checkmark-circle"></i>
-  </div>
-
-  <div class="rating-title">
-    Yard {{yardNumber}}
-  </div>
-  <div class="item range range-positive">
-    <i class="icon ion-leaf"></i>
-    <input type="range" name="volume" min="0" max="100" value="50" ng-model="yardNumber">
-    <i class="icon ion-ios-rose"></i>
-  </div>
-
-  <div class="rating-title">
-    Neighorhood {{neighborhoodNumber}}
-  </div>
-  <div class="item range range-positive">
-    <i class="icon ion-nuclear"></i>
-    <input type="range" name="volume" min="0" max="100" value="50" ng-model="neighborhoodNumber">
-    <i class="icon ion-android-color-palette"></i>
-  </div>
-
-  <div class="rating-title">
-    Kitchen {{kitchenNumber}}
-  </div>
-  <div class="item range range-positive">
-    <i class="icon ion-pizza"></i>
-    <input type="range" name="volume" min="0" max="100" value="50" ng-model="kitchenNumber">
-    <i class="icon ion-android-restaurant"></i>
-  </div>
-
-</div>
-
-<button class="button button-energized" ng-click="setPriorities()">
+<button class="button button-energized" ng-click="editRatings(myRatings)">
 Save your home ratings
 </button>
