@@ -30,7 +30,6 @@ $scope.editRatings = (myRatings) => {
 }
 
 
-
     }) //end ratingsCtrl
 
 
@@ -41,6 +40,9 @@ $scope.editRatings = (myRatings) => {
 
     .service('ratingsService', function($http) {
       let baseUrl = 'http://192.168.1.24:3000'
+
+
+      console.log('from service', newRatings);
 
 
 
@@ -64,6 +66,5 @@ $scope.editRatings = (myRatings) => {
           return response.data;
         })
       }
-
 
     }); //end ratings service

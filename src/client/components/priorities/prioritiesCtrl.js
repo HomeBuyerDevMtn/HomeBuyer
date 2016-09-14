@@ -1,8 +1,13 @@
 angular.module('homeBuyer')
-  .controller('prioritiesCtrl', function($scope, prioritiesService, $state) {
+  .controller('prioritiesCtrl', function($scope, prioritiesService, $state, $ionicSideMenuDelegate) {
 
   //  var currentUser = JSON.parse(localStorage.getItem('localUser'));
   //  var userid = currentUser.user_id;
+
+  // side menu function
+  $scope.toggleLeft = function() {
+    $ionicSideMenuDelegate.toggleLeft()
+  }
 
     $scope.defaultPriorities = prioritiesService.getDefaultPriorities();
 

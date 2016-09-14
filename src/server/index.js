@@ -80,7 +80,7 @@ app.use(cors());
 //TEST ENDPOINTS
 
 app.get('/test', users.authenticateRequest, (req, res, next) => {
-  res.json('You got through')
+ res.json('You got through')
 })
 
 // USER ENDPOINTS
@@ -123,5 +123,5 @@ app.post('/auth/local/login', users.localLogin);
 
 
 app.listen(config.port, () => {
-    console.log('listening on port: ', config.port)
+   console.log('listening on port: ', config.port)
 })

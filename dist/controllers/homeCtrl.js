@@ -62,7 +62,7 @@ module.exports = {
                     }
                 });
             }
-            //get priorities using the list_id and user_id from the 
+            //get priorities using the list_id and user_id from the
             //insert rows into ratings using the returned list of priorities
         });
     },

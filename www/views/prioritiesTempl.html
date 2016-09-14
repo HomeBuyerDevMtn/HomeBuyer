@@ -1,9 +1,11 @@
 
-  <!-- <div class="bar bar-header bar-balanced">
-    <h1 class="title">Set your overall priorities</h1>
-  </div> -->
 
-
+<ion-view>
+  <ion-header-bar class="bar-stable" id='header-bar'>
+    <button type="button" ng-click="toggleLeft()" class="button icon button-clear ion-navicon-round"></button>
+    <h1 class="title">Priorities</h1>
+  </ion-header-bar>
+  <ion-content>
   <ion-list show-delete="false" can-swipe='true' class="list ratings-list" ng-repeat="priority in defaultPriorities" >
 
     <ion-item>
@@ -49,3 +51,5 @@
 <button class="button button-energized button-block" ng-click="setPriorities()">
   Save your priority preferences
 </button>
+</ion-content>
+</ion-view>

@@ -1,4 +1,7 @@
 angular.module('homeBuyer').config(function($stateProvider, $urlRouterProvider){
+
+$urlRouterProvider.otherwise('/login');
+
  $stateProvider
 
  .state('login', {
@@ -6,7 +9,8 @@ angular.module('homeBuyer').config(function($stateProvider, $urlRouterProvider){
    cache: false,
    templateUrl: './views/login.html',
    controller: 'loginCtrl'
- })
+  })
+
   .state('priorities', {
     url: '/priorities',
     cache: false,
@@ -18,7 +22,24 @@ angular.module('homeBuyer').config(function($stateProvider, $urlRouterProvider){
     cache: false,
     templateUrl: './views/homeratingsTmpl.html',
     controller: 'ratingsCtrl'
-  });
+  })
 
- $urlRouterProvider.otherwise('/login');
+ .state('addHome', {
+   url: '/addHome',
+   templateUrl: './views/createHome.html',
+   controller: 'homeCtrl'
+ })
+
+ .state('myHome', {
+   url: '/myHome',
+   templateUrl: './views/homeView.html',
+   controller: 'homeCtrl'
+ })
+
+ .state('list', {
+   url: '/list',
+   templateUrl: './views/listView.html',
+   controller: 'listCtrl'
+ })
+
 });

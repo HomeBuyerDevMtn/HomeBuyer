@@ -30,12 +30,8 @@ create table priorities (
     id serial primary key,
     list_id int references lists(id) not null,
     user_id int references users(id) not null,
-<<<<<<< HEAD
-    priority_description varchar(100) not null
-=======
     priority_description varchar(100) not null,
     priority_value int not null
->>>>>>> master
 );
 
 create table homes (
@@ -63,11 +59,6 @@ create table ratings (
     priority_id int references priorities(id) not null,
     rating_description varchar(100) not null,
     rating_value int not null
-<<<<<<< HEAD
-
-=======
-
->>>>>>> master
 );
 
 create table list_users (

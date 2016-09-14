@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<!-- saved from url=(0030)http://localhost:8100/#/myHome -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>
+    
+    <script>
+      // Injected Ionic Go To URL Live Reload Plugin
+      window.LiveReloadPlugin_IonicGoToUrl = (function() {
+        var GOTO_KEY = "__ionic_goto_url__";
+        var HISTORY_GO_KEY = "__ionic_history_go__";
+        var GoToUrlPlugin = function(window, host) {
+          this.window = window;
+          this.host = host;
+        }
+        GoToUrlPlugin.identifier = "__ionic_goto_url__";
+        GoToUrlPlugin.version = "1.0";
+        GoToUrlPlugin.prototype.reload = function(path) {
+          try {
+            if (path) {
+              if (path.indexOf(GOTO_KEY) === 0) {
+                this.window.document.location = path.replace(GOTO_KEY, "");
+                return true;
+              }
+              if (path.indexOf(HISTORY_GO_KEY) === 0) {
+                this.window.document.history.go( parseInt(path.replace(HISTORY_GO_KEY, ""), 10));
+                return true;
+              }
+            }
+          } catch(e) {
+            console.log(e);
+          }
+          return false;
+        };
+        return GoToUrlPlugin;
+      })();
+    </script>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta http-equiv="Content-Security-Policy" content="default-src *; script-src &#39;self&#39; &#39;unsafe-inline&#39; &#39;unsafe-eval&#39; *; style-src  &#39;self&#39; &#39;unsafe-inline&#39; *">
+
+    <title></title>
+
+
+    <link href="./localhost_files/ionic.css" rel="stylesheet">
+     <script src="./localhost_files/ionic.bundle.js"></script>
+
+
+
+    <link href="./localhost_files/ionic(1).css" rel="stylesheet">
+    <link rel="stylesheet" href="./localhost_files/ionicons.min.css">
+    <link href="./localhost_files/styles.css" rel="stylesheet">
+    <link href="./localhost_files/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="./localhost_files/lightslider.css">
+    <script src="./localhost_files/jquery.min.js"></script>
+
+
+    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <link href="css/ionic.app.css" rel="stylesheet">
+    -->
+
+    <!-- ionic/angularjs js -->
+    <script src="./localhost_files/ionic.bundle(1).js"></script>
+
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="./localhost_files/cordova.js"></script>
+
+    <!-- your app's js -->
+    <script src="./localhost_files/bundle.js"></script>
+    <script src="./localhost_files/ng-cordova.js"></script>
+  </head>
+  <body ng-app="homeBuyer" class="grade-a platform-browser platform-ios platform-ios9 platform-ios9_1 platform-ready" cz-shortcut-listen="true">
+
+
+
+      <!-- <ion-header-bar class="bar-stable">
+
+    <ion-pane> -->
+      <!-- <ion-header-bar class="bar-stable">
+
+        <h1 class="title">Ionic Blank Starter</h1>
+      </ion-header-bar> -->
+
+
+
+      <ion-nav-view class="view-container" nav-view-transition="ios" nav-view-direction="none" nav-swipe=""><ion-side-menus class="pane view" state="myHome" nav-view="active" style="opacity: 1; transform: translate3d(0%, 0px, 0px);">
+  <side-menu><!-- header that shows up at top of page -->
+
+<!-- menu that slides out from left -->
+  <!-- Left menu -->
+  <ion-side-menu side="left" is-enabled="true" width="275" class="menu menu-left" style="width: 275px; z-index: 0;">
+
+    <ion-list id="side-menu-item" class="disable-user-behavior"><div class="list">
+      <ion-item ui-sref="#" class="item item-complex"><a class="item-content">Home</a></ion-item>
+    </div></ion-list>
+
+    <ion-list id="side-menu-item" class="disable-user-behavior"><div class="list">
+      <ion-item ui-sref="list" class="item item-complex" href="#/list"><a class="item-content">Lists</a></ion-item>
+    </div></ion-list>
+
+    <ion-list id="side-menu-item" class="disable-user-behavior"><div class="list">
+      <ion-item ui-sref="login" class="item item-complex" href="#/login"><a class="item-content">Logout</a></ion-item>
+    </div></ion-list>
+
+  </ion-side-menu>
+</side-menu>
+  <ion-side-menu-content class="menu-content pane menu-animated" style="transform: translate3d(0px, 0px, 0px);">
+  <ion-header-bar class="bar-stable bar bar-header" id="header-bar">
+    <button type="button" ng-click="toggleLeft()" class="button icon button-clear ion-navicon-round"></button>
+    <h1 class="title" style="left: 43px; right: 43px;">Nickname</h1>
+  </ion-header-bar>
+  </ion-side-menu-content>
+  <ion-content class="scroll-content ionic-scroll"><div class="scroll" style="transform: translate3d(0px, 0px, 0px) scale(1);">
+    <section class="main-house-pic-section">
+      <img id="home-picture" src="./localhost_files/house.jpg">
+      <div class="home-top-right">
+        <h1 id="house-score">4.8</h1>
+      </div>
+      <div class="home-top-right-background">
+        <h1 id="house-score">4.8</h1>
+      </div>
+      <div id="bottom-bar">
+        <p id="house-price">$195,000</p>
+        <p id="bed-bath-sqft">4 beds - 3 baths - 1,700 sqft</p>
+      </div>
+      <div id="bottom-opaque-bar">
+      </div>
+
+
+    </section>
+    <img-slider-dir><!-- <div class="row" style="flex-wrap: none;">
+    <div class="col col-25" ng-repeat="image in aImages">
+          <img ng-src="{{image.src}}" width="100%"  ng-click="goToSlide($index)" />
+    </div>
+</div> -->
+
+
+
+
+		<a class="item item-list-detail" id="image-slider">
+			<ion-scroll direction="x" class="scroll-view ionic-scroll scroll-x"><div class="scroll" style="transform: translate3d(0px, 0px, 0px) scale(1);">
+				<!-- ngRepeat: image in allImages --><img ng-repeat="image in allImages" ng-src="img/house.jpg" ng-click="showImages($index)" class="image-list-thumb" src="./localhost_files/house.jpg"><!-- end ngRepeat: image in allImages --><img ng-repeat="image in allImages" ng-src="img/house2.jpeg" ng-click="showImages($index)" class="image-list-thumb" src="./localhost_files/house2.jpeg"><!-- end ngRepeat: image in allImages --><img ng-repeat="image in allImages" ng-src="img/house3.jpg" ng-click="showImages($index)" class="image-list-thumb" src="./localhost_files/house3.jpg"><!-- end ngRepeat: image in allImages --><img ng-repeat="image in allImages" ng-src="img/house3.jpg" ng-click="showImages($index)" class="image-list-thumb" src="./localhost_files/house3.jpg"><!-- end ngRepeat: image in allImages --><img ng-repeat="image in allImages" ng-src="img/house3.jpg" ng-click="showImages($index)" class="image-list-thumb" src="./localhost_files/house3.jpg"><!-- end ngRepeat: image in allImages --><img ng-repeat="image in allImages" ng-src="img/house4.jpg" ng-click="showImages($index)" class="image-list-thumb" src="./localhost_files/house4.jpg"><!-- end ngRepeat: image in allImages --><img ng-repeat="image in allImages" ng-src="img/house.jpg" ng-click="showImages($index)" class="image-list-thumb" src="./localhost_files/house.jpg"><!-- end ngRepeat: image in allImages --><img ng-repeat="image in allImages" ng-src="img/house2.jpeg" ng-click="showImages($index)" class="image-list-thumb" src="./localhost_files/house2.jpeg"><!-- end ngRepeat: image in allImages --><img ng-repeat="image in allImages" ng-src="img/house3.jpg" ng-click="showImages($index)" class="image-list-thumb" src="./localhost_files/house3.jpg"><!-- end ngRepeat: image in allImages --><img ng-repeat="image in allImages" ng-src="img/house3.jpg" ng-click="showImages($index)" class="image-list-thumb" src="./localhost_files/house3.jpg"><!-- end ngRepeat: image in allImages --><img ng-repeat="image in allImages" ng-src="img/house3.jpg" ng-click="showImages($index)" class="image-list-thumb" src="./localhost_files/house3.jpg"><!-- end ngRepeat: image in allImages --><img ng-repeat="image in allImages" ng-src="img/house4.jpg" ng-click="showImages($index)" class="image-list-thumb" src="./localhost_files/house4.jpg"><!-- end ngRepeat: image in allImages --><img ng-repeat="image in allImages" ng-src="img/house.jpg" ng-click="showImages($index)" class="image-list-thumb" src="./localhost_files/house.jpg"><!-- end ngRepeat: image in allImages -->
+			</div><div class="scroll-bar scroll-bar-h"><div class="scroll-bar-indicator scroll-bar-fade-out" style="transform: translate3d(0px, 0px, 0px) scaleX(1); width: 135px;"></div></div></ion-scroll>
+		</a>
+</img-slider-dir>
+    <section class="home-info-section">
+
+      <div id="house-address">491 S Freedom Blvd,<br>
+          Provo, UT 84601 </div>
+      <i class="icon ion-edit" id="edit" ng-click="showEditHome()"></i>
+<!-- <img id='map' src='./img/google.jpg'/>  -->
+      <p id="house-description">Fixer upper. Partially finished attic space not yet included in the total square footage. Newer kitchen, new flooring in kitchen and bath.  Loads of possibilities for this one.</p>
+    </section>
+    <section class="rate-home-button-section">
+      <button id="rate-home-button" class="button button-block button-energized" ng-click="showPriorities()"> Rate this home! </button>
+      <!-- <i class="ion-ios-trash" id='trash-icon'></i> -->
+
+    </section>
+  </div><div class="scroll-bar scroll-bar-v"><div class="scroll-bar-indicator scroll-bar-fade-out" style="transform: translate3d(0px, 0px, 0px) scaleY(1); height: 0px;"></div></div></ion-content>
+
+  <i class="ion-ios-camera" id="camera-icon-button" style="font-size: 50px"></i>
+</ion-side-menus></ion-nav-view>
+
+
+    <script src="./localhost_files/ng-cordova.js"></script>
+    <script src="./localhost_files/ng-cordova-oauth.js"></script>
+
+
+
+    <script src="./localhost_files/ng-cordova.js"></script>
+    <script src="./localhost_files/ng-cordova-oauth.js"></script>
+    <!-- <script src="./src/client/components/camera/cameraDirective.js" charset="utf-8"></script> -->
+
+    <!-- AMAZON SDK -->
+    <script src="./localhost_files/aws-sdk-2.5.5.min.js"></script>
+
+
+    <!-- <script src="cordova.js"></script> -->
+  
+<script>//<![CDATA[
+document.write('<script src="//' + (location.hostname || 'localhost') + ':35729/livereload.js?snipver=1"><\/script>')
+//]]></script><script src="./localhost_files/livereload.js"></script>
+
+
+</body></html>

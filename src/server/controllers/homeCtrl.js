@@ -42,7 +42,7 @@ module.exports = {
                         console.log('ratings', ratings);
                         for (var i = 0; i < ratings.length; i++) {
                             console.log(CHresponse[0].id,req.body.user_id, ratings[i].priority_id, ratings[i].rating_description, ratings[i].rating_value);
-                            
+
                             db.create_ratings([Number(CHresponse[0].id), Number(req.body.user_id), Number(ratings[i].priority_id), ratings[i].rating_description, Number(ratings[i].rating_value)], (CRerror, CRresponse) => {
                                 console.log('CRerror', CRerror)
                                 if (CRerror) {
@@ -62,9 +62,9 @@ module.exports = {
                     }
                 })
             }
-        //get priorities using the list_id and user_id from the 
+        //get priorities using the list_id and user_id from the
         //insert rows into ratings using the returned list of priorities
-        
+
         })
     },
     readHomesByHomeId: (req, res, next) => {

@@ -1,0 +1,14 @@
+<!-- <div class="row" style="flex-wrap: none;">
+    <div class="col col-25" ng-repeat="image in aImages">
+          <img ng-src="{{image.src}}" width="100%"  ng-click="goToSlide($index)" />
+    </div>
+</div> -->
+
+
+
+
+		<a class="item item-list-detail" id='image-slider'>
+			<ion-scroll direction="x">
+				<img ng-repeat="image in allImages" ng-src="{{image.src}}" ng-click="showImages($index)" class="image-list-thumb"/>
+			</ion-scroll>
+		</a>

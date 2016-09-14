@@ -1,17 +1,23 @@
 'use strict';
 
-var _index = require('../index.js');
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+
 
 var _index2 = _interopRequireDefault(_index);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } // import app from '../index.js';
 
 
 var db = _index2.default.get('db');
+
+// import app from '../index.js';
+var app = require('../index.js');
+
 var jwt = require('jwt-simple');
-var bcrypt = require('bcrypt');
 var config = require('../config.js');
 
 var User = function User(user_id, name, email, token, auth_user_type_id) {
@@ -23,6 +29,7 @@ var User = function User(user_id, name, email, token, auth_user_type_id) {
     this.token = token;
     this.auth_user_type_id = auth_user_type_id;
 };
+
 
 module.exports = {
     readUserById: function readUserById(req, res, next) {
@@ -58,8 +65,9 @@ module.exports = {
                 }
                 //#2 if not we will create the user and token and then send back the same info
                 else if (response.length === 0) {
-                        var newUser = { name: req.body.name, email: req.body.email, random: Math.random() };
+                        var newUser = { name: req.body.name, email: req.body.email };
                         var token = jwt.encode(newUser, config.secret);
+                        // var currentUser = new User(req.body.name, req.body.email, token, 2);
                         db.add_user_google([req.body.name, req.body.email, req.body.third_party_id, token], function (error, response) {
                             if (error) {
                                 res.json({
@@ -86,49 +94,7 @@ module.exports = {
                     }
         });
     },
-    localLogin: function localLogin(req, res, next) {
-        //Check to see if email exists as local user in the database
-        db.read_user_local(req.body.email, function (error, response) {
-            if (error) {
-                res.json({
-                    status: 500,
-                    message: error,
-                    method: 'localLogin, read_user_local'
-                });
-            }
-            //if it does exist check to see if they passed in the correct password
-            else if (response.length > 0) {
-                    //we can now check to passed in password vs what was returned in read_user_local
-                    bcrypt.compare(req.body.password, response[0].password, function (err, BCresponse) {
-                        console.log(BCresponse);
-                        if (error) {
-                            res.json({
-                                status: 500,
-                                message: error,
-                                method: 'localLogin, read_user_local_email_password, bcrypt.compare'
-                            });
-                        } else if (BCresponse === true) {
-                            var currentUser = new User(response[0].id, response[0].name, response[0].email, response[0].token, 1);
-                            res.json(currentUser);
-                        } else if (BCresponse === false) {
-                            res.json({
-                                status: 200,
-                                message: 'The password entered did not match the email provided.',
-                                method: 'localLogin, read_user_local_email_password'
-                            });
-                        }
-                    });
-                }
-                //if email isn't found respond with that info
-                else if (response.length === 0) {
-                        res.json({
-                            status: 200,
-                            message: 'localAuth account using this email was not found in the database',
-                            method: 'localLogin, read_user_local'
-                        });
-                    }
-        });
-    },
+    localLogin: function localLogin(req, res, next) {},
     localRegister: function localRegister(req, res, next) {
         //#1Check to see if email already exists in the users table
         console.log(req.body);
@@ -140,7 +106,7 @@ module.exports = {
                     method: 'localRegister'
                 });
             }
-            //#1 if it exists send back an error message saying the email is being used and they need to use another email    
+            //#1 if it exists send back an error message saying the email is being used and they need to use another email
             else if (response.length > 0) {
                     res.json({
                         status: 200,
@@ -150,28 +116,24 @@ module.exports = {
                 }
                 //#2 if it doesn't exist add the email to the users table and create a token send back the new user object.
                 else if (response.length === 0) {
-                        (function () {
-                            console.log("user does not exist");
-                            var newUser = { name: req.body.name, email: req.body.email, random: Math.random() };
-                            var token = jwt.encode(newUser, config.secret);
-                            var currentUser = new User(req.body.name, req.body.email, token, 1);
-                            bcrypt.hash(req.body.password, 10, function (err, hash) {
-                                if (err) console.log(err);
-                                db.add_user_local([req.body.name, req.body.email, hash, token], function (error, response) {
-                                    if (error) {
-                                        console.log(error);
-                                        res.json({
-                                            status: 500,
-                                            message: error,
-                                            method: 'localRegister'
-                                        });
-                                    } else if (response) {
-                                        res.json(currentUser);
-                                    }
+                        console.log("user does not exist");
+                        var newUser = { name: req.body.name, email: req.body.email };
+                        var token = jwt.encode(newUser, config.secret);
+                        var currentUser = new User(req.body.name, req.body.email, token, 1);
+                        db.add_user_local([req.body.name, req.body.email, req.body.password, token], function (error, response) {
+                            if (error) {
+                                console.log(error);
+                                res.json({
+                                    status: 500,
+                                    message: error,
+                                    method: 'localRegister'
                                 });
-                            });
-                        })();
+                            } else if (response) {
+                                res.json(currentUser);
+                            }
+                        });
                     }
+
         });
     },
     authenticateRequest: function authenticateRequest(req, res, next) {

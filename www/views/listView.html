@@ -1,0 +1,40 @@
+<ion-view>
+  <ion-header-bar class="bar-stable" id='header-bar'>
+    <button type="button" ng-click="toggleLeft()" class="button icon button-clear ion-navicon-round"></button>
+    <h1 class="title">Utah Valley Home List</h1>
+  </ion-header-bar>
+<ion-content>
+  <ion-list class='list'>
+  <ion-item class='item' id='list-card' ng-repeat="image in allImages" ui-sref='myHome' show-delete="shouldShowDelete"
+          show-reorder="shouldShowReorder"
+          can-swipe="listCanSwipe">
+
+        <img id='list-pic'  ng-src="{{image.src}}"/>
+        <div id='list-item-info'>
+            <h3 id='list-price'>${{image.price}}</h3>
+            <div id='list-address-div'>
+                <p>Provo, UT</p>
+            </div>
+            <div id='score-box'>
+              <h2 id='list-score'>{{image.score}}</h2>
+            </div>
+
+        </div>
+            <h4  id='list-address'>Provo, UT</h4>
+            <span id='list-bed-bath-sqft'>{{image.bed}} beds - {{image.bath}} baths - {{image.sqft}} sqft</span>
+
+
+        <ion-option-button class="button-stable"
+                           ng-click='showEditHome()' >
+          Edit
+        </ion-option-button>
+        <ion-option-button class="button-assertive"
+                           ng-click="delete(item)">
+          Delete
+        </ion-option-button>
+  </ion-item>
+</ion-list>
+</ion-content>
+
+<i id='add-home-to-list-button' class='ion-plus-circled' ng-click='showAddHome()'></i>
+</ion-view>
