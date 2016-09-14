@@ -1,75 +1,55 @@
 
-  <!-- <div class="bar bar-header bar-balanced">
-    <h1 class="title">Set your overall priorities</h1>
-  </div> -->
 
-<div class="modal image-modal">
-  <ion-header-bar class="bar-stable">
-    <i class="ion-close" id='close-modal-button' ng-click='closeModal()'></i>
-    <h1 class="title">Home Ratings</h1>
+<ion-view>
+  <ion-header-bar class="bar-stable" id='header-bar'>
+    <button type="button" ng-click="toggleLeft()" class="button icon button-clear ion-navicon-round"></button>
+    <h1 class="title">Priorities</h1>
   </ion-header-bar>
   <ion-content>
+  <ion-list show-delete="false" can-swipe='true' class="list ratings-list" ng-repeat="priority in defaultPriorities" >
 
-    <div id='ratings-list' class="list ratings-list">
-
-
+    <ion-item>
       <div class="rating-title">
-      Safety &nbsp<span id='rating'>{{safetyNumber}}</span>
+        {{priority.priority_description}} {{priority.priority_value}}
       </div>
-      <div id='range-sliders'  class="item range range-positive">
-        <i class="icon ion-ios-unlocked"></i>
-        <input type="range" name="volume" min="0" max="100" ng-model="safetyNumber" accept=""value="50">
-        <i class="icon ion-ios-locked"></i>
-      </div>
-
-      <div class="rating-title">
-        Commute {{commuteNumber}}
-      </div>
-      <div id='range-sliders' class="item range range-positive">
-        <i class="icon ion-android-car"></i>
-        <input type="range" name="volume" min="0" max="100" value="50" ng-model="commuteNumber">
-        <i class="icon ion-android-bicycle"></i>
-      </div>
-
-      <div class="rating-title">
-        Schools {{schoolNumber}}
-      </div>
-      <div id='range-sliders' class="item range range-positive">
+      <div class="item range range-positive">
         <i class="icon ion-android-radio-button-off"></i>
-        <input type="range" name="volume" min="0" max="100" value="50" ng-model="schoolNumber">
+        <input type="range" name="volume" min="0" max="100" value="50" ng-model=priority.priority_value >
         <i class="icon ion-android-checkmark-circle"></i>
       </div>
+      <ion-option-button class="button-assertive ion ion-trash-a" ng-click="deletePriority(priority.id, $index)"></ion-option-button>
+    </ion-item>
 
-      <div id='range-sliders' class="rating-title">
-        Yard {{yardNumber}}
-      </div>
-      <div id='range-sliders' class="item range range-positive">
-        <i class="icon ion-leaf"></i>
-        <input type="range" name="volume" min="0" max="100" value="50" ng-model="yardNumber">
-        <i class="icon ion-ios-rose"></i>
-      </div>
+  </ion-list>
 
-      <div class="rating-title">
-        Neighorhood {{neighborhoodNumber}}
-      </div>
-      <div id='range-sliders' class="item range range-positive">
-        <i class="icon ion-nuclear"></i>
-        <input type="range" name="volume" min="0" max="100" value="50" ng-model="neighborhoodNumber">
-        <i class="icon ion-android-color-palette"></i>
-      </div>
 
-      <div class="rating-title">
-        Kitchen {{kitchenNumber}}
-      </div>
-      <div id='range-sliders' class="item range range-positive">
-        <i class="icon ion-pizza"></i>
-        <input type="range" name="volume" min="0" max="100" value="50" ng-model="kitchenNumber">
-        <i class="icon ion-android-restaurant"></i>
-      </div>
-      <button id='save-ratings-button' class="button button-block button-energized" ng-click="setPriorities()">
-        Save
-      </button>
+
+
+
+
+
+
+  <button type="button" class="button button-block button-energized" name="button" ng-click="hideAdd = !hideAdd">Add a priority</button>
+
+  <div class="" ng-show="hideAdd">
+
+    <input type="text" name="name" value="50" placeholder="description of priority" ng-model="priority_name">
+    <span>{{priority_value}}</span>
+
+
+
+    <div class="item range range-positive">
+      <i class="icon ion-android-radio-button-off"></i>
+      <input type="range" name="volume" min="0" max="100" value="50" ng-model=priority_value>
+      <i class="icon ion-android-checkmark-circle"></i>
     </div>
 
+    <button type="button" name="button" class="button button-calm" ng-click="showAdd(); addPriority(priority_name, priority_value) ">Save this Priority</button>
+
+  </div>
+
+<button class="button button-energized button-block" ng-click="setPriorities()">
+  Save your priority preferences
+</button>
 </ion-content>
-</div>
+</ion-view>

@@ -66,7 +66,7 @@
 	}
 
   $scope.showPriorities = function() {
-    $scope.showModal('./views/prioritiesTempl.html');
+    $scope.showModal('./views/prioritiesModal.html');
   }
 
   $scope.showEditHome = function() {

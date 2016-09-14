@@ -3,11 +3,11 @@
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 
+
 var _index2 = _interopRequireDefault(_index);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var db = _index2.default.get('db'); // import app from '../index.js';
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } // import app from '../index.js';
 
@@ -16,7 +16,6 @@ var db = _index2.default.get('db');
 
 // import app from '../index.js';
 var app = require('../index.js');
-var db = app.get('db');
 
 var jwt = require('jwt-simple');
 var config = require('../config.js');
@@ -47,6 +46,7 @@ module.exports = {
         });
     },
     googleLogin: function googleLogin(req, res, next) {
+        console.log(req.body);
         //#1 check to see if the user is already in the database
         db.read_email_google([req.body.email], function (error, response) {
             if (error) {
@@ -84,9 +84,9 @@ module.exports = {
                                             method: 'googleLogin'
                                         });
                                     } else if (response) {
-                                        console.log(response);
-                                        var currentUser = new User(response[0].id, response[0].name, response[0].email, response[0].token, 2);
-                                        res.json(currentUser);
+                                        //   console.log(response);
+                                        var _currentUser = new User(response[0].id, response[0].name, response[0].email, response[0].token, 2);
+                                        res.json(_currentUser);
                                     }
                                 });
                             }
@@ -133,10 +133,45 @@ module.exports = {
                             }
                         });
                     }
-            // else{
-            //     res.send('you aren\'t hitting shit')
-            // }
+
+        });
+    },
+    authenticateRequest: function authenticateRequest(req, res, next) {
+        //check to see if token has been tampered with
+        try {
+            var decoded = jwt.decode(req.query.token, config.secret);
+        } catch (e) {
+            if (e instanceof SyntaxError) {
+                res.json({
+                    status: 200,
+                    message: 'User is not authenticated, redirect.',
+                    method: 'authenticateRequest, read_user_id_token',
+                    redirect: true
+                });
+            }
+        }
+        //check to see if the user_id and token are a match
+        db.read_user_id_token([Number(req.query.user_id), req.query.token], function (error, response) {
+            console.log(req.query);
+            if (error) {
+                console.log(error);
+                res.json({
+                    status: 500,
+                    message: error,
+                    method: 'authenticateRequest, read_user_id_token'
+                });
+            } else if (response.length > 0) {
+                //if they are call next()
+                next();
+            } else if (response.length === 0) {
+                //if they don't match send back a reponse saying to gtfo
+                res.json({
+                    status: 200,
+                    message: 'User is not authenticated, redirect.',
+                    method: 'authenticateRequest, read_user_id_token',
+                    redirect: true
+                });
+            }
         });
     }
-
 };

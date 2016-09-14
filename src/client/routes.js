@@ -17,6 +17,12 @@ $urlRouterProvider.otherwise('/login');
     templateUrl: './views/prioritiesTempl.html',
     controller: 'prioritiesCtrl'
   })
+  .state('ratings', {
+    url: '/ratings',
+    cache: false,
+    templateUrl: './views/homeratingsTmpl.html',
+    controller: 'ratingsCtrl'
+  })
 
  .state('addHome', {
    url: '/addHome',
