@@ -5,8 +5,11 @@ var db = app.get('db');
 module.exports = {
 
     createPriorities: function createPriorities(req, res, next) {
+        console.log(req.body.length);
+        console.log(req.body.priorities);
+
         for (var i = 0; i < req.body.priorities.length; i++) {
-            db.create_priorities([req.body.list_id, req.body.user_id, req.body.priorities[i].priority_description, req.body.priorities[i].priority_value], function (error, response) {
+            db.create_priorities([Number(req.body.list_id), Number(req.body.user_id), req.body.priorities[i].priority_description, Number(req.body.priorities[i].priority_value)], function (error, response) {
                 if (error) {
                     res.json({
                         status: 500,
@@ -23,8 +26,10 @@ module.exports = {
         });
     },
     readPriorities: function readPriorities(req, res, next) {
+        console.log(req.query);
         db.read_priorities([Number(req.query.list_id), Number(req.query.user_id)], function (error, response) {
             if (error) {
+                console.log(error);
                 res.json({
                     status: 500,
                     message: error,
@@ -55,6 +60,7 @@ module.exports = {
         });
     },
     deletePriority: function deletePriority(req, res, next) {
+        console.log(req.params);
         db.delete_priority(req.params.id, function (error, response) {
             if (error) {
                 res.json({

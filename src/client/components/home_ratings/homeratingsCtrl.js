@@ -4,15 +4,22 @@ angular.module('homeBuyer')
     //  var currentUser = JSON.parse(localStorage.getItem('localUser'));
     //  var userid = currentUser.user_id;
 
-
+function RatingRequest (home_id, user_id, ratings){
+  this.home_id = home_id;
+  this.user_id = user_id;
+  this.ratings = [];
+}
       //to test
       var home_id = 1;
       var user_id = 1;
       var list_id = 1;
 
       //get user's priorities
-      $scope.myRatings = [];
-      console.log($scope.myRatings);
+      // $scope.myRatings = [];
+      // console.log($scope.myRatings);
+      $scope.newRatings = new RatingRequest(home_id, user_id);
+      console.log('$scope.newRatings', $scope.newRatings);
+
       $scope.setPrioritiesAsRatings = function() {
         prioritiesService.getPriorities(list_id, user_id)
           .then(function(response) {
@@ -28,28 +35,30 @@ angular.module('homeBuyer')
                 rating_value: 50
               };
               console.log('ratingObj', ratingObj);
-              $scope.myRatings.push(ratingObj);
+              $scope.newRatings.ratings.push(ratingObj);
             }
           });
       };
-      console.log('myRatings', $scope.myRatings);
+
+
+      console.log('$scope.newRatings', $scope.newRatings);
 
       $scope.setPrioritiesAsRatings();
 
       $scope.setRatings = function() {
-        var newRatings = {
-          home_id: 1,
-          user_id: 1,
-          ratings: $scope.myRatings
-        };
-        console.log('from ctrl', newRatings);
-        ratingsService.setRatings(newRatings)
+        // var newRatings = {
+        //   home_id: 1,
+        //   user_id: 1,
+        //   ratings: $scope.myRatings
+        // };
+        // console.log('from ctrl', newRatings);
+        ratingsService.setRatings($scope.newRatings)
           .then(function(response) {
             // console.log(response);
             return response;
           });
       };
-      $scope.setRatings();
+      // $scope.setRatings();
 
       // $scope.getRatings= function() {
       //   ratingsService.getRatings(home_id, user_id)
@@ -61,20 +70,26 @@ angular.module('homeBuyer')
       // $scope.getRatings(home_id, user_id);
 
 
-      $scope.setRating = function() {
-        var newRatings = {
-          home_id: 1,
-          user_id: 1,
-          priorities: $scope.myRatings
-        };
-        ratingsService.setRating(newRating)
-          .then(function(response) {
+      // $scope.setRating = function() {
+      //   var newRatings = {
+      //     home_id: 1,
+      //     user_id: 1,
+      //     priorities: $scope.myRatings
+      //   };
+      //   ratingsService.setRating(newRating)
+      //     .then(function(response) {
             // console.log(response);
             // return response;
-          });
-      };
+      //     });
+      // };
 
     }) //end ratingsCtrl
+
+
+
+/////////////////////////
+////////SERVICE//////////
+/////////////////////////
 
     .service('ratingsService', function($http) {
 
