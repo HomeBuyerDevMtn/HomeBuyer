@@ -95,6 +95,7 @@ app.post('/lists', lists.createList);
 
 //HOME ENDPOINTS
 app.post('/lists/homes', homes.createHome);
+app.put('/lists/homes/:id' homes.editHome);
 
 //PRIORITIES ENDPOINTS
 app.post('/priorities', priorities.createPriorities);
