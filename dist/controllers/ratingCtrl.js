@@ -24,6 +24,7 @@ module.exports = {
         });
     },
     readRatings: function readRatings(req, res, next) {
+        console.log('req.query:', req.query);
         db.read_ratings([req.query.user_id, req.query.home_id], function (error, response) {
             if (error) {
                 if (error) {
