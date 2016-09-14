@@ -1,4 +1,4 @@
-angular.module('homeBuyer').controller('loginCtrl', function($scope, $cordovaOauth, $http, loginService){
+angular.module('homeBuyer').controller('loginCtrl', function($scope, $cordovaOauth, $http, loginService, $ionicModal){
 
 
 
@@ -9,6 +9,11 @@ $scope.googleLogin = function(){
          $scope.showProfile = false;
          $http.get("https://www.googleapis.com/plus/v1/people/me", {params: {access_token: result.access_token }})
          .then(function(res) {
+          //  userService.readUserById(res).then(function(response){
+          //   //  userService.registerUser(res).then(function(response){
+          //   //    console.log(res);
+          //   //  })
+          //  })
 
           $scope.showProfile = true;
           $scope.details = res.data;
@@ -43,7 +48,6 @@ $scope.googleLogin = function(){
          $scope.details = 'got error';
        });
    }
-
 }) // end loginCtrl
 
 .service('loginService', function($http) {

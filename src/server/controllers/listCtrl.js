@@ -3,6 +3,7 @@ const db = app.get('db');
 module.exports = {
 
     createList: (req, res, next) => {
+      console.log('hello there');
         db.create_list([req.body.user_id, req.body.list_name], (error, response) => {
             if (error) {
                 res.json({

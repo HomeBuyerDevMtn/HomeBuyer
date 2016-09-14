@@ -1,9 +1,15 @@
 // import app from '../index.js';
 import app from '../index.js';
 const db = app.get('db');
+
+
+var jwt = require('jwt-simple');
+var config = require('../config.js')
+
 const jwt = require('jwt-simple');
 const bcrypt = require('bcrypt');
 const config = require('../config.js')
+
 
 
 
@@ -16,6 +22,10 @@ class User {
         this.auth_user_type_id = auth_user_type_id;
     }
 }
+
+
+
+
 
 module.exports = {
     readUserById: (req, res, next) => {
@@ -31,7 +41,9 @@ module.exports = {
                 res.json(response)
             }
         })
+
     },
+
     googleLogin: (req, res, next) => {
         console.log(req.body)
         //#1 check to see if the user is already in the database
@@ -46,8 +58,13 @@ module.exports = {
             //#1 if they are we will send back the user object with the associated token
             else if (response.length > 0){
                 console.log(response);
-                
+
+
+                var currentUser = new User(response[0].id, response[0].name, response[0].email, response[0].token, 2);
+
+
                 let currentUser = new User(response[0].id, response[0].name, response[0].email, response[0].token, 2);
+
                 res.json(currentUser);
             }
             //#2 if not we will create the user and token and then send back the same info
@@ -80,7 +97,7 @@ module.exports = {
                     }
                 })
             }
-        })       
+        })
     },
     localLogin: (req, res, next) => {
         //Check to see if email exists as local user in the database
@@ -125,14 +142,14 @@ module.exports = {
                     method: 'localLogin, read_user_local'
                 })
             }
-             
-          
+
+
         })
-           
+
     },
     localRegister: (req, res, next) => {
         //#1Check to see if email already exists in the users table
-          console.log(req.body);  
+          console.log(req.body);
             db.read_user_local(req.body.email, (error, response) => {
                 if (error) {
                         res.json({
@@ -141,7 +158,7 @@ module.exports = {
                             method: 'localRegister'
                         })
                     }
-                //#1 if it exists send back an error message saying the email is being used and they need to use another email    
+                //#1 if it exists send back an error message saying the email is being used and they need to use another email
                 else if (response.length > 0) {
                     res.json({
                             status: 200,
@@ -152,6 +169,36 @@ module.exports = {
                 //#2 if it doesn't exist add the email to the users table and create a token send back the new user object.
                 else if (response.length === 0) {
                     console.log("user does not exist")
+
+                    var newUser = { name: req.body.name, email: req.body.email };
+                    var token = jwt.encode(newUser, config.secret);
+                    var currentUser = new User(req.body.name, req.body.email, token, 1);
+                    db.add_user_local([req.body.name, req.body.email, req.body.password, token], (error, response) => {
+                        if (error) {
+                            console.log(error);
+                            res.json({
+                                status: 500,
+                                message: error,
+                                method: 'localRegister'
+                            })
+
+                        }
+                        else if (response) {
+                            res.json(currentUser);
+                        }
+                    })
+                }
+                // else{
+                //     res.send('you aren\'t hitting shit')
+                // }
+            })
+
+
+    },
+
+
+
+
                     let newUser = { name: req.body.name, email: req.body.email, random: Math.random() };
                     let token = jwt.encode(newUser, config.secret)
                     let currentUser = new User(req.body.name, req.body.email, token, 1);
@@ -171,7 +218,7 @@ module.exports = {
                             }
                         })
                     })
-                }  
+                }
             })
     },
 authenticateRequest: (req, res, next) => {
@@ -213,6 +260,7 @@ authenticateRequest: (req, res, next) => {
                 redirect: true
             })
         }
-    })      
+    })
 }
+
 }

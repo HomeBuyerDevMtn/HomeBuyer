@@ -1,0 +1,60 @@
+<!--
+  1.  Nickname
+  2.  Price
+  3.  Address 1
+  4. Address 2
+  5.  City
+  6.  Zip
+  7.  Province/state
+  8.  Bathrooms
+  9.  Bedrooms
+  10.  Square footage
+  11.  year built
+  12.  description
+  13.  Days listed
+  14. Add image
+-->
+<ion-view class='add-home-view'>
+
+
+  <ion-header-bar class="bar-stable">
+    <a class="button icon-left ion-chevron-left button-clear button-dark" ui-sref='login'></a>
+    <h1 class="title">Add a new Home</h1>
+    <a class="button icon-right ion-chevron-right button-clear button-dark" ui-sref='myHome'></a>
+  </ion-header-bar>
+
+  <ion-content class='add-home-content'>
+
+  <section class='add-home-top-section'>
+      <add-picture-dir></add-picture-dir>
+      <div class='add-house-top-right'>
+          <input id="house-input" type='text' placeholder="House Nickname" ng-model='home.nickname'>
+          <input id="house-input" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Price'" type='number' placeholder="Price" ng-model='home.price'>
+          <input id="house-input-left" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Sq. Ft'" type='number' placeholder="Sq. Ft" ng-model='home.sqFootage'>
+          <input id="house-input-right" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Year'" type='number' placeholder="Year" ng-model='home.year'>
+      </div>
+  </section>
+
+  <section class='add-house-middle-section'>
+      <textarea id='house-description-textarea' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Description of house'" placeholder="Desciption of house" ng-model='home.description'></textarea>
+
+      <div class='bedrooms-baths'>
+        <input id="house-input-third" onfocus="this.placeholder = ''" onblur="this.placeholder = '# Bathrooms'" type='number' placeholder="# Bathrooms" ng-model='home.bathrooms'>
+        <input id="house-input-third" onfocus="this.placeholder = ''" onblur="this.placeholder = '# Bedrooms'" type='number' placeholder="# Bedrooms" ng-model='home.bedrooms'>
+        <input id="house-input-third" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Days Listed'" type='number' placeholder="Days Listed" ng-model='home.daysListed'>
+      </div>
+  </section>
+
+  <section class='add-house-bottom-section'>
+
+        <div id='address-label'>Address</div>
+          <input id="house-input-bottom" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Street Address'" type='text' placeholder="Street Address" ng-model='home.address1'>
+          <input id="house-input-left-bottom" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Apt/Unit #'" type='text' placeholder="Apt/Unit #" ng-model='home.address2'>
+          <input id="house-input-right-bottom" onfocus="this.placeholder = ''" onblur="this.placeholder = 'City'" type='text' placeholder="City" ng-model='home.city'>
+          <input id="house-input-right-bottom" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Zip'" type='text' placeholder="State/Province" ng-model='home.state'>
+          <input id="house-input-left-bottom" onfocus="this.placeholder = ''" onblur="this.placeholder = 'State/Province'" type='number' placeholder="Zip" ng-model='home.zip'>
+
+      <button class="button button-block button-energized" id='add-home-button' ng-click='createHome(home)'>Add Home</button>
+ </section>
+  </ion-content>
+</ion-view>

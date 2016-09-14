@@ -13,7 +13,7 @@ $scope.getRatings = (home_id, user_id) => {
   console.log(home_id, user_id)
   ratingsService.getRatings(home_id, user_id).then((response) => {
     $scope.myRatings = response;
-  }) 
+  })
 }
 $scope.getRatings(home_id, user_id);
 
@@ -29,7 +29,7 @@ $scope.editRatings = (myRatings) => {
   })
 }
 
-    
+
     }) //end ratingsCtrl
 
 
@@ -45,6 +45,7 @@ $scope.editRatings = (myRatings) => {
       this.setRatings = function(newRatings) {
 
           console.log('from service', newRatings);
+
 
           return $http.post('http://192.168.1.24:3000/ratings', newRatings)
             .then(function(response) {
@@ -72,6 +73,5 @@ $scope.editRatings = (myRatings) => {
           return response.data;
         })
       }
-
 
     }); //end ratings service
