@@ -417,7 +417,6 @@ textarea::-webkit-input-placeholder {
 #list-pic {
   height: 100%;
   width: 35%;
-  padding: 0;
 }
 
 
@@ -427,12 +426,10 @@ textarea::-webkit-input-placeholder {
 
 #list-price {
   margin: 0;
-  margin-left: 5%;
-  padding-top: 5%;
-  font-size:  4vh;
-  position: absolute;
+  font-size:  5vw;
   color: #212121;
   font-family: 'Lato', sans-serif;
+  width: 50%;
 }
 
 #list-score {
@@ -446,17 +443,15 @@ textarea::-webkit-input-placeholder {
 }
 
 #score-box {
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  width: 10%;
-  height: 40%;
+  width: 20%;
+  height: 70%;
   // border: 1px solid black;
   border-radius: 25%;
   display: flex;
   justify-content: center;
   align-items: center;
   background: #FFC900;
+  margin-right: 10px;
 }
 
 #list-bed-bath-sqft {
@@ -465,8 +460,10 @@ textarea::-webkit-input-placeholder {
   margin: 0;
   right: 10px;
   font-size: 2vh;
-  padding-top: 5px;
+  padding-top: 10px;
   border-top: 1px solid #BDBDBD;
+  width: 60%;
+  text-align: right;
 }
 
 #add-home-to-list-button {
@@ -508,6 +505,21 @@ textarea::-webkit-input-placeholder {
 }
 
 #list-item-info {
-  width: 65%;
+  width: 60%;
   float: right;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 60%;
+}
+
+#list-address {
+
+}
+
+#list-address-div {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: 10px;
 }

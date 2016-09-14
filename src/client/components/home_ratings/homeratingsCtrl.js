@@ -1,7 +1,4 @@
-angular.module('homeBuyer')
-  .controller('homeratingsCtrl', function($scope) {
-
-    function($scope) {
+angular.module('homeBuyer').controller('homeratingsCtrl', function($scope) {
 
       $scope.safetyNumber = 50;
       $scope.commuteNumber = 50;
@@ -15,13 +12,11 @@ angular.module('homeBuyer')
       }
 
 
-    }) //end prioritiesCtrl
+}) //end homeratingsCtrl
 
     .service('prioritiesService', function($http) {
 
       this.setPriorities = function(user_id, list_id, neighborhoodNumber, ) {
 
       }
-
-
-  });  //end homeratingsCtrl
+    })

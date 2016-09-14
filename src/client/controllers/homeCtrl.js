@@ -1,7 +1,7 @@
 // angular.module('homeBuyer').controller('homeCtrl', function($scope, $http, homeService, $ionicModal, $location){
   angular.module('homeBuyer')
 
-    .controller('homeCtrl', function ($scope, $http, $ionicModal, $ionicSlideBoxDelegate, homeService, $location) {
+    .controller('homeCtrl', function ($scope, $http, $ionicModal, $ionicSlideBoxDelegate, homeService, $location, $ionicSideMenuDelegate) {
   $scope.createHome = function(home) {
     var newHome = {
       list_id: 1,
@@ -72,7 +72,7 @@
   $scope.showEditHome = function() {
     $scope.showModal('./views/editHome.html');
   }
-  
+
 	$scope.showModal = function(templateUrl) {
 		$ionicModal.fromTemplateUrl(templateUrl, {
 			scope: $scope,
@@ -88,4 +88,8 @@
 		$scope.modal.hide();
 		$scope.modal.remove()
 	};
+
+  $scope.toggleLeft = function() {
+    $ionicSideMenuDelegate.toggleLeft()
+  };
 });

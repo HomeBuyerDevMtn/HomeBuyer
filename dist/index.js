@@ -4,7 +4,6 @@ var express = require('express');
 
 var config = require('./config');
 
-
 // const keys = require('./keys');
 
 // const secretkeys = require('./secretkeys.js');
@@ -20,7 +19,6 @@ var jwt = require('jwt-simple');
 
 var AWS = require('aws-sdk');
 
-
 // AWS.keys.update({
 //   accessKeyId: keys.AWS.ACCESS_KEY,
 //   secretAccessKey: keys.AWS.SECRET_KEY,
@@ -30,21 +28,9 @@ var AWS = require('aws-sdk');
 // const s3 = new AWS.S3();
 
 
-AWS.config.update({
-  function: function _function() {
-    console.log("this is the secret", secretkeys.aws.ACCESS_KEY);
-  },
-
-  accessKeyId: secretkeys.aws.ACCESS_KEY,
-  secretAccessKey: secretkeys.aws.ACCESS_SECRET,
-  region: 'us-west-2'
-});
-
-
 var connectionString = config.connectString;
 var massiveInstance = massive.connectSync({ connectionString: connectionString });
 var app = module.exports = express();
-
 
 // const AWS = require('aws-sdk');
 //
@@ -60,11 +46,20 @@ var app = module.exports = express();
 //
 // const s3 = new AWS.S3();
 
+AWS.config.update({
+  function: function _function() {
+    console.log("this is the secret", secretkeys.aws.ACCESS_KEY);
+  },
+
+  accessKeyId: secretkeys.aws.ACCESS_KEY,
+  secretAccessKey: secretkeys.aws.ACCESS_SECRET,
+  region: 'us-west-2'
+});
+
 app.use(bodyParser.json({ limit: '50mb' })); //limits file size, default limit is 100kb
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
 
 var s3 = new AWS.S3();
-
 
 var connectString = config.connectString;
 

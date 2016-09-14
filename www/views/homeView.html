@@ -1,9 +1,7 @@
-<ion-view class='home-view'>
-
-
-  <ion-header-bar class="bar-stable">
-    <a class="button icon-left ion-chevron-left button-clear button-dark" ui-sref='list'></a>
-    <h1 class="title">Home</h1>
+<ion-view>
+  <ion-header-bar class="bar-stable" id='header-bar'>
+    <button type="button" ng-click="toggleLeft()" class="button icon button-clear ion-navicon-round"></button>
+    <h1 class="title">Nickname</h1>
   </ion-header-bar>
 
   <ion-content>
@@ -40,5 +38,7 @@
     </section>
   </ion-content>
 
+
   <i class="ion-ios-camera" id='camera-icon-button' style='font-size: 50px'></i>
+
 </ion-view>

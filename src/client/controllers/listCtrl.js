@@ -1,6 +1,6 @@
 angular.module('homeBuyer')
 
-  .controller('listCtrl', function ($scope, $http, $ionicModal, $ionicSlideBoxDelegate, homeService, $location) {
+  .controller('listCtrl', function ($scope, $http, $ionicModal, $ionicSlideBoxDelegate, homeService, $location, $ionicSideMenuDelegate) {
 
 
 $scope.poo = function() {
@@ -54,6 +54,9 @@ $scope.showPriorities = function() {
 $scope.showEditHome = function() {
   $scope.showModal('./views/editHome.html');
 }
+$scope.showAddHome = function() {
+  $scope.showModal('./views/add-home-modal.html');
+}
 
 $scope.showModal = function(templateUrl) {
   $ionicModal.fromTemplateUrl(templateUrl, {
@@ -70,4 +73,9 @@ $scope.closeModal = function() {
   $scope.modal.hide();
   $scope.modal.remove()
 };
+
+$scope.toggleLeft = function() {
+  $ionicSideMenuDelegate.toggleLeft()
+}
+
 });

@@ -53,7 +53,6 @@ AWS.config.update({
   region: 'us-west-2'
 });
 
-const app = module.exports = express();
 
 app.use(bodyParser.json({limit: '50mb'})); //limits file size, default limit is 100kb
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
