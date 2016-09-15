@@ -41,18 +41,10 @@ $scope.editRatings = (myRatings) => {
     .service('ratingsService', function($http) {
       let baseUrl = 'http://192.168.1.24:3000'
 
-      //saving new priorities list set by user
-      this.setRatings = function(newRatings) {
 
-          console.log('from service', newRatings);
+      console.log('from service', newRatings);
 
 
-          return $http.post('http://192.168.1.24:3000/ratings', newRatings)
-            .then(function(response) {
-              // console.log(response);
-              return response;
-            });
-      };
 
       //get priority list by user and user's list
       this.getRatings = function(home_id, user_id) {
@@ -62,6 +54,7 @@ $scope.editRatings = (myRatings) => {
             return response.data;
           });
       };
+
 
       this.editRatings = (ratings) => {
         console.log('hey dan', ratings)
