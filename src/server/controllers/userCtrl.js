@@ -1,11 +1,6 @@
 // import app from '../index.js';
 import app from '../index.js';
 const db = app.get('db');
-
-
-var jwt = require('jwt-simple');
-var config = require('../config.js')
-
 const jwt = require('jwt-simple');
 const bcrypt = require('bcrypt');
 const config = require('../config.js')
@@ -169,36 +164,6 @@ module.exports = {
                 //#2 if it doesn't exist add the email to the users table and create a token send back the new user object.
                 else if (response.length === 0) {
                     console.log("user does not exist")
-
-                    var newUser = { name: req.body.name, email: req.body.email };
-                    var token = jwt.encode(newUser, config.secret);
-                    var currentUser = new User(req.body.name, req.body.email, token, 1);
-                    db.add_user_local([req.body.name, req.body.email, req.body.password, token], (error, response) => {
-                        if (error) {
-                            console.log(error);
-                            res.json({
-                                status: 500,
-                                message: error,
-                                method: 'localRegister'
-                            })
-
-                        }
-                        else if (response) {
-                            res.json(currentUser);
-                        }
-                    })
-                }
-                // else{
-                //     res.send('you aren\'t hitting shit')
-                // }
-            })
-
-
-    },
-
-
-
-
                     let newUser = { name: req.body.name, email: req.body.email, random: Math.random() };
                     let token = jwt.encode(newUser, config.secret)
                     let currentUser = new User(req.body.name, req.body.email, token, 1);

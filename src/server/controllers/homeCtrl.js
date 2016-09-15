@@ -80,5 +80,23 @@ module.exports = {
                 res.json(response);
             }
         })
-    }
+    },
+    deactivateHome:(req,res,next) => {
+    db.deactivate_home(req.params.home_id, (error, response) => {
+        if (error) {
+                res.json({
+                    status: 500,
+                    message: error,
+                    method: 'deactivateHome, deactivateHome'
+                })
+            }
+        else if (response) {
+            res.json({
+                status: 200,
+                message: 'Home deactivated successfully!',
+                method: 'deactivateHome, deactivate_home'
+            })
+        }
+    })
+},
 }
