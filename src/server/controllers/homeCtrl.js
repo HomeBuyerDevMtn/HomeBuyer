@@ -81,6 +81,24 @@ module.exports = {
             }
         })
     },
+    deactivateHome:(req,res,next) => {
+    db.deactivate_home(req.params.home_id, (error, response) => {
+        if (error) {
+                res.json({
+                    status: 500,
+                    message: error,
+                    method: 'deactivateHome, deactivateHome'
+                })
+            }
+        else if (response) {
+            res.json({
+                status: 200,
+                message: 'Home deactivated successfully!',
+                method: 'deactivateHome, deactivate_home'
+            })
+        }
+    })
+},
     editHome: (req, res, next) => {
         console.log(req.body);
         for(var i = 0; i < req.body.homes.length; i++) {
@@ -92,7 +110,7 @@ module.exports = {
                       method: 'editHome'
                   })
               }
-        }
+    
 
            else {
                  res.json({
@@ -103,4 +121,5 @@ module.exports = {
             }
         })
     }
+}
 }
