@@ -95,7 +95,6 @@ app.post('/lists', lists.createList);
 
 //HOME ENDPOINTS
 app.post('/lists/homes', homes.createHome);
-app.put('/lists/homes/:id' homes.editHome);
 
 //PRIORITIES ENDPOINTS
 app.post('/priorities', priorities.createPriorities);
@@ -112,8 +111,6 @@ app.put('/ratings', ratings.editRatings);
 
 //IMAGES ENDPOINTS
 app.post('/images', images.addImage);
-app.delete('/images/:id', images.deleteImage);
-app.get('/images/:id', images.readImages);
 
 //AUTH ENDPOINTS
 app.post('/auth/google', users.googleLogin);

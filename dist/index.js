@@ -103,8 +103,6 @@ app.put('/ratings', ratings.editRatings);
 
 //IMAGES ENDPOINTS
 app.post('/images', images.addImage);
-app.delete('/images/:id', images.deleteImage);
-app.get('/images/:id', images.readImages);
 
 //AUTH ENDPOINTS
 app.post('/auth/google', users.googleLogin);
