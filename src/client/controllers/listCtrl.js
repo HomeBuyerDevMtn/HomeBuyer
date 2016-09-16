@@ -1,6 +1,6 @@
 angular.module('homeBuyer')
 
-  .controller('listCtrl', function ($scope, $http, $ionicModal, $ionicSlideBoxDelegate, homeService, $location, $ionicSideMenuDelegate, listService, $stateParams) {
+  .controller('listCtrl', function ($scope, $http, $ionicModal, $ionicSlideBoxDelegate, homeService, $location, $ionicSideMenuDelegate, listService, $stateParams, $ionicPopup) {
 
 
 //////////////////////////////////
@@ -10,6 +10,8 @@ angular.module('homeBuyer')
 //to test
 var user_id = 1;
 var list_id = 1;
+
+$scope.test = 'work damit'
 
 
 //get all homes by list_id
@@ -32,6 +34,11 @@ $scope.deactivateHome = function(id, $index) {
       $scope.getAllHomesByList(list_id);
     });
 };
+
+
+
+
+
 
 //////// to test view ///////////
 // $scope.allImages = [{
@@ -80,7 +87,17 @@ $scope.showPriorities = function() {
   $scope.showModal('./views/prioritiesTempl.html');
 }
 
-$scope.showEditHome = function() {
+$scope.showEditHome = function($index) {
+  $scope.selectedIndex = $index;
+  console.log($scope.homesInList[$scope.selectedIndex]);
+  $scope.saveEditedHome = function() {
+    // console.log($scope.homesInList[selectedIndex])
+    listService.saveEditedHome($scope.homesInList[$scope.selectedIndex])
+      .then(function(response) {
+        console.log(response);
+      })
+  }
+  console.log($scope.selectedIndex);
   $scope.showModal('./views/editHome.html');
 }
 $scope.showAddHome = function() {
@@ -97,6 +114,8 @@ $scope.showModal = function(templateUrl) {
   });
 }
 
+
+
 // Close the modal
 $scope.closeModal = function() {
   $scope.modal.hide();
@@ -106,6 +125,18 @@ $scope.closeModal = function() {
 $scope.toggleLeft = function() {
   $ionicSideMenuDelegate.toggleLeft()
 }
+
+//confirm alert
+$scope.showAlert = function() {
+  var alertPopup = $ionicPopup.alert({
+    title: 'Home updated!',
+    template: 'Changes are officially updated 🏡'
+  });
+  alertPopup.then(function(res) {
+    console.log('Thank you for not eating my delicious ice cream cone');
+  });
+};
+
 
 }) //end listCtrl
 
@@ -129,5 +160,14 @@ $scope.toggleLeft = function() {
           return response.data
         })
     }
+
+    //edit home
+    this.saveEditedHome = function(home) {
+      return $http.put("http://192.168.1.24:3000/lists/homes/", home)
+        .then(function(response) {
+          console.log('saving edited home from service', response.data);
+          return response.data
+        });
+    };
 
 }); //end list service
