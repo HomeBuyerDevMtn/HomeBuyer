@@ -7,12 +7,10 @@ angular.module('homeBuyer')
 ////// list ctrl endpoints //////
 /////////////////////////////////
 
-//to test
-var user_id = 1;
-var list_id = 1;
-
-$scope.test = 'work damit'
-
+//current info on user and list id
+let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+let user_id = currentUser.user_id;
+let list_id = Number($stateParams.list_id);
 
 //get all homes by list_id
 $scope.getAllHomesByList = function(list_id) {
@@ -35,43 +33,43 @@ $scope.deactivateHome = function(id, $index) {
     });
 };
 
+//add home
+$scope.createHome = function(home) {
+  var newHome = {
+    list_id: list_id,
+    user_id: user_id,
+    nickname: home.nickname,
+    price: home.price,
+    address_1: home.address1,
+    address_2: home.address2,
+    city: home.city,
+    zip: home.zip,
+    province: home.state,
+    bathrooms: home.bathrooms,
+    bedrooms: home.bedrooms,
+    sq_feet: home.sqFootage,
+    year_build: home.year,
+    description: home.description,
+    days_listed: home.daysListed,
 
+  }
 
+  console.log(newHome);
+  listService.createHome(newHome).then(function(response){
+    console.log(response);
+    // $location.path('myHome');
+    $scope.getAllHomesByList(list_id);
+  })
+}
 
-
-
-//////// to test view ///////////
-// $scope.allImages = [{
-//   'src' : 'img/house.jpg',
-//   'price' : '195,000',
-//   'score' : '2.3',
-//   'bed' : '2',
-//   'bath' : '4',
-//   'sqft' : '2,000'
-// }, {
-//   'src' : 'img/house5.jpg',
-//   'price' : '230,000',
-//   'score' : '4.5',
-//   'bed' : '3',
-//   'bath' : '2.5',
-//   'sqft' : '1,600'
-// }, {
-//   'src' : 'img/house6.jpg',
-//   'price' : '687,000',
-//   'score' : '3.8',
-//   'bed' : '5',
-//   'bath' : '10',
-//   'sqft' : '800'
-// }, {
-//   'src' : 'img/house7.jpg',
-//   'price' : '1,000,003',
-//   'score' : '5',
-//   'bed' : '1',
-//   'bath' : '1',
-//   'sqft' : '10,000'
+//duplicate effort, already in home ctrl / home service
+// $scope.createHome = function(newHome) {
+//   listService.createHome(newHome)
+//     .then(function(response) {
+//
+//       console.log("in add home ctr", response);
+//     })
 // }
-// ];
-
 
 //ionic specific, don't touch
 $scope.shouldShowDelete = false;
@@ -87,20 +85,21 @@ $scope.showPriorities = function() {
   $scope.showModal('./views/prioritiesTempl.html');
 }
 
+// modal to pop up and edit current home
 $scope.showEditHome = function($index) {
   $scope.selectedIndex = $index;
-  console.log($scope.homesInList[$scope.selectedIndex]);
+  $scope.homeToEdit = $scope.homesInList[$scope.selectedIndex];
   $scope.saveEditedHome = function() {
     // console.log($scope.homesInList[selectedIndex])
-    listService.saveEditedHome($scope.homesInList[$scope.selectedIndex])
+    listService.saveEditedHome($scope.homeToEdit)
       .then(function(response) {
         console.log(response);
       })
   }
-  console.log($scope.selectedIndex);
   $scope.showModal('./views/editHome.html');
-}
-$scope.showAddHome = function() {
+};
+
+$scope.showAddHome = function(list_id) {
   $scope.showModal('./views/add-home-modal.html');
 }
 
@@ -112,7 +111,7 @@ $scope.showModal = function(templateUrl) {
     $scope.modal = modal;
     $scope.modal.show();
   });
-}
+};
 
 
 
@@ -131,9 +130,6 @@ $scope.showAlert = function() {
   var alertPopup = $ionicPopup.alert({
     title: 'Home updated!',
     template: 'Changes are officially updated 🏡'
-  });
-  alertPopup.then(function(res) {
-    console.log('Thank you for not eating my delicious ice cream cone');
   });
 };
 
@@ -169,5 +165,18 @@ $scope.showAlert = function() {
           return response.data
         });
     };
+
+    // add home
+    this.createHome = function(home){
+      console.log(home);
+      return $http({
+        method: 'POST',
+        url: 'http://192.168.1.24:3000/lists/homes',
+        data: home
+      })
+    }
+
+
+
 
 }); //end list service
