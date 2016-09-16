@@ -92,4 +92,6 @@
   $scope.toggleLeft = function() {
     $ionicSideMenuDelegate.toggleLeft()
   };
+
+  
 });

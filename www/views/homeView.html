@@ -1,7 +1,8 @@
 <ion-view>
-  <ion-header-bar class="bar-stable" id='header-bar'>
+  <ion-header-bar class="bar-stable" id='header-bar' style='background: white'>
     <button type="button" ng-click="toggleLeft()" class="button icon button-clear ion-navicon-round"></button>
     <h1 class="title">Nickname</h1>
+    <button type="button" ng-click="showEditHome()" class="button">Edit</button>
   </ion-header-bar>
 
   <ion-content>
@@ -10,9 +11,9 @@
       <div class='home-top-right'>
         <h1 id='house-score'>4.8</h1>
       </div>
-      <div class='home-top-right-background'>
+      <!-- <div class='home-top-right-background'>
         <h1 id='house-score'>4.8</h1>
-      </div>
+      </div> -->
       <div id='bottom-bar'>
         <p id='house-price'>$195,000</p>
         <p id='bed-bath-sqft'>4 beds - 3 baths - 1,700 sqft</p>
@@ -32,7 +33,7 @@
       <p id='house-description'>Fixer upper. Partially finished attic space not yet included in the total square footage. Newer kitchen, new flooring in kitchen and bath.  Loads of possibilities for this one.</p>
     </section>
     <section class='rate-home-button-section'>
-      <button id='rate-home-button' class='button button-block button-energized' ng-click='showPriorities()'> Rate this home! </button>
+      <button id='rate-home-button' class='button button-block button-energized' ng-click='showPriorities()'> Rate home! </button>
       <!-- <i class="ion-ios-trash" id='trash-icon'></i> -->
 
     </section>

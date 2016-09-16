@@ -10,7 +10,12 @@
   <ion-content class='add-home-content'>
 
   <section class='add-home-top-section'>
-      <add-picture-dir></add-picture-dir>
+    <div class='add-picture-button' ng-click='poo()' ng-hide='showPicture'>
+      <img id='edit-home-picture' src='./img/house.jpg'/>
+      <i id='delete-home-pic' class='ion-close-circled'></i>
+        <!-- <i class="ion-ios-camera" style='font-size: 50px'></i>
+        <h5> Add Picture </h5> -->
+    </div>
       <div class='add-house-top-right'>
           <input id="house-input" type='text' placeholder="House Nickname" ng-model='home.nickname'>
           <input id="house-input" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Price'" type='number' placeholder="Price" ng-model='home.price'>
