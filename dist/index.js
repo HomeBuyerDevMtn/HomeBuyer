@@ -87,6 +87,7 @@ app.post('/lists', lists.createList);
 
 //HOME ENDPOINTS
 app.post('/lists/homes', homes.createHome);
+app.post('/lists/homes/deactivate/:home_id', homes.deactivateHome);
 
 //PRIORITIES ENDPOINTS
 app.post('/priorities', priorities.createPriorities);
