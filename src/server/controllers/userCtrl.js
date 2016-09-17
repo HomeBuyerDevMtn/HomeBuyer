@@ -47,15 +47,12 @@ module.exports = {
                 res.json({
                     status: 500,
                     message: error,
-                    method: 'googleLogin'
+                    method: 'googleLogin, read_email_google'
                 })
             }
             //#1 if they are we will send back the user object with the associated token
             else if (response.length > 0){
                 console.log(response);
-
-
-                var currentUser = new User(response[0].id, response[0].name, response[0].email, response[0].token, 2);
 
 
                 let currentUser = new User(response[0].id, response[0].name, response[0].email, response[0].token, 2);
@@ -71,7 +68,7 @@ module.exports = {
                         res.json({
                             status: 500,
                             message: error,
-                            method: 'googleLogin'
+                            method: 'googleLogin, add_user_google'
                         })
                     }
                     else if (response){
@@ -80,7 +77,7 @@ module.exports = {
                                 res.json({
                                     status: 500,
                                     message: error,
-                                    method: 'googleLogin'
+                                    method: 'googleLogin, read_email_google'
                                 })
                             }
                             else if (response){

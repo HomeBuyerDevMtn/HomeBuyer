@@ -2,7 +2,7 @@ angular.module('homeBuyer')
 
   .controller('listCtrl', function ($scope, $http, $ionicModal, $ionicSlideBoxDelegate, homeService, $location, $ionicSideMenuDelegate, listService, $stateParams) {
 
-
+console.log(homeService)
 //////////////////////////////////
 ////// list ctrl endpoints //////
 /////////////////////////////////
