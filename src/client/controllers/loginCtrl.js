@@ -1,12 +1,11 @@
-angular.module('homeBuyer').controller('loginCtrl', function($scope, $cordovaOauth, $http, loginService, $ionicModal){
+angular.module('homeBuyer').controller('loginCtrl', function($scope, $cordovaOauth, $http, loginService, $ionicModal, $state){
 
 
 
 $scope.googleLogin = function(){
   console.log('suh dude');
-  
+
      $cordovaOauth.google("766659347642-s0ls1h1po2h618ugeb02vb02i9thf5tv.apps.googleusercontent.com", ["email","profile"]).then(function(result) {
-       console.log('hey dan')
          $scope.showProfile = false;
          $http.get("https://www.googleapis.com/plus/v1/people/me", {params: {access_token: result.access_token }})
          .then(function(res) {
@@ -28,16 +27,17 @@ $scope.googleLogin = function(){
             email: res.data.emails[0].value,
             id: res.data.id
           };
-          console.log(JSON.stringify(currentUser))
           $scope.googleLogin = function(currentUser) {
-            console.log("in login ctrl");
+            console.log(currentUser.id);            
             loginService.googleLogin(currentUser)
               .then(function(response) {
-                // console.log("here from ctrl", JSON.stringify(response.data));
+                if(response.user_id) {
+                  $state.go('userList')
+                }
                 return response;
               });
           };
-          // console.log(currentUser.name, currentUser.email, currentUser.id);
+
           $scope.googleLogin(currentUser);
 
          }, function(error) {
@@ -49,26 +49,45 @@ $scope.googleLogin = function(){
          $scope.details = 'got error';
        });
    }
+
+$scope.localLogin = (user) => {
+  loginService.localLogin(user).then((response) => {
+    console.log('Controller response', response)
+    localStorage.setItem('currentUser', JSON.stringify(response));
+    $state.go('userList');
+
+  })
+}
+
 }) // end loginCtrl
 
 .service('loginService', function($http) {
   let baseUrl = 'http://localhost:3000/';
-  // let baseUrl = 'http://172.19.245.68:3000/'
+  // let baseUrl = 'http://192.168.1.24:3000'
     this.googleLogin = function(currentUser) {
       return $http({
         method: 'POST',
         //change IP address to the server you are working on
-        url: baseUrl + 'auth/google',
+        url: baseUrl + '/auth/google',
         data: currentUser
       }).then(function(response) {
-        // console.log("this is a response from service", JSON.stringify(response.data));
         localStorage.setItem('localUser', JSON.stringify(response.data));
-        var local = localStorage.getItem('localUser')
-        console.log(local.user_id);
-        console.log("here is localUser", localStorage.getItem('localUser'));
-        return response;
+        console.log("this is local user in storage", localStorage.getItem('localUser'));
+        return response.data;
       })
 
+    }
+
+    this.localLogin = (user) => {
+      console.log('Service argument', user)
+      return $http({
+        method: "POST",
+        url: baseUrl + "auth/local/login",
+        data: user
+      }).then((response) => {
+        console.log('service response.data :', response.data)
+        return response.data
+      })
     }
 
 

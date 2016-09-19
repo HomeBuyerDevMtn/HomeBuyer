@@ -1,17 +1,18 @@
 angular.module('homeBuyer')
 
     .controller('userListCtrl', function($scope, userListService){
-let cur_user_id = 1;        
+
+      let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+      console.log(currentUser);
 
         $scope.getUserListsCtrl = function(user_id) {
             userListService.getUserLists(user_id).then(function(response) {
                 $scope.lists = response;
-                console.log($scope.lists)
             })
         }
-$scope.getUserListsCtrl(cur_user_id)
+        $scope.getUserListsCtrl(currentUser.user_id)
 
-    })
+      }) //end controller
 
 
 
@@ -32,5 +33,3 @@ $scope.getUserListsCtrl(cur_user_id)
             })
         }
     })
-
-
