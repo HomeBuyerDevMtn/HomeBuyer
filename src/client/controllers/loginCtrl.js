@@ -28,7 +28,8 @@ $scope.googleLogin = function(){
             id: res.data.id
           };
           $scope.googleLogin = function(currentUser) {
-            console.log(currentUser.id);            loginService.googleLogin(currentUser)
+            console.log(currentUser.id);            
+            loginService.googleLogin(currentUser)
               .then(function(response) {
                 if(response.user_id) {
                   $state.go('userList')
@@ -48,11 +49,21 @@ $scope.googleLogin = function(){
          $scope.details = 'got error';
        });
    }
+
+$scope.localLogin = (user) => {
+  loginService.localLogin(user).then((response) => {
+    console.log('Controller response', response)
+    localStorage.setItem('currentUser', JSON.stringify(response));
+    $state.go('userList');
+
+  })
+}
+
 }) // end loginCtrl
 
 .service('loginService', function($http) {
-  // let baseUrl = 'http://localhost:3000/';
-  let baseUrl = 'http://192.168.1.24:3000'
+  let baseUrl = 'http://localhost:3000/';
+  // let baseUrl = 'http://192.168.1.24:3000'
     this.googleLogin = function(currentUser) {
       return $http({
         method: 'POST',
@@ -65,6 +76,18 @@ $scope.googleLogin = function(){
         return response.data;
       })
 
+    }
+
+    this.localLogin = (user) => {
+      console.log('Service argument', user)
+      return $http({
+        method: "POST",
+        url: baseUrl + "auth/local/login",
+        data: user
+      }).then((response) => {
+        console.log('service response.data :', response.data)
+        return response.data
+      })
     }
 
 

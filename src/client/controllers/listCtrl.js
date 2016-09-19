@@ -2,7 +2,7 @@ angular.module('homeBuyer')
 
   .controller('listCtrl', function ($scope, $http, $ionicModal, $ionicSlideBoxDelegate, homeService, $location, $ionicSideMenuDelegate, listService, $stateParams, $ionicPopup) {
 
-
+console.log(homeService)
 //////////////////////////////////
 ////// list ctrl endpoints //////
 /////////////////////////////////
@@ -144,11 +144,12 @@ $scope.showAlert = function() {
 }) //end listCtrl
 
 .service('listService', function($http) {
-
+let baseUrl = 'http://localhost:3000/';
+// let baseUrl = 'http://192.168.1.24:3000';
 
     //get all homes by list
     this.getAllHomesByList = function(list_id) {
-      return $http.get("http://192.168.1.24:3000/lists/homes/" + list_id)
+      return $http.get(baseUrl + "lists/homes/" + list_id)
         .then(function(response) {
           console.log("in service get homes by list", response.data);
           return response.data;
@@ -157,7 +158,7 @@ $scope.showAlert = function() {
 
     //delete home
     this.deactivateHome = function(home_id) {
-      return $http.post("http://192.168.1.24:3000/lists/homes/deactivate/" + home_id)
+      return $http.post(baseUrl + "/lists/homes/deactivate/" + home_id)
         .then(function(response) {
           console.log("deleting from service", response.data);
           return response.data
@@ -166,7 +167,7 @@ $scope.showAlert = function() {
 
     //edit home
     this.saveEditedHome = function(home) {
-      return $http.put("http://192.168.1.24:3000/lists/homes/", home)
+      return $http.put(baseUrl + "/lists/homes/", home)
         .then(function(response) {
           console.log('saving edited home from service', response.data);
           return response.data
@@ -178,7 +179,7 @@ $scope.showAlert = function() {
       console.log(home);
       return $http({
         method: 'POST',
-        url: 'http://192.168.1.24:3000/lists/homes',
+        url: baseUrl + '/lists/homes',
         data: home
       })
     }
