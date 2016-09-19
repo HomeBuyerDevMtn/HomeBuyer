@@ -40,7 +40,7 @@ module.exports = {
     },
 
     googleLogin: (req, res, next) => {
-        console.log(req.body)
+        // console.log(req.body)
         //#1 check to see if the user is already in the database
         db.read_email_google([req.body.email], (error, response) => {
             if (error) {
@@ -92,6 +92,7 @@ module.exports = {
         })
     },
     localLogin: (req, res, next) => {
+        console.log('You\'re in localLogin and this is the request body', req.body)
         //Check to see if email exists as local user in the database
         db.read_user_local(req.body.email, (error, response) => {
             if (error) {
@@ -103,10 +104,11 @@ module.exports = {
             }
             //if it does exist check to see if they passed in the correct password
             else if (response.length > 0) {
+                console.log(response);
                 //we can now check to passed in password vs what was returned in read_user_local
                 bcrypt.compare(req.body.password, response[0].password, (err, BCresponse) => {
                     console.log(BCresponse)
-                    if (error) {
+                    if (err) {
                      res.json({
                          status: 500,
                          message: error,
@@ -114,6 +116,7 @@ module.exports = {
                      })
                  }
                 else if (BCresponse === true){
+                    console.log('you did it right')
                      let currentUser = new User(response[0].id, response[0].name, response[0].email, response[0].token, 1);
                      res.json(currentUser);
                  }
