@@ -36,8 +36,9 @@ module.exports = {
         });
     },
     readHomesByListId: function readHomesByListId(req, res, next) {
-        console.log('hey dan', req.params);
-        db.read_homes_by_list_id(req.params.list_id, function (error, response) {
+
+        // console.log('Your in readHomesByListId', req.params)
+        db.read_homes_by_list_id(Number(req.params.list_id), function (error, response) {
             if (error) {
                 res.json({
                     status: 500,
@@ -45,6 +46,7 @@ module.exports = {
                     method: 'readHomesByListId'
                 });
             } else if (response) {
+                // console.log('This is the response: ', response)
                 res.json(response);
             }
         });

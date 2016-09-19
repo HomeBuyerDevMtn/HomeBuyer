@@ -1,7 +1,8 @@
 <ion-view>
   <ion-header-bar class="bar-stable" id='header-bar'>
-    <button type="button" ng-click="toggleLeft()" class="button icon button-clear ion-navicon-round"></button>
+    <button id='nav-button' type="button" ng-click="toggleLeft()" class="button icon button-clear ion-navicon-round"></button>
     <h1 class="title">{{currentHome.nickname}}</h1>
+    <button type="button" ng-click="showEditHome()" class="button" style='background: transparent !important; color: black !important;'>Edit</button>
   </ion-header-bar>
 
   <ion-content>
@@ -10,9 +11,9 @@
       <div class='home-top-right'>
         <h1 id='house-score'>4.8</h1>
       </div>
-      <div class='home-top-right-background'>
+      <!-- <div class='home-top-right-background'>
         <h1 id='house-score'>4.8</h1>
-      </div>
+      </div> -->
       <div id='bottom-bar'>
         <p id='house-price'>${{currentHome.price}}</p>
         <p id='bed-bath-sqft'>{{currentHome.bedrooms}} beds - {{currentHome.bathrooms}} baths - {{currentHome.sq_feet}} sqft</p>
@@ -24,19 +25,26 @@
     </section>
     <img-slider-dir></img-slider-dir>
     <section class='home-info-section'>
+      <div id='address-div'>
+        <div id='house-address'>{{currentHome.address_1}},<br>
+            {{currentHome.city}}, {{currentHome.province}} {{currentHome.zip}} </div>
+          <a id='days-listed'>Days Listed: {{currentHome.days_listed}}</a>
+      </div>
 
-      <div id='house-address'>{{currentHome.address_1}},<br>
-          {{currentHome.city}}, {{currentHome.province}} {{currentHome.zip}} </div>
-      <i class="icon ion-edit" id='edit' ng-click='showEditHome()'></i>
 <!-- <img id='map' src='./img/google.jpg'/>  -->
       <p id='house-description'>{{currentHome.description}}</p>
     </section>
+      </ion-content>
     <section class='rate-home-button-section'>
-      <button id='rate-home-button' class='button button-block button-energized' ui-sref='ratings({ user_id: currentUser.user_id, home_id: currentHome.id})'> Rate this home! </button>
+
+      <button id='rate-home-button'  ui-sref='ratings({ user_id: currentUser.user_id, home_id: currentHome.id})' > Rate home! </button>
+
+      <!-- <button id='rate-home-button' class='button button-block button-energized' ui-sref='ratings({ user_id: currentUser.user_id, home_id: currentHome.id})'> Rate this home! </button> -->
+
       <!-- <i class="ion-ios-trash" id='trash-icon'></i> -->
 
     </section>
-  </ion-content>
+
 
 
   <i class="ion-ios-camera" id='camera-icon-button' style='font-size: 50px'></i>

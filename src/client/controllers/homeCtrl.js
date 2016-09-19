@@ -116,6 +116,7 @@ angular.module('homeBuyer')
     $ionicSideMenuDelegate.toggleLeft()
   };
 
+
   //confirm alert
   $scope.showAlert = function() {
     var alertPopup = $ionicPopup.alert({
@@ -128,8 +129,8 @@ angular.module('homeBuyer')
 
 
 .service('homeviewService', function($http) {
-let baseUrl = 'http://localhost:3000/';
-// let baseUrl = 'http://192.168.1.24:3000/'
+// let baseUrl = 'http://localhost:3000/';
+let baseUrl = 'http://192.168.1.24:3000/'
 
 this.getHomeById = function(home_id) {
   return $http({

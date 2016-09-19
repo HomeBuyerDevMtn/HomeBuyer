@@ -1,0 +1,17 @@
+<ion-modal-view id='add-priority-modal'>
+<div id='priority-modal-div'>
+
+  <div id='priority-score-div'>
+      <input  id="priority-input" type="text" name="name" value="50" placeholder="priority name" ng-model="priority_name">
+      <p>{{priority_value}}</p>
+  </div>
+
+
+  <div id='priorities-slider' class="item range range-positive">
+    <input type="range" name="volume" min="0" max="100" value="50" ng-model=priority_value>
+  </div>
+
+  <button id='save-new-priority-slider' type="button" name="button" class="button button-calm" ng-click="addPriority(priority_name, priority_value) ">Add</button>
+
+</div>
+</ion-modal-view>
