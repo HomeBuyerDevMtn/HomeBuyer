@@ -9,10 +9,10 @@
 .secondary-text-color  { color: #757575; }
 .divider-color         { border-color: #BDBDBD; }
 
-// button {
-//   background: #4CAF50 !important;
-//   color: white !important;
-// }
+button {
+  background: #1976D2 !important;
+  color: white !important;
+}
 input::-webkit-input-placeholder {
    color: #757575;
 }
@@ -160,11 +160,12 @@ textarea::-webkit-input-placeholder {
   position: relative;
   height: 100%;
   width: 48%;
-  background: white;
+  background: white !important;
   border: 1px solid grey;
   border-radius: 5px;
   float: left;
-  margin-right: 1%
+  margin-right: 1%;
+  color: black !important;
 }
 
 .add-home-content {
@@ -350,11 +351,27 @@ textarea::-webkit-input-placeholder {
   margin: 0;
 }
 
+#address-div {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
 #house-address {
   margin-bottom: 20px;
   line-height: 1.5em;
   color: black;
-  text-align: center;
+  // text-align: center;
+  font-family: sans-serif;
+  width: 60%;
+  font-size: 2.5vh;
+}
+
+#days-listed {
+  width: 40%;
+  color: black;
+  text-align: right;
+  font-size: 2.5vh;
 }
 
 #house-description {
@@ -371,32 +388,32 @@ textarea::-webkit-input-placeholder {
   position: relative;
 }
 
-// .rate-home-button-section {
-//   height: 11vh;
-// }
+.rate-home-button-section {
+  height: 50px;
+  // background: #1976D2;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
 
 #rate-home-button {
-  width: 30%;
   margin: auto;
-  margin-top: 20px;
-  background: white;
-  border-radius: 25px;
-  // background: white;
-  // border-top: 1px solid #303F9F;
-  // border-bottom: 1px solid #303F9F;
-  // border: 3px solid #303F9F;
-  color: #303F9F;
+  background: #1976D2;
+  color: white;
   font-weight: bold;
-  font-size: 2vh;
-  // color: white;
-  // border: 4px solid #FFC900;
-  // position: fixed;
-  // bottom: 10px;
-  // left: 10px;
+  font-size: 2.5vh;
+  height: 30px;
+  border-radius: 25px;
+  border: none;
+  position: fixed;
+  bottom: 10px;
+  left: 10px;
 }
 
 #rate-home-button:focus {
-  background-color: #303F9F;
+  background-color: white;
   color: white;
 
 }
@@ -430,6 +447,7 @@ textarea::-webkit-input-placeholder {
   position: absolute;
   right: 10px;
   top: 20px;
+  font-size: 2vh;
 }
 
 #list-pic {
@@ -544,31 +562,39 @@ textarea::-webkit-input-placeholder {
 
 #side-menu {
   margin: 0;
-  padding: 0;
+  padding-top: 50px;
+  background: #1976D2;
 }
 
 #menu-list {
   padding-bottom: 0px;
   margin: 0;
-  margin-top: 100px;
+  // margin-top: 100px;
+  background: #1976D2;
+  border: none;
 }
 
 #menu-item {
   height: 50px;
   padding: 0;
-  padding-top: 15px;
   margin: 0;
-  border: none;
+  border: none !important;
   border-bottom: 1px solid #BDBDBD;
+  background: #1976D2;
 }
 
 #menu-item .item-content{
   padding: 0;
-  height: 50px;
+  height: 100%;
   border: none;
-  color: black;
   font-size: 20px;
   margin-left: 20px;
+  background: #1976D2;
+  color: white;
+}
+
+#menu-item .item .item-complex {
+  border: none;
 }
 
 #priorities-list-item {
@@ -597,12 +623,13 @@ textarea::-webkit-input-placeholder {
 }
 
 .rating-title {
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 18px;
+  margin-right: 18px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
+  height: 25px;
   // width: 85%;
 }
 
@@ -610,7 +637,6 @@ textarea::-webkit-input-placeholder {
   font-size: 3vh;
   color: black;
   height: 50px;
-  padding-top: 15px;
 }
 
 #priorities-content {
@@ -620,7 +646,8 @@ textarea::-webkit-input-placeholder {
 
 #priority-input {
   border: 1px solid #BDBDBD;
-  width: 50vw;
+  width: 75%;
+  height: 50px !important;
   margin: 0;
   border-radius: 5px;
   height: 5vh;
@@ -659,7 +686,7 @@ textarea::-webkit-input-placeholder {
 
 #priorities-button {
   background: white;
-  margin: auto;
+  margin-bottom: 40px;
   border-radius: 0px;
   // border-top: 1px solid #BDBDBD;
   // border-bottom: 1px solid #BDBDBD;
@@ -670,9 +697,12 @@ textarea::-webkit-input-placeholder {
 }
 
 #add-new-home {
-  padding-top: 30px;
+  position: fixed;
+  bottom: 0;
+  padding-top: 10px;
+  padding-bottom: 10px;
   background: white;
-  width: 50%;
+  width: 100%;
   margin: auto;
   border-radius: 0px;
   // border-top: 1px solid #BDBDBD;
@@ -776,4 +806,84 @@ border-radius: 25px;
   margin-bottom: 25px;
   padding-top: 20px;
   text-align: center;
+}
+
+#landingPage {
+  // background: #303F9F;
+  background-image: url("./img/house.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  // background: black;
+}
+
+#landing-content {
+  display: flex;
+  justify-content: center;
+  // align-items: center;
+  text-align: center;
+  background: #1976D2;
+  // opacity: .3
+}
+
+#landing-content a {
+    color: black;
+    font-size: 20px;
+}
+
+
+#home-buyer-logo {
+  color: white;
+  width: 80vw;
+  margin-top: 50%;
+  border-radius: 15px;
+  // text-shadow: 0.3px 1px black;
+  margin-bottom: 40px;
+  font-size: 50px;
+}
+
+// .list a.item
+// {
+// border-top: 0px;
+// border-left: 0px;
+// border-right: 0px;
+// border-bottom: 0px;
+// }
+
+#add-list-input {
+  border: 1px solid #DDDDDD;
+  width: 55%;
+  height: 50px;
+  padding-left: 15px;
+  border-radius: 5px;
+}
+
+#add-list-div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  padding: 10px;
+  width: 100%;
+  background: #1976D2;
+}
+
+#add-list-div button {
+  width: 35%;
+  background: blue;
+  height: 50px;
+  border: none;
+  border-radius: 25px;
+  color: white;
+}
+
+#nav-button {
+  background: none !important;
+  color: black !important;
+}
+
+#priority-value {
+
 }

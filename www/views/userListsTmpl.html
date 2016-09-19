@@ -1,0 +1,17 @@
+<ion-view>
+  <ion-header-bar class="bar-stable" id='header-bar'>
+    <button id='nav-button' type="button" ng-click="toggleLeft()" class="button icon button-clear ion-navicon-round"></button>
+    <h1 class="title">Your lists</h1>
+  </ion-header-bar>
+  <ion-content>
+<ion-list>
+  <ion-item ng-repeat="list in lists" ui-sref='list({list_id:list.id})'>
+    Hello, {{list}}!
+  </ion-item>
+</ion-list>
+</ion-content>
+<div id='add-list-div'>
+    <input  id='add-list-input' placeholder="List name"type='text'></input>
+    <button style='font-size: 18px; width: 50%;'><i id='add-priority-plus' class='ion-plus'></i>&nbspAdd new list</button>
+</div>
+</ion-view>

@@ -26,7 +26,7 @@
     -->
 
     <!-- ionic/angularjs js -->
-    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <!--<script src="lib/ionic/js/ionic.bundle.js"></script>-->
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="cordova.js"></script>
@@ -34,7 +34,6 @@
     <!-- your app's js -->
     <script src="js/bundle.js"></script>
     <script src="lib/ngCordova/dist/ng-cordova.js"></script>
-    <link href="bower_components/ionic-nifty-modal/nifty.modal.css" rel="stylesheet">
   </head>
   <body ng-app="homeBuyer">
 
@@ -59,19 +58,23 @@
         <ion-side-menu side="left" id='side-menu'>
 
           <ion-list id='menu-list'>
-            <ion-item id='menu-item' menu-close ui-sref="myHome">Home</ion-item>
-          </ion-list id='menu-list'>
-
-          <ion-list id='menu-list'>
-            <ion-item id='menu-item' menu-close ui-sref="list">Lists</ion-item>
+            <ion-item id='menu-item' menu-close ui-sref="myHome"><i class='ion-home'></i>&nbsp&nbspHome</ion-item>
           </ion-list>
 
           <ion-list id='menu-list'>
-            <ion-item id='menu-item' menu-close ui-sref="priorities">Priorities</ion-item>
+            <ion-item id='menu-item' menu-close ui-sref="list"><i class='ion-home'></i>&nbsp&nbspHome List</ion-item>
           </ion-list>
 
           <ion-list id='menu-list'>
-            <ion-item id='menu-item' menu-close ui-sref="login">Logout</ion-item>
+            <ion-item id='menu-item' menu-close ui-sref="userList"><i class='ion-home'></i>&nbsp&nbspList of Lists</ion-item>
+          </ion-list>
+
+          <ion-list id='menu-list'>
+            <ion-item id='menu-item' menu-close ui-sref="priorities"><i class='ion-home'></i>&nbsp&nbspPriorities</ion-item>
+          </ion-list>
+
+          <ion-list id='menu-list'>
+            <ion-item id='menu-item' menu-close ui-sref="login"><i class='ion-home'></i>&nbsp&nbspLogout</ion-item>
           </ion-list>
 
         </ion-side-menu>

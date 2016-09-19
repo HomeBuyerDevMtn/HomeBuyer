@@ -1,27 +1,27 @@
 <ion-view>
   <ion-header-bar class="bar-stable" id='header-bar'>
-    <button type="button" ng-click="toggleLeft()" class="button icon button-clear ion-navicon-round"></button>
+    <button id='nav-button' type="button" ng-click="toggleLeft()" class="button icon button-clear ion-navicon-round"></button>
     <h1 class="title">Utah Valley Home List</h1>
   </ion-header-bar>
 <ion-content>
   <ion-list class='list'>
-  <ion-item class='item' id='list-card' ng-repeat="image in allImages" ui-sref='myHome' show-delete="shouldShowDelete"
+  <ion-item class='item' id='list-card' ng-repeat="home in homesInList" ui-sref='myHome' show-delete="shouldShowDelete"
           show-reorder="shouldShowReorder"
           can-swipe="listCanSwipe">
 
-        <img id='list-pic'  ng-src="{{image.src}}"/>
+        <img id='list-pic'  ng-src="{{home.url}}"/>
         <div id='list-item-info'>
-            <h3 id='list-price'>${{image.price}}</h3>
+            <h3 id='list-price'>${{home.price}}</h3>
             <div id='list-address-div'>
-                <p>Provo, UT</p>
+                <p>{{home.city}}, {{home.province}}</p>
             </div>
             <div id='score-box'>
-              <h2 id='list-score'>{{image.score}}</h2>
+              <h2 id='list-score'>{{home.score}}</h2>
             </div>
 
         </div>
             <h4  id='list-address'>Provo, UT</h4>
-            <span id='list-bed-bath-sqft'>{{image.bed}} beds - {{image.bath}} baths - {{image.sqft}} sqft</span>
+            <span id='list-bed-bath-sqft'>{{home.bedrooms}} beds - {{home.bathrooms}} baths - {{home.sq_feet}} sqft</span>
 
 
         <ion-option-button class="button-stable"
@@ -29,18 +29,13 @@
           Edit
         </ion-option-button>
         <ion-option-button class="button-assertive"
-                           ng-click="delete(item)">
+                           ng-click="deactivateHome(home.id, $index)">
           Delete
         </ion-option-button>
   </ion-item>
 
 </ion-list>
-
-<button id='add-new-home' class="button button-block button-energized" type="button"  name="button" ng-click='showAddHome()'><i id='add-priority-plus' class='ion-plus'></i>&nbspAdd new home</button>
-
 </ion-content>
-
-
-
+<button id='add-new-home' class="button button-block button-energized" type="button"  name="button" ng-click='showAddHome()'><i id='add-priority-plus' class='ion-plus'></i>&nbspAdd new home</button>
 <!-- <i id='add-home-to-list-button' class='ion-plus-circled' ng-click='showAddHome()'></i> -->
 </ion-view>

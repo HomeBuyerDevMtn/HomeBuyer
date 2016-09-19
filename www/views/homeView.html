@@ -1,8 +1,8 @@
 <ion-view>
   <ion-header-bar class="bar-stable" id='header-bar' style='background: white'>
-    <button type="button" ng-click="toggleLeft()" class="button icon button-clear ion-navicon-round"></button>
+    <button id='nav-button' type="button" ng-click="toggleLeft()" class="button icon button-clear ion-navicon-round"></button>
     <h1 class="title">Nickname</h1>
-    <button type="button" ng-click="showEditHome()" class="button">Edit</button>
+    <button type="button" ng-click="showEditHome()" class="button" style='background: transparent !important; color: black !important;'>Edit</button>
   </ion-header-bar>
 
   <ion-content>
@@ -25,19 +25,22 @@
     </section>
     <img-slider-dir></img-slider-dir>
     <section class='home-info-section'>
-
-      <div id='house-address'>491 S Freedom Blvd,<br>
-          Provo, UT 84601 </div>
-      <i class="icon ion-edit" id='edit' ng-click='showEditHome()'></i>
+      <div id='address-div'>
+          <div id='house-address'>491 S Freedom Blvd,<br>
+              Provo, UT 84601 </div>
+          <a id='days-listed'>Days Listed: 24</a>
+      </div>
+      <!-- <i class="icon ion-edit" id='edit' ng-click='showEditHome()'></i> -->
 <!-- <img id='map' src='./img/google.jpg'/>  -->
       <p id='house-description'>Fixer upper. Partially finished attic space not yet included in the total square footage. Newer kitchen, new flooring in kitchen and bath.  Loads of possibilities for this one.</p>
     </section>
+      </ion-content>
     <section class='rate-home-button-section'>
-      <button id='rate-home-button' class='button button-block button-energized' ng-click='showPriorities()'> Rate home! </button>
+      <button id='rate-home-button'  ng-click='showPriorities()'> Rate home! </button>
       <!-- <i class="ion-ios-trash" id='trash-icon'></i> -->
 
     </section>
-  </ion-content>
+
 
 
   <i class="ion-ios-camera" id='camera-icon-button' style='font-size: 50px'></i>

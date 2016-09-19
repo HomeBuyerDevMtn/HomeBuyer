@@ -39,7 +39,28 @@ $urlRouterProvider.otherwise('/login');
  .state('list', {
    url: '/list',
    templateUrl: './views/listView.html',
-   controller: 'listCtrl'
+   controller: 'listCtrl',
+   params: {
+     list_id: null
+   }
+ })
+
+ .state('userList', {
+   url: '/userList',
+   templateUrl: './views/userListsTmpl.html',
+   controller: 'userListCtrl'
+
+
+ })
+
+ .state('landingPage',{
+   url: '/HomeBuyer',
+   templateUrl: './views/landingPage.html'
+ })
+
+ .state('signUp',{
+   url: '/sign_up',
+   templateUrl: './views/sign-up.html'
  })
 
 });

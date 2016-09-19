@@ -2,37 +2,37 @@
 
 <ion-view>
   <ion-header-bar class="bar-stable" id='header-bar' >
-    <button type="button" ng-click="toggleLeft()" class="button icon button-clear ion-navicon-round"></button>
+    <button id='nav-button' type="button" ng-click="toggleLeft()" class="button icon button-clear ion-navicon-round"></button>
     <h1 class="title">Priorities</h1>
-    <button type="button" ng-click="showSliders = !showSliders" class="button">Edit</button>
   </ion-header-bar>
   <ion-content id='priorities-content'>
+    <button id='priorities-button' type="button" class="button button-block button-energized" name="button" ng-click="showAddPriority = !showAddPriority"><i id='add-priority-plus' class='ion-plus'></i>&nbspAdd a priority</button>
+
+    <div id='add-priority-div' ng-show='showAddPriority'>
+        <div id='priority-score-div'>
+            <input  id="priority-input" type="text" name="name" value="50" placeholder="priority name" ng-model="priority_name">
+            <p id='priority-value'>{{priority_value}}</p>
+        </div>
+        <div id='priorities-slider' class="item range range-positive">
+          <input type="range" name="volume" min="0" max="100" value="50" ng-model=priority_value>
+        </div>
+
+        <button id='save-new-priority-slider' type="button" name="button"  ng-click="addPriority(priority_name, priority_value) ">Save</button>
+    </div>
+
   <ion-list id='poop' show-delete="false" can-swipe='true' class="list ratings-list" ng-repeat="priority in defaultPriorities" >
 
     <ion-item id='priorities-list-item'>
           <div class="rating-title">
             <p>{{priority.priority_description}}</p> <p>{{priority.priority_value}}</p>
           </div>
-          <div class="item range range-positive" id='priorities-slider' ng-show='showSliders'>
+          <div class="item range range-positive" id='priorities-slider' >
             <input id='priorities-actual-slider' type="range" name="volume" min="0" max="100" value="50" ng-model=priority.priority_value >
           </div>
       <ion-option-button class="button-assertive ion ion-trash-a" ng-click="deletePriority(priority.id, $index)"></ion-option-button>
     </ion-item>
 
   </ion-list>
-  <button id='priorities-button' type="button" class="button button-block button-energized" name="button" ng-click="showAddPriority = !showAddPriority"><i id='add-priority-plus' class='ion-plus'></i>&nbspAdd a priority</button>
-  <div id='add-priority-div' ng-show='showAddPriority'>
-      <div id='priority-score-div'>
-          <input  id="priority-input" type="text" name="name" value="50" placeholder="priority name" ng-model="priority_name">
-          <p>{{priority_value}}</p>
-      </div>
-      <div id='priorities-slider' class="item range range-positive">
-        <input type="range" name="volume" min="0" max="100" value="50" ng-model=priority_value>
-      </div>
-
-      <button id='save-new-priority-slider' type="button" name="button"  ng-click="addPriority(priority_name, priority_value) ">Save</button>
-  </div>
-
 
 <button id='save-priorities-button' class="button button-energized button-block" ng-click="setPriorities()">
   Save priorities

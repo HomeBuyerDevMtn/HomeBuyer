@@ -3,9 +3,10 @@ angular.module('homeBuyer').controller('loginCtrl', function($scope, $cordovaOau
 
 
 $scope.googleLogin = function(){
-
+  console.log('suh dude');
+  
      $cordovaOauth.google("766659347642-s0ls1h1po2h618ugeb02vb02i9thf5tv.apps.googleusercontent.com", ["email","profile"]).then(function(result) {
-
+       console.log('hey dan')
          $scope.showProfile = false;
          $http.get("https://www.googleapis.com/plus/v1/people/me", {params: {access_token: result.access_token }})
          .then(function(res) {
@@ -14,7 +15,7 @@ $scope.googleLogin = function(){
           //   //    console.log(res);
           //   //  })
           //  })
-
+          console.log(res);
           $scope.showProfile = true;
           $scope.details = res.data;
           $scope.token = res;
@@ -27,7 +28,7 @@ $scope.googleLogin = function(){
             email: res.data.emails[0].value,
             id: res.data.id
           };
-
+          console.log(JSON.stringify(currentUser))
           $scope.googleLogin = function(currentUser) {
             console.log("in login ctrl");
             loginService.googleLogin(currentUser)
@@ -51,11 +52,13 @@ $scope.googleLogin = function(){
 }) // end loginCtrl
 
 .service('loginService', function($http) {
+  let baseUrl = 'http://localhost:3000/';
+  // let baseUrl = 'http://172.19.245.68:3000/'
     this.googleLogin = function(currentUser) {
       return $http({
         method: 'POST',
         //change IP address to the server you are working on
-        url: 'http://172.19.245.68:3000/auth/google',
+        url: baseUrl + 'auth/google',
         data: currentUser
       }).then(function(response) {
         // console.log("this is a response from service", JSON.stringify(response.data));
