@@ -5,7 +5,7 @@
   </ion-header-bar>
 <ion-content>
   <ion-list class='list'>
-  <ion-item class='item' id='list-card' ng-repeat="home in homesInList" ui-sref='myHome' show-delete="shouldShowDelete"
+  <ion-item class='item' id='list-card' ng-repeat="home in homesInList" ui-sref='myHome({home_id: home.id})' show-delete="shouldShowDelete"
           show-reorder="shouldShowReorder"
           can-swipe="listCanSwipe">
 
@@ -25,7 +25,7 @@
 
 
         <ion-option-button class="button-stable"
-                           ng-click='showEditHome()' >
+                           ng-click='showEditHome($index)' >
           Edit
         </ion-option-button>
         <ion-option-button class="button-assertive"
@@ -36,6 +36,8 @@
 
 </ion-list>
 </ion-content>
-<button id='add-new-home' class="button button-block button-energized" type="button"  name="button" ng-click='showAddHome()'><i id='add-priority-plus' class='ion-plus'></i>&nbspAdd new home</button>
+
+<button id='add-new-home' class="button button-block button-energized" type="button"  name="button" ng-click='showAddHome(list_id)'><i id='add-priority-plus' class='ion-plus'></i>&nbspAdd new home</button>
 <!-- <i id='add-home-to-list-button' class='ion-plus-circled' ng-click='showAddHome()'></i> -->
+
 </ion-view>

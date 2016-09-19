@@ -17,33 +17,36 @@
         <h5> Add Picture </h5> -->
     </div>
       <div class='add-house-top-right'>
-          <input id="house-input" type='text' placeholder="House Nickname" ng-model='home.nickname'>
-          <input id="house-input" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Price'" type='number' placeholder="Price" ng-model='home.price'>
-          <input id="house-input-left" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Sq. Ft'" type='number' placeholder="Sq. Ft" ng-model='home.sqFootage'>
-          <input id="house-input-right" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Year'" type='number' placeholder="Year" ng-model='home.year'>
+          <input id="house-input" type='text' placeholder="{{homeToEdit.nickname}}" ng-model='homeToEdit.nickname'>
+          <input id="house-input" type='number' placeholder="${{homeToEdit.price}}" ng-model='homeToEdit.price'>
+
+          <input id="house-input-left" type='number' placeholder="{{homeToEdit.sq_feet}}" ng-model='homeToEdit.sqFootage'>
+          <input id="house-input-right" type='number' placeholder="{{homeToEdit.year_build}}" ng-model='homeToEdit.year'>
       </div>
+
+
   </section>
 
   <section class='add-house-middle-section'>
-      <textarea id='house-description-textarea' onfocus="this.placeholder = ''" onblur="this.placeholder = 'Description of house'" placeholder="Desciption of house" ng-model='home.description'></textarea>
+      <textarea id='house-description-textarea'  ng-model="homeToEdit.description"> {{homeToEdit.description}} </textarea>
 
       <div class='bedrooms-baths'>
-        <input id="house-input-third" onfocus="this.placeholder = ''" onblur="this.placeholder = '# Bathrooms'" type='number' placeholder="# Bathrooms" ng-model='home.bathrooms'>
-        <input id="house-input-third" onfocus="this.placeholder = ''" onblur="this.placeholder = '# Bedrooms'" type='number' placeholder="# Bedrooms" ng-model='home.bedrooms'>
-        <input id="house-input-third" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Days Listed'" type='number' placeholder="Days Listed" ng-model='home.daysListed'>
+        <input id="house-input-third" type='number' placeholder="{{homeToEdit.bathrooms}}"  ng-model='homeToEdit.bathrooms'>
+        <input id="house-input-third" type='number' placeholder="{{homeToEdit.bedrooms}}" ng-model='homeToEdit.bedrooms'>
+        <input id="house-input-third" type='number' placeholder="{{homeToEdit.days_listed}}" ng-model='homeToEdit.days_listed'>
       </div>
   </section>
 
   <section class='add-house-bottom-section'>
 
         <div id='address-label'>Address</div>
-          <input id="house-input-bottom" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Street Address'" type='text' placeholder="Street Address" ng-model='home.address1'>
-          <input id="house-input-left-bottom" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Apt/Unit #'" type='text' placeholder="Apt/Unit #" ng-model='home.address2'>
-          <input id="house-input-right-bottom" onfocus="this.placeholder = ''" onblur="this.placeholder = 'City'" type='text' placeholder="City" ng-model='home.city'>
-          <input id="house-input-right-bottom" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Zip'" type='text' placeholder="State/Province" ng-model='home.state'>
-          <input id="house-input-left-bottom" onfocus="this.placeholder = ''" onblur="this.placeholder = 'State/Province'" type='number' placeholder="Zip" ng-model='home.zip'>
+          <input id="house-input-bottom" type='text' placeholder="{{homeToEdit.address_1}}" ng-model='homeToEdit.address1'>
+          <input id="house-input-left-bottom" type='text' placeholder="{{homeToEdit.address_2}}" ng-model='homeToEdit.address2'>
+          <input id="house-input-right-bottom" type='text' placeholder="{{homeToEdit.city}}" ng-model='homeToEdit.city'>
+          <input id="house-input-right-bottom" type='text' placeholder="{{homeToEdit.province}}" ng-model='homeToEdit.province'>
+          <input id="house-input-left-bottom"  type='number' placeholder="{{homeToEdit.zip}}" ng-model='homeToEdit.zip'>
 
-      <button class="button button-block button-energized" id='add-home-button' ng-click='updateHome(home)'>Update</button>
+      <button class="button button-block button-energized" id='add-home-button' ng-click='saveEditedHome(); showAlert()'>Update</button>
  </section>
   </ion-content>
 </ion-view>

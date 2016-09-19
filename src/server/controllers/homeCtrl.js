@@ -10,11 +10,13 @@ const db = app.get('db');
 module.exports = {
 
     createHome: (req, res, next) => {
+        console.log(req.body);
         //create a home with db.create_home
         db.create_home([req.body.list_id, req.body.nickname, req.body.price, req.body.address_1, req.body.address_2, req.body.city, req.body.zip, req.body.province, req.body.bathrooms, req.body.bedrooms, req.body.sq_feet, req.body.year_build, req.body.description, req.body.days_listed],(CHerror,CHresponse) => {
             // console.log('CHresponse[0].id', CHresponse[0].id)
-            console.log('CHerror', CHerror)
+            
              if (CHerror) {
+                console.log('CHerror', CHerror)
                 res.json({
                     status: 500,
                     message: CHerror,
@@ -22,10 +24,11 @@ module.exports = {
                 })
             }
             else if (CHresponse){
+                console.log('CHresponse', CHresponse);
                 db.read_priorities([req.body.list_id, req.body.user_id], (RPerror, RPresponse) =>{
 
-                    console.log('RPresponse', RPresponse);
                     if (RPerror) {
+                        console.log('RPerror', RPerror);
                         res.json({
                             status: 500,
                             message: RPerror,
@@ -33,6 +36,7 @@ module.exports = {
                         })
                     }
                     else if (RPresponse) {
+                        console.log('RPresponse', RPresponse);
                         let ratings = [];
                         for (var i = 0; i < RPresponse.length; i++) {
                             let singleRating = new Rating(RPresponse[i].priority_description, 50, RPresponse[i].id);
@@ -44,8 +48,9 @@ module.exports = {
                             console.log(CHresponse[0].id,req.body.user_id, ratings[i].priority_id, ratings[i].rating_description, ratings[i].rating_value);
 
                             db.create_ratings([Number(CHresponse[0].id), Number(req.body.user_id), Number(ratings[i].priority_id), ratings[i].rating_description, Number(ratings[i].rating_value)], (CRerror, CRresponse) => {
-                                console.log('CRerror', CRerror)
+                                
                                 if (CRerror) {
+                                    console.log('CRerror', CRerror)
                                     res.json({
                                         status: 500,
                                         message: CRerror,
@@ -68,6 +73,7 @@ module.exports = {
         })
     },
     readHomesByHomeId: (req, res, next) => {
+        console.log('You\'re in readHomesByHomeId: ', req.params)
         db.read_homes_by_home_id(req.params.home_id, (error, response) => {
             if (error) {
                 res.json({
@@ -77,6 +83,7 @@ module.exports = {
                 })
             }
             else if (response) {
+                console.log('This is the response', response);
                 res.json(response);
             }
         })
@@ -101,8 +108,7 @@ module.exports = {
 },
     editHome: (req, res, next) => {
         console.log(req.body);
-        for(var i = 0; i < req.body.homes.length; i++) {
-          db.update_home([req.body.homes[i].nickname, req.body.homes[i].price, req.body.homes[i].address_1, req.body.homes[i].address_2, req.body.homes[i].city, req.body.homes[i].zip, req.body.homes[i].province, req.body.homes[i].bathrooms, req.body.homes[i].bedrooms, req.body.homes[i].sq_feet, req.body.homes[i].year_build, req.body.homes[i].description, req.body.homes[i].days_listed], (error,response) => {
+          db.update_home([req.body.nickname, req.body.price, req.body.address_1, req.body.address_2, req.body.city, req.body.zip, req.body.province, req.body.bathrooms, req.body.bedrooms, req.body.sq_feet, req.body.year_build, req.body.description, req.body.days_listed, req.body.id], (error,response) => {
                if (error) {
                   res.json({
                       status: 500,
@@ -120,6 +126,6 @@ module.exports = {
                 })
             }
         })
-    }
+    
 }
 }

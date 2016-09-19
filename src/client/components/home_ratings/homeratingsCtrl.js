@@ -1,14 +1,12 @@
 angular.module('homeBuyer')
-  .controller('ratingsCtrl', function($scope, ratingsService, prioritiesService) {
+  .controller('ratingsCtrl', function($scope, ratingsService, prioritiesService, $stateParams, $ionicSideMenuDelegate, $ionicSlideBoxDelegate) {
 
-    //  var currentUser = JSON.parse(localStorage.getItem('localUser'));
-    //  var userid = currentUser.user_id;
+      //current user information
+      var currentUser = JSON.parse(localStorage.getItem('localUser'));
+      var home_id = $stateParams.home_id;
+      var user_id = currentUser.user_id;
 
-
-      var home_id = 1;
-      var user_id = 1;
-      var list_id = 1;
-
+//get ratings by home and user id
 $scope.getRatings = (home_id, user_id) => {
   console.log(home_id, user_id)
   ratingsService.getRatings(home_id, user_id).then((response) => {
@@ -17,6 +15,7 @@ $scope.getRatings = (home_id, user_id) => {
 }
 $scope.getRatings(home_id, user_id);
 
+//edit ratings
 $scope.editRatings = (myRatings) => {
   console.log('ctrl myRatings', myRatings);
   let ratings = {ratings:[]};
@@ -29,6 +28,14 @@ $scope.editRatings = (myRatings) => {
   })
 }
 
+//ionic side menu slide left
+ $scope.shouldShowDelete = false;
+ $scope.shouldShowReorder = false;
+ $scope.listCanSwipe = true;
+
+ $scope.toggleLeft = function() {
+   $ionicSideMenuDelegate.toggleLeft()
+ };
 
     }) //end ratingsCtrl
 
@@ -42,7 +49,7 @@ $scope.editRatings = (myRatings) => {
       let baseUrl = 'http://192.168.1.24:3000'
 
 
-      console.log('from service', newRatings);
+      // console.log('from service', newRatings);
 
 
 
@@ -55,7 +62,7 @@ $scope.editRatings = (myRatings) => {
           });
       };
 
-
+      //edit ratings
       this.editRatings = (ratings) => {
         console.log('hey dan', ratings)
         return $http({

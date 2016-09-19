@@ -5,13 +5,16 @@
   </ion-header-bar>
   <ion-content>
 <ion-list>
-  <ion-item ng-repeat="list in lists" ui-sref='list({list_id:list.id})'>
-    Hello, {{list}}!
+  <ion-item id='list-of-lists-item' ng-repeat="list in lists" ui-sref='list({list_id: list.id})'>
+    {{list.name}}
+    <i id='home-icon' class='ion-home'> 3</i>
   </ion-item>
 </ion-list>
 </ion-content>
+
 <div id='add-list-div'>
-    <input  id='add-list-input' placeholder="List name"type='text'></input>
-    <button style='font-size: 18px; width: 50%;'><i id='add-priority-plus' class='ion-plus'></i>&nbspAdd new list</button>
+    <input  id='add-list-input' placeholder="List name"type='text' ng-model='listName'></input>
+    <button style='font-size: 18px; width: 50%;' ng-click='addNewList(listName)'><i id='add-priority-plus' class='ion-plus'></i>&nbspAdd new list</button>
 </div>
+
 </ion-view>

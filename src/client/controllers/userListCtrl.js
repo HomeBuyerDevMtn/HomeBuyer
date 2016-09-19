@@ -1,14 +1,18 @@
 angular.module('homeBuyer')
 
+
     .controller('userListCtrl', function($scope, userListService, $ionicSideMenuDelegate){
-let cur_user_id = 1;
+
+      let currentUser = JSON.parse(localStorage.getItem("currentUser"));
+      console.log(currentUser);
+
 
         $scope.getUserListsCtrl = function(user_id) {
             userListService.getUserLists(user_id).then(function(response) {
                 $scope.lists = response;
-                console.log($scope.lists)
             })
         }
+
 
         $scope.showEditHome = function() {
           $scope.showModal('./views/editHome.html');
@@ -34,9 +38,20 @@ let cur_user_id = 1;
           $ionicSideMenuDelegate.toggleLeft()
         };
 
-$scope.getUserListsCtrl(cur_user_id)
 
-    })
+        $scope.getUserListsCtrl(currentUser.user_id);
+
+        $scope.addNewList = function(list_name) {
+            console.log(list_name);
+            let newListObj = {
+              list_name: list_name,
+              user_id: currentUser.user_id
+            }
+            userListService.addNewList(newListObj).then(function(response) {
+                $scope.getUserListsCtrl(currentUser.user_id);
+            })
+        }
+      }) //end controller
 
 
 
@@ -47,14 +62,25 @@ $scope.getUserListsCtrl(cur_user_id)
 
 
     .service('userListService', function($http) { //for some reason ES6 broke this
-        let baseUrl = 'http://localhost:3000/';
-        // let baseUrl = 'http://172.19.245.68:3000/'
+        // let baseUrl = 'http://localhost:3000/';
+        let baseUrl = 'http://192.168.1.24:3000/'
         this.getUserLists = (user_id) => {
             return $http({
                 method: 'GET',
                 url: baseUrl + 'lists/' + user_id
             }).then((response) => {
                 return response.data;
+            })
+        }
+
+        this.addNewList = (newListObj) => {
+          console.log(newListObj);
+            return $http({
+                method: 'POST',
+                url: baseUrl + 'lists/',
+                data: newListObj
+            }).then((response) => {
+              return response.data;
             })
         }
     })

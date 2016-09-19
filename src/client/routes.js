@@ -21,7 +21,11 @@ $urlRouterProvider.otherwise('/login');
     url: '/ratings',
     cache: false,
     templateUrl: './views/homeratingsTmpl.html',
-    controller: 'ratingsCtrl'
+    controller: 'ratingsCtrl',
+    params: {
+      user_id: null,
+      home_id: null
+    }
   })
 
  .state('addHome', {
@@ -33,13 +37,18 @@ $urlRouterProvider.otherwise('/login');
  .state('myHome', {
    url: '/myHome',
    templateUrl: './views/homeView.html',
-   controller: 'homeCtrl'
+   controller: 'homeCtrl',
+   cache: false,
+   params: {
+     home_id: null
+   }
  })
 
  .state('list', {
    url: '/list',
    templateUrl: './views/listView.html',
    controller: 'listCtrl',
+   cache: false,
    params: {
      list_id: null
    }
@@ -48,7 +57,8 @@ $urlRouterProvider.otherwise('/login');
  .state('userList', {
    url: '/userList',
    templateUrl: './views/userListsTmpl.html',
-   controller: 'userListCtrl'
+   controller: 'userListCtrl',
+   cache: false
 
 
  })

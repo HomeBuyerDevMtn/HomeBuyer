@@ -36,8 +36,8 @@ module.exports = {
         })
     },
     readHomesByListId: (req, res, next) => {
-        console.log('hey dan', req.params)
-        db.read_homes_by_list_id(req.params.list_id, (error, response) => {
+        // console.log('Your in readHomesByListId', req.params)
+        db.read_homes_by_list_id(Number(req.params.list_id), (error, response) => {
             if (error) {
                 res.json({
                     status: 500,
@@ -46,6 +46,7 @@ module.exports = {
                 })
             }
             else if (response){
+                // console.log('This is the response: ', response)
                 res.json(response);
             }
         })
