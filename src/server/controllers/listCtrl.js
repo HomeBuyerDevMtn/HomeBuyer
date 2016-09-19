@@ -22,6 +22,7 @@ module.exports = {
         })
     },
     readListByUserId: (req, res, next) => {
+        console.log('you are in readListByUserId', req.params)
         db.read_list_by_user_id(req.params.user_id,(error, response) => {
             if (error) {
                 res.json({
@@ -34,6 +35,7 @@ module.exports = {
                 res.json(response);
             }
         })
+        console.log('This is the response from readHomesByUserId', response)
     },
     readHomesByListId: (req, res, next) => {
         // console.log('Your in readHomesByListId', req.params)
