@@ -6,31 +6,7 @@ angular.module('homeBuyer')
       let home_id = $stateParams.home_id;
       // console.log('this is list id', list_id);
       // console.log(currentUser);
-  //
-  // $scope.createHome = function(home) {
-  //   var newHome = {
-  //     list_id: 1,
-  //     nickname: home.nickname,
-  //     price: home.price,
-  //     address_1: home.address1,
-  //     address_2: home.address2,
-  //     city: home.city,
-  //     zip: home.zip,
-  //     province: home.state,
-  //     bathrooms: home.bathrooms,
-  //     bedrooms: home.bedrooms,
-  //     sq_feet: home.sqFootage,
-  //     year_build: home.year,
-  //     description: home.description,
-  //     days_listed: home.daysListed
-  //   }
-  //
-  //   console.log(newHome);
-  //   homeService.createHome(newHome).then(function(response){
-  //     console.log(response);
-  //     $location.path('myHome');
-  //   })
-  // }
+
 
   //get home info by home id
   $scope.getHomeById = function(home_id) {

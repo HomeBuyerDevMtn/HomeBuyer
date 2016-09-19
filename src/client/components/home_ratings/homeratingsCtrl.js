@@ -1,5 +1,5 @@
 angular.module('homeBuyer')
-  .controller('ratingsCtrl', function($scope, ratingsService, prioritiesService, $stateParams, $ionicSideMenuDelegate, $ionicSlideBoxDelegate) {
+  .controller('ratingsCtrl', function($scope, ratingsService, prioritiesService, $stateParams, $ionicSideMenuDelegate, $ionicSlideBoxDelegate, $ionicPopup, $state) {
 
       //current user information
       var currentUser = JSON.parse(localStorage.getItem('localUser'));
@@ -37,7 +37,23 @@ $scope.editRatings = (myRatings) => {
    $ionicSideMenuDelegate.toggleLeft()
  };
 
-    }) //end ratingsCtrl
+ //confirm update alert alert
+ $scope.showUpdatedAlert = function() {
+   var alertPopup = $ionicPopup.alert({
+     title: 'Ratings updated!',
+     template: 'Ratings are officially updated 🏡 '
+   });
+   alertPopup.then(function(res) {
+     if(res) {
+      //  console.log("don't");
+      console.log("this is the home id", home_id);
+       $state.go('myHome', {home_id: home_id});
+     }
+   })
+ };
+
+
+}) //end ratingsCtrl
 
 
 

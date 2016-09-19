@@ -62,14 +62,6 @@ $scope.createHome = function(home) {
   })
 }
 
-//duplicate effort, already in home ctrl / home service
-// $scope.createHome = function(newHome) {
-//   listService.createHome(newHome)
-//     .then(function(response) {
-//
-//       console.log("in add home ctr", response);
-//     })
-// }
 
 //ionic specific, don't touch
 $scope.shouldShowDelete = false;
@@ -122,16 +114,31 @@ $scope.closeModal = function() {
 };
 
 $scope.toggleLeft = function() {
-  $ionicSideMenuDelegate.toggleLeft()
-}
+  $ionicSideMenuDelegate.toggleLeft();
+};
 
-//confirm alert
+//confirm alert for updating home
 $scope.showAlert = function() {
   var alertPopup = $ionicPopup.alert({
     title: 'Home updated!',
     template: 'Changes are officially updated 🏡'
   });
 };
+
+//show newly created home alert //confirm update alert alert
+ $scope.showCreatedAlert = function() {
+   var alertPopup = $ionicPopup.alert({
+     title: 'Home created!',
+     template: 'New home officially created 🏡 '
+   });
+  //  alertPopup.then(function(res) {
+    //  if(res) {
+      //  console.log("don't");
+      // console.log("this is the home id", home_id);
+      //  $state.go('myHome', {home_id: home_id});
+    //  }
+  //  });
+ };
 
 
 }) //end listCtrl
