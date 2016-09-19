@@ -12,7 +12,7 @@
          <input type="password" placeholder="Password" ng-model='user.password'>
        </label>
 
-       <button class="button button-block button-positive">Login</button>
+       <button class="button button-block button-positive" ng-click="localLogin(user)">Login</button>
      </div>
      <div>
       <button class="button button-block button-assertive" ng-click="googleLogin()">Login With Google</button>

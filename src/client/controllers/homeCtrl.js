@@ -128,10 +128,13 @@ angular.module('homeBuyer')
 
 
 .service('homeviewService', function($http) {
+let baseUrl = 'http://localhost:3000/';
+// let baseUrl = 'http://192.168.1.24:3000/'
+
 this.getHomeById = function(home_id) {
   return $http({
     method: "GET",
-    url: "http://192.168.1.24:3000/lists/homes/id/" + home_id
+    url: baseUrl + "lists/homes/id/" + home_id
   }).then(function(response){
     console.log(response.data[0]);
     return response.data[0];
