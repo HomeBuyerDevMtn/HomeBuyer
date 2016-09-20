@@ -63,4 +63,14 @@ $urlRouterProvider.otherwise('/login');
 
  })
 
+ .state('landingPage',{
+   url: '/HomeBuyer',
+   templateUrl: './views/landingPage.html'
+ })
+
+ .state('signUp',{
+   url: '/sign_up',
+   templateUrl: './views/sign-up.html'
+ })
+
 });

@@ -1,8 +1,28 @@
 angular.module('homeBuyer')
-  .controller('prioritiesCtrl', function($scope, prioritiesService, $state, $ionicSideMenuDelegate) {
+  .controller('prioritiesCtrl', function($scope, prioritiesService, $state, $ionicSideMenuDelegate, $ionicModal) {
 
   //  var currentUser = JSON.parse(localStorage.getItem('localUser'));
   //  var userid = currentUser.user_id;
+  $scope.showModal = function(templateUrl) {
+		$ionicModal.fromTemplateUrl(templateUrl, {
+			scope: $scope,
+			animation: 'slide-in-up'
+		}).then(function(modal) {
+			$scope.modal = modal;
+			$scope.modal.show();
+		});
+	}
+
+	// Close the modal
+	$scope.closeModal = function() {
+		$scope.modal.hide();
+		$scope.modal.remove()
+	};
+
+  $scope.showPriorities = function() {
+    $scope.showModal('./views/addPriorityModal.html');
+  }
+
 
   // side menu function
   $scope.toggleLeft = function() {
@@ -85,8 +105,15 @@ angular.module('homeBuyer')
 
   }) //end prioritiesCtrl
 
-  .service('prioritiesService', function($http) {
 
+///////////////////////
+///////SERVICE/////////
+///////////////////////
+
+
+  .service('prioritiesService', function($http) {
+// let baseUrl = 'http://138.68.17.238/'
+let baseUrl = 'http://localhost:3000'
     //default values for priorities
     var defaultPriorities = [
       {
@@ -123,7 +150,7 @@ angular.module('homeBuyer')
     //saving new priorities list set by user
     this.setPriorities = function(newPriorities) {
         console.log('from service', newPriorities);
-        return $http.put('http://192.168.1.24:3000/priorities', newPriorities)
+        return $http.put(baseUrl + 'priorities', newPriorities)
           .then(function(response) {
             console.log(response);
             return response;
@@ -132,7 +159,7 @@ angular.module('homeBuyer')
 
     //get priority list by user and user's list
     this.getPriorities = function(list_id, user_id) {
-      return $http.get('http://192.168.1.24:3000/priorities?list_id=' + list_id + "&user_id=" + user_id)
+      return $http.get(baseUrl + 'priorities?list_id=' + list_id + "&user_id=" + user_id)
         .then(function(response) {
           console.log(response);
           return response.data;
@@ -142,7 +169,7 @@ angular.module('homeBuyer')
     //adding a priority to db
     this.addPriority = function(newPriority) {
       console.log("add p in service", newPriority);
-      return $http.post("http://192.168.1.24:3000/priorities", newPriority)
+      return $http.post(baseUrl + "priorities", newPriority)
         .then(function(response) {
           return response.data;
         });
@@ -150,7 +177,7 @@ angular.module('homeBuyer')
 
     //deleting priority from db
     this.deletePriority = function(id) {
-      return $http.delete("http://192.168.1.24:3000/priorities/" + id)
+      return $http.delete(baseUrl + "priorities/" + id)
         .then(function(response) {
           console.log(response);
           return response.data;

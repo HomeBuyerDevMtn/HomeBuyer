@@ -21,6 +21,26 @@ module.exports = {
             }
         })
     },
+    deactivateList:(req,res,next) => {
+     db.deactivate_list(req.params.id, (error, response) => {
+         if (error) {
+                res.json({
+                    status: 500,
+                    message: error,
+                    method: 'deactivateList, deactivate_list'
+                })
+            }
+        else if (response) {
+            res.json({
+                    status: 200,
+                    message: "List deactivated successfully",
+                    method: 'deactivateList, deactivate_list'
+                })
+        }
+     })
+    },
+
+    
     readListByUserId: (req, res, next) => {
         console.log('you are in readListByUserId', req.params)
         db.read_list_by_user_id(req.params.user_id,(error, response) => {

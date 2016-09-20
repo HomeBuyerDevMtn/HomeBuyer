@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <link href="css/styles.css" rel="stylesheet">
     <link href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link type="text/css" rel="stylesheet" href="css/lightslider.css" />
+
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 
 
@@ -35,7 +35,7 @@
     <script src="js/bundle.js"></script>
     <script src="lib/ngCordova/dist/ng-cordova.js"></script>
   </head>
-  <body ng-app="homeBuyer">
+  <body ng-app="homeBuyer" class='platform-ios'>
 
 
 
@@ -55,18 +55,26 @@
 
       <!-- menu that slides out from left -->
         <!-- Left menu -->
-        <ion-side-menu side="left">
+        <ion-side-menu side="left" id='side-menu'>
 
-          <ion-list>
-            <ion-item menu-close ui-sref="myHome">Home</ion-item>
+          <ion-list id='menu-list'>
+            <ion-item id='menu-item' menu-close ui-sref="myHome"><i class='ion-home'></i>&nbsp&nbspHome</ion-item>
           </ion-list>
 
-          <ion-list>
-            <ion-item menu-close ui-sref="userList">Lists</ion-item>
+          <ion-list id='menu-list'>
+            <ion-item id='menu-item' menu-close ui-sref="list"><i class='ion-home'></i>&nbsp&nbspHome List</ion-item>
           </ion-list>
 
-          <ion-list>
-            <ion-item menu-close ui-sref="login">Logout</ion-item>
+          <ion-list id='menu-list'>
+            <ion-item id='menu-item' menu-close ui-sref="userList"><i class='ion-home'></i>&nbsp&nbspList of Lists</ion-item>
+          </ion-list>
+
+          <ion-list id='menu-list'>
+            <ion-item id='menu-item' menu-close ui-sref="priorities"><i class='ion-home'></i>&nbsp&nbspPriorities</ion-item>
+          </ion-list>
+
+          <ion-list id='menu-list'>
+            <ion-item id='menu-item' menu-close ui-sref="login"><i class='ion-home'></i>&nbsp&nbspLogout</ion-item>
           </ion-list>
 
         </ion-side-menu>
@@ -79,10 +87,6 @@
     <script src="lib/ngCordova/dist/ng-cordova.js"></script>
     <script src="lib/ng-cordova-oauth/dist/ng-cordova-oauth.js"></script>
 
-
-
-    <script src="lib/ngCordova/dist/ng-cordova.js"></script>
-    <script src="lib/ng-cordova-oauth/dist/ng-cordova-oauth.js"></script>
     <!-- <script src="./src/client/components/camera/cameraDirective.js" charset="utf-8"></script> -->
 
     <!-- AMAZON SDK -->
