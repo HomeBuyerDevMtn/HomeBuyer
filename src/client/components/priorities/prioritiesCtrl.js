@@ -1,8 +1,28 @@
 angular.module('homeBuyer')
-  .controller('prioritiesCtrl', function($scope, prioritiesService, $state, $ionicSideMenuDelegate) {
+  .controller('prioritiesCtrl', function($scope, prioritiesService, $state, $ionicSideMenuDelegate, $ionicModal) {
 
   //  var currentUser = JSON.parse(localStorage.getItem('localUser'));
   //  var userid = currentUser.user_id;
+  $scope.showModal = function(templateUrl) {
+		$ionicModal.fromTemplateUrl(templateUrl, {
+			scope: $scope,
+			animation: 'slide-in-up'
+		}).then(function(modal) {
+			$scope.modal = modal;
+			$scope.modal.show();
+		});
+	}
+
+	// Close the modal
+	$scope.closeModal = function() {
+		$scope.modal.hide();
+		$scope.modal.remove()
+	};
+
+  $scope.showPriorities = function() {
+    $scope.showModal('./views/addPriorityModal.html');
+  }
+
 
   // side menu function
   $scope.toggleLeft = function() {
@@ -115,7 +135,9 @@ angular.module('homeBuyer')
       }
     ];
 
-    let baseUrl = 'http://138.68.17.238'
+    // let baseUrl = 'http://138.68.17.238'
+    let baseUrl = 'http://192.168.1.24:3000/';
+
     //returning the starting priority objects to controller
     this.getDefaultPriorities = function() {
       return defaultPriorities;

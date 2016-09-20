@@ -1,5 +1,5 @@
 angular.module('homeBuyer')
-    .controller('homeCtrl', function ($scope, $ionicModal, $ionicSlideBoxDelegate, homeviewService, $location, $ionicSideMenuDelegate, $stateParams, listService, $ionicPopup) {
+    .controller('homeCtrl', function ($scope, $ionicModal, $ionicSlideBoxDelegate, homeviewService, $location, $ionicSideMenuDelegate, $stateParams, listService, $ionicPopup, $state, $rootScope) {
 // console.log(JSON.stringify(homeService));
 
       let currentUser = JSON.parse(localStorage.getItem("currentUser"));
@@ -19,6 +19,11 @@ angular.module('homeBuyer')
   };
   console.log(home_id);
   $scope.getHomeById(home_id);
+
+$rootScope.$on('editHome', function(e, data) {
+  console.log('hello from rootscope', data);
+  $scope.getHomeById(data.id);
+})
 
 
   $scope.allImages = [{
@@ -92,6 +97,17 @@ angular.module('homeBuyer')
     $ionicSideMenuDelegate.toggleLeft()
   };
 
+
+  $scope.saveEditedHome = function() {
+    console.log($scope.homeToEdit.nickname);
+    console.log($scope.homeToEdit.description);
+    // console.log($scope.homesInList[selectedIndex])
+    listService.saveEditedHome($scope.homeToEdit)
+      .then(function(response) {
+        console.log(response);
+      })
+  }
+
   //confirm alert
   // $scope.showAlert = function() {
   //   var alertPopup = $ionicPopup.alert({
@@ -109,17 +125,19 @@ angular.module('homeBuyer')
       if(res) {
        //  console.log("don't");
        console.log("this is the home id", home_id);
-        $state.go('myHome', {home_id: home_id});
+       $scope.closeModal();
       }
-    })
+    });
   };
+
 
 }) //end home controller
 
 
 .service('homeviewService', function($http) {
-// let baseUrl = 'http://localhost:3000/';
-let baseUrl = 'http://138.68.17.238/'
+let baseUrl = 'http://192.168.1.24:3000/';
+// let baseUrl = 'http://138.68.17.238/'
+
 
 this.getHomeById = function(home_id) {
   return $http({
