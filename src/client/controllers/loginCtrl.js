@@ -62,8 +62,9 @@ $scope.localLogin = (user) => {
 }) // end loginCtrl
 
 .service('loginService', function($http) {
-  // let baseUrl = 'http://localhost:3000/';
-  let baseUrl = 'http://192.168.1.24:3000/'
+  let baseUrl = 'http://localhost:3000/';
+  // let baseUrl = 'http://138.68.17.238'
+
     this.googleLogin = function(currentUser) {
       return $http({
         method: 'POST',
@@ -71,8 +72,8 @@ $scope.localLogin = (user) => {
         url: baseUrl + '/auth/google',
         data: currentUser
       }).then(function(response) {
-        localStorage.setItem('localUser', JSON.stringify(response.data));
-        console.log("this is local user in storage", localStorage.getItem('localUser'));
+        localStorage.setItem('currentUser', JSON.stringify(response.data));
+        console.log("this is local user in storage", localStorage.getItem('currentUser'));
         return response.data;
       })
 

@@ -80,6 +80,7 @@ app.get('/test', users.authenticateRequest, function (req, res, next) {
 app.get('/users/:email', users.readUserById);
 
 //LIST ENDPOINTS
+app.put('/lists/:id', lists.deactivateList);
 app.get('/lists/:user_id', lists.readListByUserId);
 app.get('/lists/homes/:list_id', lists.readHomesByListId);
 app.get('/lists/homes/id/:home_id', homes.readHomesByHomeId);

@@ -2,7 +2,7 @@ angular.module('homeBuyer')
   .controller('ratingsCtrl', function($scope, ratingsService, prioritiesService, $stateParams, $ionicSideMenuDelegate, $ionicSlideBoxDelegate) {
 
       //current user information
-      var currentUser = JSON.parse(localStorage.getItem('localUser'));
+      var currentUser = JSON.parse(localStorage.getItem('currentUser'));
       var home_id = $stateParams.home_id;
       var user_id = currentUser.user_id;
 
@@ -46,7 +46,9 @@ $scope.editRatings = (myRatings) => {
 /////////////////////////
 
     .service('ratingsService', function($http) {
-      let baseUrl = 'http://192.168.1.24:3000'
+      // let baseUrl = 'http://192.168.1.24:3000'
+      let baseUrl = 'http://localhost:3000';
+      // let baseUrl = 'http://138.68.17.238'
 
 
       // console.log('from service', newRatings);
@@ -55,7 +57,7 @@ $scope.editRatings = (myRatings) => {
 
       //get priority list by user and user's list
       this.getRatings = function(home_id, user_id) {
-        return $http.get('http://192.168.1.24:3000/ratings?home_id=' + home_id + "&user_id=" + user_id)
+        return $http.get(baseUrl + '/ratings?home_id=' + home_id + "&user_id=" + user_id)
           .then(function(response) {
             console.log(response);
             return response.data;
