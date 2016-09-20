@@ -67,6 +67,7 @@ $scope.localLogin = (user) => {
   let baseUrl = 'http://192.168.1.24:3000/';
 
 
+
     this.googleLogin = function(currentUser) {
       return $http({
         method: 'POST',

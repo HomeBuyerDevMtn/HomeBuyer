@@ -40,7 +40,7 @@ module.exports = {
     },
 
     googleLogin: function googleLogin(req, res, next) {
-        // console.log(req.body)
+        console.log('You\'re in googleLogin', req.body);
         //#1 check to see if the user is already in the database
         db.read_email_google([req.body.email], function (error, response) {
             if (error) {

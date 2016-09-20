@@ -1,1 +1,1 @@
-select * from lists where user_id = $1;
+select * from lists where user_id = $1 and active = true;

@@ -63,12 +63,13 @@ $scope.editRatings = (myRatings) => {
 
     .service('ratingsService', function($http) {
       // let baseUrl = 'http://138.68.17.238'
-      let baseUrl = 'http://192.168.1.24:3000/';
+      let baseUrl = 'http://192.168.1.24:3000';
+      // let baseUrl = 'http://138.68.17.238'
+
 
       //get priority list by user and user's list
       this.getRatings = function(home_id, user_id) {
-
-        return $http.get(baseUrl + 'ratings?home_id=' + home_id + "&user_id=" + user_id)
+        return $http.get(baseUrl + '/ratings?home_id=' + home_id + "&user_id=" + user_id)
           .then(function(response) {
             console.log(response);
             return response.data;

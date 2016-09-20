@@ -1,11 +1,9 @@
 angular.module('homeBuyer')
     .controller('homeCtrl', function ($scope, $ionicModal, $ionicSlideBoxDelegate, homeviewService, $location, $ionicSideMenuDelegate, $stateParams, listService, $ionicPopup, $state, $rootScope) {
-// console.log(JSON.stringify(homeService));
 
       let currentUser = JSON.parse(localStorage.getItem("currentUser"));
       let home_id = $stateParams.home_id;
-      // console.log('this is list id', list_id);
-      // console.log(currentUser);
+
 
 
   //get home info by home id
@@ -136,8 +134,8 @@ $rootScope.$on('editHome', function(e, data) {
 
 .service('homeviewService', function($http) {
 let baseUrl = 'http://192.168.1.24:3000/';
+// let baseUrl = 'http://localhost:3000/';
 // let baseUrl = 'http://138.68.17.238/'
-
 
 this.getHomeById = function(home_id) {
   return $http({
