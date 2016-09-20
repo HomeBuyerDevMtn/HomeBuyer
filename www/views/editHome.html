@@ -41,7 +41,7 @@
           <input id="house-input-right-bottom" type='text' placeholder="{{homeToEdit.province}}" ng-model='homeToEdit.province'>
           <input id="house-input-left-bottom"  type='number' placeholder="{{homeToEdit.zip}}" ng-model='homeToEdit.zip'>
 
-      <button class="button button-block button-energized" id='add-home-button' ng-click='saveEditedHome(); showAlert()'>Update</button>
+      <button class="button button-block button-energized" id='add-home-button' ng-click='saveEditedHome(); showUpdatedAlert(home_id)'>Update</button>
  </section>
   </ion-content>
 </ion-view>

@@ -93,19 +93,33 @@ angular.module('homeBuyer')
   };
 
   //confirm alert
-  $scope.showAlert = function() {
+  // $scope.showAlert = function() {
+  //   var alertPopup = $ionicPopup.alert({
+  //     title: 'Home updated!',
+  //     template: 'Changes are officially updated 🏡'
+  //   });
+  // };
+
+  $scope.showUpdatedAlert = function() {
     var alertPopup = $ionicPopup.alert({
       title: 'Home updated!',
-      template: 'Changes are officially updated 🏡'
+      template: 'Home is officially updated 🏡 '
     });
+    alertPopup.then(function(res) {
+      if(res) {
+       //  console.log("don't");
+       console.log("this is the home id", home_id);
+        $state.go('myHome', {home_id: home_id});
+      }
+    })
   };
 
 }) //end home controller
 
 
 .service('homeviewService', function($http) {
-let baseUrl = 'http://localhost:3000/';
-// let baseUrl = 'http://192.168.1.24:3000/'
+// let baseUrl = 'http://localhost:3000/';
+let baseUrl = 'http://138.68.17.238/'
 
 this.getHomeById = function(home_id) {
   return $http({

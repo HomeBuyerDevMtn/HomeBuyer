@@ -115,6 +115,7 @@ angular.module('homeBuyer')
       }
     ];
 
+    let baseUrl = 'http://138.68.17.238'
     //returning the starting priority objects to controller
     this.getDefaultPriorities = function() {
       return defaultPriorities;
@@ -123,7 +124,7 @@ angular.module('homeBuyer')
     //saving new priorities list set by user
     this.setPriorities = function(newPriorities) {
         console.log('from service', newPriorities);
-        return $http.put('http://192.168.1.24:3000/priorities', newPriorities)
+        return $http.put(baseUrl + '/priorities', newPriorities)
           .then(function(response) {
             console.log(response);
             return response;
@@ -132,7 +133,7 @@ angular.module('homeBuyer')
 
     //get priority list by user and user's list
     this.getPriorities = function(list_id, user_id) {
-      return $http.get('http://192.168.1.24:3000/priorities?list_id=' + list_id + "&user_id=" + user_id)
+      return $http.get(baseUrl + '/priorities?list_id=' + list_id + "&user_id=" + user_id)
         .then(function(response) {
           console.log(response);
           return response.data;
@@ -142,7 +143,7 @@ angular.module('homeBuyer')
     //adding a priority to db
     this.addPriority = function(newPriority) {
       console.log("add p in service", newPriority);
-      return $http.post("http://192.168.1.24:3000/priorities", newPriority)
+      return $http.post(baseUrl + "/priorities", newPriority)
         .then(function(response) {
           return response.data;
         });
@@ -150,7 +151,7 @@ angular.module('homeBuyer')
 
     //deleting priority from db
     this.deletePriority = function(id) {
-      return $http.delete("http://192.168.1.24:3000/priorities/" + id)
+      return $http.delete(baseUrl + "/priorities/" + id)
         .then(function(response) {
           console.log(response);
           return response.data;
