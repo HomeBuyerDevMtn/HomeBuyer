@@ -5,8 +5,9 @@ var db = app.get('db');
 module.exports = {
 
     createPriorities: function createPriorities(req, res, next) {
-        console.log(req.body.length);
-        console.log(req.body.priorities);
+        // console.log(req.body.length);
+        // console.log(req.body.priorities);
+        console.log('createPriorities', req.body);
 
         for (var i = 0; i < req.body.priorities.length; i++) {
             db.create_priorities([Number(req.body.list_id), Number(req.body.user_id), req.body.priorities[i].priority_description, Number(req.body.priorities[i].priority_value)], function (error, response) {
