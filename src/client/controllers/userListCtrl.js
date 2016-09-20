@@ -22,8 +22,8 @@ angular.module('homeBuyer')
 
 
     .service('userListService', function($http) { //for some reason ES6 broke this
-        let baseUrl = 'http://localhost:3000/';
-        // let baseUrl = 'http://172.19.245.68:3000/'
+        // let baseUrl = 'http://localhost:3000/';
+        let baseUrl = 'http://138.68.17.238/'
         this.getUserLists = (user_id) => {
             return $http({
                 method: 'GET',

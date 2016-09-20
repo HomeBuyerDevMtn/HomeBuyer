@@ -32,10 +32,11 @@ module.exports = {
                 })
             }
             else {
+                console.log('This is the response from readHomesByUserId', response)
                 res.json(response);
             }
         })
-        console.log('This is the response from readHomesByUserId', response)
+        
     },
     readHomesByListId: (req, res, next) => {
         // console.log('Your in readHomesByListId', req.params)

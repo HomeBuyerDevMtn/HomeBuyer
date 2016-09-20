@@ -23,6 +23,7 @@ module.exports = {
         });
     },
     readListByUserId: function readListByUserId(req, res, next) {
+        console.log('you are in readListByUserId', req.params);
         db.read_list_by_user_id(req.params.user_id, function (error, response) {
             if (error) {
                 res.json({
@@ -31,13 +32,14 @@ module.exports = {
                     method: 'readListByUserId'
                 });
             } else {
+                console.log('This is the response from readHomesByUserId', response);
                 res.json(response);
             }
         });
     },
     readHomesByListId: function readHomesByListId(req, res, next) {
-        console.log('hey dan', req.params);
-        db.read_homes_by_list_id(req.params.list_id, function (error, response) {
+        // console.log('Your in readHomesByListId', req.params)
+        db.read_homes_by_list_id(Number(req.params.list_id), function (error, response) {
             if (error) {
                 res.json({
                     status: 500,
@@ -45,6 +47,7 @@ module.exports = {
                     method: 'readHomesByListId'
                 });
             } else if (response) {
+                // console.log('This is the response: ', response)
                 res.json(response);
             }
         });
