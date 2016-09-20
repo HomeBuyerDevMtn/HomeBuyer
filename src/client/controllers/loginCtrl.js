@@ -28,7 +28,7 @@ $scope.googleLogin = function(){
             id: res.data.id
           };
           $scope.googleLogin = function(currentUser) {
-            console.log(currentUser.id);            
+            console.log(currentUser.id);
             loginService.googleLogin(currentUser)
               .then(function(response) {
                 if(response.user_id) {
@@ -62,8 +62,8 @@ $scope.localLogin = (user) => {
 }) // end loginCtrl
 
 .service('loginService', function($http) {
-  let baseUrl = 'http://localhost:3000/';
-  // let baseUrl = 'http://192.168.1.24:3000'
+  // let baseUrl = 'http://localhost:3000/';
+  let baseUrl = 'http://192.168.1.24:3000/'
     this.googleLogin = function(currentUser) {
       return $http({
         method: 'POST',

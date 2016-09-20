@@ -137,8 +137,8 @@ $scope.showAlert = function() {
 }) //end listCtrl
 
 .service('listService', function($http) {
-let baseUrl = 'http://localhost:3000/';
-// let baseUrl = 'http://192.168.1.24:3000';
+// let baseUrl = 'http://localhost:3000/';
+let baseUrl = 'http://192.168.1.24:3000/';
 
     //get all homes by list
     this.getAllHomesByList = function(list_id) {
@@ -151,7 +151,7 @@ let baseUrl = 'http://localhost:3000/';
 
     //delete home
     this.deactivateHome = function(home_id) {
-      return $http.post(baseUrl + "/lists/homes/deactivate/" + home_id)
+      return $http.post(baseUrl + "lists/homes/deactivate/" + home_id)
         .then(function(response) {
           console.log("deleting from service", response.data);
           return response.data
@@ -160,7 +160,7 @@ let baseUrl = 'http://localhost:3000/';
 
     //edit home
     this.saveEditedHome = function(home) {
-      return $http.put(baseUrl + "/lists/homes/", home)
+      return $http.put(baseUrl + "lists/homes/", home)
         .then(function(response) {
           console.log('saving edited home from service', response.data);
           return response.data
@@ -172,7 +172,7 @@ let baseUrl = 'http://localhost:3000/';
       console.log(home);
       return $http({
         method: 'POST',
-        url: baseUrl + '/lists/homes',
+        url: baseUrl + 'lists/homes',
         data: home
       })
     }
