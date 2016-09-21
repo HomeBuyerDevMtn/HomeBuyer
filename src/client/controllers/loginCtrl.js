@@ -32,7 +32,7 @@ $scope.googleLogin = function(){
             loginService.googleLogin(currentUser)
               .then(function(response) {
                 if(response.user_id) {
-                  $state.go('userList')
+                  $state.go('userList');
                 }
                 return response;
               });
@@ -63,16 +63,20 @@ $scope.localLogin = (user) => {
 
 .service('loginService', function($http) {
   // let baseUrl = 'http://localhost:3000/';
-  let baseUrl = 'http://192.168.1.24:3000/'
+  // let baseUrl = 'http://138.68.17.238/';
+  let baseUrl = 'http://192.168.1.24:3000/';
+
+
+
     this.googleLogin = function(currentUser) {
       return $http({
         method: 'POST',
         //change IP address to the server you are working on
-        url: baseUrl + '/auth/google',
+        url: baseUrl + 'auth/google',
         data: currentUser
       }).then(function(response) {
-        localStorage.setItem('localUser', JSON.stringify(response.data));
-        console.log("this is local user in storage", localStorage.getItem('localUser'));
+        localStorage.setItem('currentUser', JSON.stringify(response.data));
+        console.log("this is local user in storage", localStorage.getItem('currentUser'));
         return response.data;
       })
 
