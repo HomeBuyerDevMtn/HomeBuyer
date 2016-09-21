@@ -10,12 +10,7 @@
   <ion-content class='add-home-content'>
 
   <section class='add-home-top-section'>
-    <div class='add-picture-button' ng-click='poo()' ng-hide='showPicture'>
-      <img id='edit-home-picture' src='./img/house.jpg'/>
-      <i id='delete-home-pic' class='ion-close-circled'></i>
-        <!-- <i class="ion-ios-camera" style='font-size: 50px'></i>
-        <h5> Add Picture </h5> -->
-    </div>
+      <add-picture-dir></add-picture-dir>
       <div class='add-house-top-right'>
           <input id="house-input" type='text' placeholder="{{homeToEdit.nickname}}" ng-model='homeToEdit.nickname'>
           <input id="house-input" type='number' placeholder="${{homeToEdit.price}}" ng-model='homeToEdit.price'>
@@ -46,7 +41,7 @@
           <input id="house-input-right-bottom" type='text' placeholder="{{homeToEdit.province}}" ng-model='homeToEdit.province'>
           <input id="house-input-left-bottom"  type='number' placeholder="{{homeToEdit.zip}}" ng-model='homeToEdit.zip'>
 
-      <button class="button button-block button-energized" id='add-home-button' ng-click='saveEditedHome(); showAlert()'>Update</button>
+      <button class="button button-block button-energized" id='add-home-button' ng-click='saveEditedHome(); showUpdatedAlert(home_id)'>Update</button>
  </section>
   </ion-content>
 </ion-view>

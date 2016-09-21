@@ -1,36 +1,10 @@
 angular.module('homeBuyer')
-    .controller('homeCtrl', function ($scope, $ionicModal, $ionicSlideBoxDelegate, homeviewService, $location, $ionicSideMenuDelegate, $stateParams, listService, $ionicPopup) {
-// console.log(JSON.stringify(homeService));
+    .controller('homeCtrl', function ($scope, $ionicModal, $ionicSlideBoxDelegate, homeviewService, $location, $ionicSideMenuDelegate, $stateParams, listService, $ionicPopup, $state, $rootScope) {
 
       let currentUser = JSON.parse(localStorage.getItem("currentUser"));
       let home_id = $stateParams.home_id;
-      // console.log('this is list id', list_id);
-      // console.log(currentUser);
-  //
-  // $scope.createHome = function(home) {
-  //   var newHome = {
-  //     list_id: 1,
-  //     nickname: home.nickname,
-  //     price: home.price,
-  //     address_1: home.address1,
-  //     address_2: home.address2,
-  //     city: home.city,
-  //     zip: home.zip,
-  //     province: home.state,
-  //     bathrooms: home.bathrooms,
-  //     bedrooms: home.bedrooms,
-  //     sq_feet: home.sqFootage,
-  //     year_build: home.year,
-  //     description: home.description,
-  //     days_listed: home.daysListed
-  //   }
-  //
-  //   console.log(newHome);
-  //   homeService.createHome(newHome).then(function(response){
-  //     console.log(response);
-  //     $location.path('myHome');
-  //   })
-  // }
+
+
 
   //get home info by home id
   $scope.getHomeById = function(home_id) {
@@ -43,6 +17,11 @@ angular.module('homeBuyer')
   };
   console.log(home_id);
   $scope.getHomeById(home_id);
+
+$rootScope.$on('editHome', function(e, data) {
+  console.log('hello from rootscope', data);
+  $scope.getHomeById(data.id);
+})
 
 
   $scope.allImages = [{
@@ -117,19 +96,45 @@ angular.module('homeBuyer')
   };
 
 
+  $scope.saveEditedHome = function() {
+    console.log($scope.homeToEdit.nickname);
+    console.log($scope.homeToEdit.description);
+    // console.log($scope.homesInList[selectedIndex])
+    listService.saveEditedHome($scope.homeToEdit)
+      .then(function(response) {
+        console.log(response);
+      })
+  }
+
   //confirm alert
-  $scope.showAlert = function() {
+  // $scope.showAlert = function() {
+  //   var alertPopup = $ionicPopup.alert({
+  //     title: 'Home updated!',
+  //     template: 'Changes are officially updated 🏡'
+  //   });
+  // };
+
+  $scope.showUpdatedAlert = function() {
     var alertPopup = $ionicPopup.alert({
       title: 'Home updated!',
-      template: 'Changes are officially updated 🏡'
+      template: 'Home is officially updated 🏡 '
+    });
+    alertPopup.then(function(res) {
+      if(res) {
+       //  console.log("don't");
+       console.log("this is the home id", home_id);
+       $scope.closeModal();
+      }
     });
   };
+
 
 }) //end home controller
 
 
 .service('homeviewService', function($http) {
-let baseUrl = 'http://localhost:3000/';
+let baseUrl = 'http://192.168.1.24:3000/';
+// let baseUrl = 'http://localhost:3000/';
 // let baseUrl = 'http://138.68.17.238/'
 
 this.getHomeById = function(home_id) {
