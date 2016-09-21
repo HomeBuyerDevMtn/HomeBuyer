@@ -180,6 +180,9 @@ let baseUrl = 'http://localhost:3000'
       }
     ];
 
+    // let baseUrl = 'http://138.68.17.238'
+    let baseUrl = 'http://192.168.1.24:3000';
+
     //returning the starting priority objects to controller
     this.getDefaultPriorities = function() {
       return defaultPriorities;
@@ -189,6 +192,7 @@ let baseUrl = 'http://localhost:3000'
     this.setPriorities = function(newPriorities) {
         console.log('from service', newPriorities);
         return $http.put(baseUrl + 'priorities', newPriorities)
+
           .then(function(response) {
             console.log(response);
             return response;

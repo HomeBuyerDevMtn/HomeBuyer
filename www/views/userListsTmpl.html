@@ -5,9 +5,15 @@
   </ion-header-bar>
   <ion-content>
 <ion-list>
-  <ion-item id='list-of-lists-item' ng-repeat="list in lists" ui-sref='list({list_id: list.id})'>
+  <ion-item id='list-of-lists-item' ng-repeat="list in lists track by $index" ui-sref='list({list_id: list.id})' show-delete="shouldShowDelete" show-reorder="shouldShowReorder" can-swipe="listCanSwipe">
     {{list.name}}
-    <i id='home-icon' class='ion-home'> 3</i>
+    <i id='home-icon' class='ion-home'> </i>
+
+    <ion-option-button class="button-assertive"
+                       ng-click="deactivateList(list.id, $index)">
+      Archive
+    </ion-option-button>
+
   </ion-item>
 </ion-list>
 </ion-content>

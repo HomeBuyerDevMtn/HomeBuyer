@@ -1,5 +1,5 @@
 angular.module('homeBuyer')
-  .controller('ratingsCtrl', function($scope, ratingsService, prioritiesService, $stateParams, $ionicSideMenuDelegate, $ionicSlideBoxDelegate) {
+  .controller('ratingsCtrl', function($scope, ratingsService, prioritiesService, $stateParams, $ionicSideMenuDelegate, $ionicSlideBoxDelegate, $ionicPopup, $state) {
 
       //current user information
       var currentUser = JSON.parse(localStorage.getItem('currentUser'));
@@ -37,7 +37,23 @@ $scope.editRatings = (myRatings) => {
    $ionicSideMenuDelegate.toggleLeft()
  };
 
-    }) //end ratingsCtrl
+ //confirm update alert alert
+ $scope.showUpdatedAlert = function() {
+   var alertPopup = $ionicPopup.alert({
+     title: 'Ratings updated!',
+     template: 'Ratings are officially updated 🏡 '
+   });
+   alertPopup.then(function(res) {
+     if(res) {
+      //  console.log("don't");
+      console.log("this is the home id", home_id);
+       $state.go('myHome', {home_id: home_id});
+     }
+   })
+ };
+
+
+}) //end ratingsCtrl
 
 
 
@@ -46,12 +62,9 @@ $scope.editRatings = (myRatings) => {
 /////////////////////////
 
     .service('ratingsService', function($http) {
-      let baseUrl = 'http://localhost:3000';
       // let baseUrl = 'http://138.68.17.238'
-
-
-      // console.log('from service', newRatings);
-
+      let baseUrl = 'http://192.168.1.24:3000';
+      // let baseUrl = 'http://138.68.17.238'
 
 
       //get priority list by user and user's list
@@ -68,7 +81,7 @@ $scope.editRatings = (myRatings) => {
         console.log('hey dan', ratings)
         return $http({
           method: "PUT",
-          url: baseUrl + '/ratings',
+          url: baseUrl + 'ratings',
           data: ratings
         }).then((response)=> {
           return response.data;
