@@ -1,6 +1,6 @@
 angular.module('homeBuyer').config(function($stateProvider, $urlRouterProvider){
 
-$urlRouterProvider.otherwise('/login');
+$urlRouterProvider.otherwise('/HomeBuyer');
 
  $stateProvider
 
