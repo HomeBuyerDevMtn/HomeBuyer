@@ -36,7 +36,6 @@ module.exports = {
         });
     },
     readHomesByListId: function readHomesByListId(req, res, next) {
-
         // console.log('Your in readHomesByListId', req.params)
         db.read_homes_by_list_id(Number(req.params.list_id), function (error, response) {
             if (error) {
