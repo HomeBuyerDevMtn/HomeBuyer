@@ -15,7 +15,11 @@ $urlRouterProvider.otherwise('/login');
     url: '/priorities',
     cache: false,
     templateUrl: './views/prioritiesTempl.html',
-    controller: 'prioritiesCtrl'
+    controller: 'prioritiesCtrl',
+    params: {
+      list_name: null,
+      list_id: null
+    }
   })
   .state('ratings', {
     url: '/ratings',

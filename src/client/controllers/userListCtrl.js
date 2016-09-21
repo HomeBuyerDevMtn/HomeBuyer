@@ -54,12 +54,14 @@ angular.module('homeBuyer')
             });
         };
 
-        // add new list
-        $scope.addNewList = function(list_name) {
-            console.log(list_name);
+        $scope.getUserListsCtrl(currentUser.user_id);
+
+        $scope.addNewList = function(list_name, priorities) {
+            console.log('you are in addNewList', 'list_name', list_name, "priorities", priorities);
             let newListObj = {
               list_name: list_name,
-              user_id: currentUser.user_id
+              user_id: currentUser.user_id,
+              priorities: priorities
             }
             userListService.addNewList(newListObj).then(function(response) {
                 $scope.getUserListsCtrl(currentUser.user_id);
@@ -95,7 +97,6 @@ angular.module('homeBuyer')
 
 
         this.addNewList = (newListObj) => {
-          console.log(newListObj);
             return $http({
                 method: 'POST',
                 url: baseUrl + 'lists/',
