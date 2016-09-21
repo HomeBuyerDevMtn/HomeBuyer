@@ -3,20 +3,32 @@ const db = app.get('db');
 module.exports = {
 
     createList: (req, res, next) => {
-      console.log('hello there');
-        db.create_list([req.body.user_id, req.body.list_name], (error, response) => {
-            if (error) {
+        console.log('You are in createList', req.body);
+        db.create_list([req.body.user_id, req.body.list_name], (CLerror, CLresponse) => {
+            if (CLerror) {
                 res.json({
                     status: 500,
                     message: error,
                     method: 'createList'
                 })
             }
-            else {
-                 res.json({
+            else if (CLresponse) {
+                for (var i = 0; i < req.body.priorities.length; i++) {
+                    db.create_priorities([Number(CLresponse[0].id), Number(req.body.user_id), req.body.priorities[i].priority_description, Number(req.body.priorities[i].priority_value)], (CPerror, CPresponse) => {
+                        if (CPerror) {
+                            res.json({
+                                status: 500,
+                                message: error,
+                                method: 'createList, create_priorities'
+                            })
+                        }
+
+                    })
+                }
+                res.json({
+                    message: "Priorities added successfully",
                     status: 200,
-                    message: "List added successfully",
-                    method: 'createList'
+                    method: 'CreateList, create_priorities'
                 })
             }
         })

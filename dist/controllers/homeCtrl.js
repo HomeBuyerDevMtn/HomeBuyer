@@ -104,20 +104,19 @@ module.exports = {
         });
     },
     editHome: function editHome(req, res, next) {
-        console.log(req.body);
+        console.log('you are in editHome', req.body);
         db.update_home([req.body.nickname, req.body.price, req.body.address_1, req.body.address_2, req.body.city, req.body.zip, req.body.province, req.body.bathrooms, req.body.bedrooms, req.body.sq_feet, req.body.year_build, req.body.description, req.body.days_listed, req.body.id], function (error, response) {
+
             if (error) {
+                console.log('error :', error);
                 res.json({
                     status: 500,
                     message: error,
                     method: 'editHome'
                 });
             } else {
-                res.json({
-                    status: 200,
-                    message: "Home edited successfully",
-                    method: 'editHome'
-                });
+                console.log('response', response);
+                res.json(response[0]);
             }
         });
     }

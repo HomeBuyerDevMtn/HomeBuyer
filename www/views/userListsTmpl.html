@@ -14,7 +14,7 @@
 
 <div id='add-list-div'>
     <input  id='add-list-input' placeholder="List name"type='text' ng-model='listName'></input>
-    <button style='font-size: 18px; width: 50%;' ng-click='addNewList(listName)'><i id='add-priority-plus' class='ion-plus'></i>&nbspAdd new list</button>
+    <button style='font-size: 18px; width: 50%;' ui-sref="priorities({list_name:listName})"><i id='add-priority-plus' class='ion-plus'></i>&nbspAdd new list</button>
 </div>
 
 </ion-view>
