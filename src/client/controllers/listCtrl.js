@@ -1,6 +1,8 @@
 angular.module('homeBuyer')
 
-  .controller('listCtrl', function ($scope, $http, $ionicModal, $ionicSlideBoxDelegate, homeService, $location, $ionicSideMenuDelegate, listService, $stateParams, $ionicPopup, $rootScope, ratingsService, prioritiesService) {
+
+  .controller('listCtrl', function ($scope, $http, $ionicModal, $ionicSlideBoxDelegate, homeService, $location, $ionicSideMenuDelegate, listService, $stateParams, $ionicPopup, $rootScope, $state, prioritiesService, ratingsService) {
+
 
 //////////////////////////////////
 ////// list ctrl endpoints //////
@@ -12,6 +14,7 @@ let user_id = currentUser.user_id;
 let list_id = Number($stateParams.list_id);
 $scope.listId = list_id;
 let home_id = $stateParams.home_id;
+$scope.list_name = $stateParams.list_name;
 
 //get all homes by list_id
 $scope.getAllHomesByList = function(list_id) {
@@ -53,7 +56,15 @@ $scope.createHome = function(home) {
     days_listed: home.daysListed,
   };
   listService.createHome(newHome).then(function(response){
-    $scope.getAllHomesByList(list_id);
+
+    console.log('list service create home response', JSON.stringify(response));
+    // $location.path('myHome');
+    if(response.data.status === 200) {
+      $scope.showCreatedAlert();
+      $scope.getAllHomesByList(list_id);
+      $scope.createHome_homeId = response.data.home_id;
+    }
+
   })
 }
 
@@ -134,7 +145,8 @@ $scope.showAlert = function() {
    alertPopup.then(function(res) {
      if(res) {
       console.log("this is the home id", home_id);
-       $state.go('myHome', {home_id: home_id});
+       $state.go('myHome', {home_id: $scope.createHome_homeId});
+       $scope.closeModal();
      }
    });
  };

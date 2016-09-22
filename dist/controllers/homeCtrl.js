@@ -61,8 +61,9 @@ module.exports = {
                         }
                         res.json({
                             status: 200,
-                            message: 'Home created successfully!',
-                            method: 'createHome, create_ratings'
+                            message: 'Home created successfully test!',
+                            method: 'createHome, create_ratings',
+                            home_id: Number(CHresponse[0].id)
                         });
                     }
                 });

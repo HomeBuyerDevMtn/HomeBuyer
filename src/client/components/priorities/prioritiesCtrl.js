@@ -81,7 +81,7 @@ $scope.addNewList = function() {
               priorities: $scope.defaultPriorities
             }
             userListService.addNewList(newListObj).then(function(response) {
-                $state.go('list')
+                $state.go('list', {list_name: response.list_name, list_id: response.list_id});
             })
         }
 
@@ -179,7 +179,6 @@ let baseUrl = 'http://138.68.17.238/'
         priority_value: 50
       }
     ];
-
 
 
     //returning the starting priority objects to controller
