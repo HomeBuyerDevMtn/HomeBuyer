@@ -1,6 +1,6 @@
 angular.module('homeBuyer')
   .controller('prioritiesCtrl', function($scope, prioritiesService, $state, $ionicSideMenuDelegate, $ionicModal, $stateParams, userListService) {
-   
+
    // GET INFO FROM $stateParams
    $scope.list_name = $stateParams.list_name;
    $scope.list_id = $stateParams.list_id;
@@ -18,14 +18,14 @@ angular.module('homeBuyer')
       $scope.defaultPriorities = prioritiesService.getDefaultPriorities();
     }
 
-       //if there is a defined list id we will get the data from the api because it will be for a user that is editing their priorities. 
-    else if ($scope.list_id !== null) {  
-    console.log('list_id was not null')  
+       //if there is a defined list id we will get the data from the api because it will be for a user that is editing their priorities.
+    else if ($scope.list_id !== null) {
+    console.log('list_id was not null')
     $scope.getPriorities($scope.list_id, user_id);
     }
 
 
-  
+
 //METHODS & FUNCTIONS
 $scope.addListorSavePriorities
 
@@ -61,7 +61,6 @@ $scope.addListorSavePriorities
       console.log("in $scope.getPriorities", "user_id:", user_id, "list_id :", list_id);
       prioritiesService.getPriorities(list_id, user_id)
         .then(function(response) {
-          console.log("helooooo",response);
           $scope.myPriorities = response;
            if($scope.myPriorities.length > 0) {
               $scope.defaultPriorities = $scope.myPriorities;
@@ -150,8 +149,9 @@ $scope.clearInput = function() {
 
 
   .service('prioritiesService', function($http) {
-// let baseUrl = 'http://138.68.17.238/'
-let baseUrl = 'http://localhost:3000'
+let baseUrl = 'http://138.68.17.238/'
+// let baseUrl = 'http://localhost:3000'
+
     //default values for priorities
     var defaultPriorities = [
       {
@@ -180,8 +180,7 @@ let baseUrl = 'http://localhost:3000'
       }
     ];
 
-    // let baseUrl = 'http://138.68.17.238'
-    let baseUrl = 'http://192.168.1.24:3000';
+
 
     //returning the starting priority objects to controller
     this.getDefaultPriorities = function() {

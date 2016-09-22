@@ -1,8 +1,7 @@
 angular.module('homeBuyer')
 
-  .controller('listCtrl', function ($scope, $http, $ionicModal, $ionicSlideBoxDelegate, homeService, $location, $ionicSideMenuDelegate, listService, $stateParams, $ionicPopup, $rootScope) {
+  .controller('listCtrl', function ($scope, $http, $ionicModal, $ionicSlideBoxDelegate, homeService, $location, $ionicSideMenuDelegate, listService, $stateParams, $ionicPopup, $rootScope, ratingsService, prioritiesService) {
 
-console.log(homeService)
 //////////////////////////////////
 ////// list ctrl endpoints //////
 /////////////////////////////////
@@ -11,6 +10,7 @@ console.log(homeService)
 let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 let user_id = currentUser.user_id;
 let list_id = Number($stateParams.list_id);
+$scope.listId = list_id;
 let home_id = $stateParams.home_id;
 
 //get all homes by list_id
@@ -19,6 +19,7 @@ $scope.getAllHomesByList = function(list_id) {
     .then(function(response) {
       $scope.homesInList = response;
     });
+    // $scope.getScoresForAllHomes($scope.homesInList);
 };
 $scope.getAllHomesByList(list_id);
 
@@ -28,7 +29,6 @@ $scope.deactivateHome = function(id, $index) {
   listService.deactivateHome(id)
     .then(function(response) {
       $scope.homesInList.splice($index, 1);
-      console.log(response);
       $scope.getAllHomesByList(list_id);
     });
 };
@@ -53,8 +53,6 @@ $scope.createHome = function(home) {
     days_listed: home.daysListed,
   };
   listService.createHome(newHome).then(function(response){
-    console.log(response);
-    // $location.path('myHome');
     $scope.getAllHomesByList(list_id);
   })
 }
@@ -141,17 +139,67 @@ $scope.showAlert = function() {
    });
  };
 
+ //////////////////////////////////
+ //////// HOME SCORING ////////////
+ //////////////////////////////////
+
+// for entire array of homes
+$scope.getScoresForAllHomes = function(arr) {
+for (var i = 0; i < arr.length; i++) {
+  //get ratings in home by home id
+  $scope.getRatings = function(home_id, user_id) {
+    ratingsService.getRatings(home_id, user_id)
+      .then(function(response) {
+        // console.log("this is ratings for", home_id, user_id, JSON.stringify(response));
+        $scope.rating_values = []
+        $scope.priority_ids = []
+
+        response.forEach(function(item, index) {
+          $scope.rating_values.push(item.rating_value);
+          $scope.priority_ids.push(item.priority_id)
+        })
+      });
+  };
+  $scope.getRatings(home_id, user_id);
+
+  //get priorities for home by list_id
+  $scope.getPriorities = function(list_id, user_id) {
+    prioritiesService.getPriorities(list_id, user_id)
+      .then(function(response) {
+        $scope.priority_values = [];
+
+        response.forEach(function(item, index) {
+          $scope.priority_values.push(item.priority_value)
+        })
+
+        $scope.getHouseScore = function(arr1, arr2) {
+            var total = 0;
+            for (var i = 0; i < arr1.length; i++) {
+              total += ((arr1[i] / 100) * (arr2[i] / 100));
+            };
+            $scope.currentHomeScore = total * 100;
+            console.log("home score", JSON.stringify($scope.currentHomeScore));
+        };
+        $scope.getHouseScore($scope.priority_values, $scope.rating_values);
+      });
+  };
+  $scope.getPriorities(list_id, user_id);
+
+  //push score as a property to array of home objects homescore: currentHomeScore
+  arr.push({homescore: $scope.currentHomeScore})
+  console.log(JSON.stringify($scope.currentHomeScore));
+  };
+};
+
 
 }) //end listCtrl
 
 
 .service('listService', function($http, $rootScope) {
 // let baseUrl = 'http://localhost:3000/';
-// let baseUrl = 'http://138.68.17.238';
-let baseUrl = 'http://192.168.1.24:3000/';
+let baseUrl = 'http://138.68.17.238/';
+// let baseUrl = 'http://192.168.1.24:3000/';
 
-
-// let baseUrl = 'http://138.68.17.238/';
 
 
     //get all homes by list

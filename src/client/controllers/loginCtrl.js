@@ -9,7 +9,7 @@ $scope.googleLogin = function(){
          $scope.showProfile = false;
          $http.get("https://www.googleapis.com/plus/v1/people/me", {params: {access_token: result.access_token }})
          .then(function(res) {
-    
+
           console.log('google response: ', res);
           $scope.showProfile = true;
           $scope.details = res.data;
@@ -60,8 +60,8 @@ $scope.localLogin = (user) => {
 
 .service('loginService', function($http) {
   // let baseUrl = 'http://localhost:3000/';
-  // let baseUrl = 'http://138.68.17.238/';
-  let baseUrl = 'http://192.168.1.24:3000/';
+  let baseUrl = 'http://138.68.17.238/';
+  // let baseUrl = 'http://192.168.1.24:3000/';
 
     this.googleLogin = function(currentUser) {
       console.log('googleLogin arg', JSON.stringify(currentUser));
