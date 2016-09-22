@@ -150,8 +150,8 @@ $scope.clearInput = function() {
 
 
   .service('prioritiesService', function($http) {
-// let baseUrl = 'http://138.68.17.238/'
-let baseUrl = 'http://localhost:3000'
+let baseUrl = 'http://138.68.17.238/'
+// let baseUrl = 'http://localhost:3000/'
     //default values for priorities
     var defaultPriorities = [
       {
@@ -179,9 +179,6 @@ let baseUrl = 'http://localhost:3000'
         priority_value: 50
       }
     ];
-
-    // let baseUrl = 'http://138.68.17.238'
-    let baseUrl = 'http://192.168.1.24:3000';
 
     //returning the starting priority objects to controller
     this.getDefaultPriorities = function() {

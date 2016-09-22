@@ -133,9 +133,9 @@ $rootScope.$on('editHome', function(e, data) {
 
 
 .service('homeviewService', function($http) {
-let baseUrl = 'http://192.168.1.24:3000/';
+// let baseUrl = 'http://192.168.1.24:3000/';
 // let baseUrl = 'http://localhost:3000/';
-// let baseUrl = 'http://138.68.17.238/'
+let baseUrl = 'http://138.68.17.238/'
 
 this.getHomeById = function(home_id) {
   return $http({

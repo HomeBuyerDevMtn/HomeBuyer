@@ -28,7 +28,9 @@ module.exports = {
                 res.json({
                     message: "Priorities added successfully",
                     status: 200,
-                    method: 'CreateList, create_priorities'
+                    method: 'CreateList, create_priorities',
+                    list_name: CLresponse[0].name,
+                    list_id: CLresponse[0].id
                 });
             }
         });
