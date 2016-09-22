@@ -67,6 +67,7 @@ $scope.editRatings = (myRatings) => {
       // let baseUrl = 'http://138.68.17.238'
 
 
+
       //get priority list by user and user's list
       this.getRatings = function(home_id, user_id) {
         return $http.get(baseUrl + '/ratings?home_id=' + home_id + "&user_id=" + user_id)

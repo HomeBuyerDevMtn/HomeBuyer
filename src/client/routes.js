@@ -44,7 +44,8 @@ $urlRouterProvider.otherwise('/HomeBuyer');
    controller: 'homeCtrl',
    cache: false,
    params: {
-     home_id: null
+     home_id: null,
+     list_id: null
    }
  })
 
