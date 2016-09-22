@@ -15,7 +15,11 @@ $urlRouterProvider.otherwise('/HomeBuyer');
     url: '/priorities',
     cache: false,
     templateUrl: './views/prioritiesTempl.html',
-    controller: 'prioritiesCtrl'
+    controller: 'prioritiesCtrl',
+    params: {
+      list_name: null,
+      list_id: null
+    }
   })
   .state('ratings', {
     url: '/ratings',
@@ -50,7 +54,8 @@ $urlRouterProvider.otherwise('/HomeBuyer');
    controller: 'listCtrl',
    cache: false,
    params: {
-     list_id: null
+     list_id: null,
+     list_name: null
    }
  })
 

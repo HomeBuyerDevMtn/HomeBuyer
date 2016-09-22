@@ -1,6 +1,6 @@
 angular.module('homeBuyer')
 
-  .controller('listCtrl', function ($scope, $http, $ionicModal, $ionicSlideBoxDelegate, homeService, $location, $ionicSideMenuDelegate, listService, $stateParams, $ionicPopup) {
+  .controller('listCtrl', function ($scope, $http, $ionicModal, $ionicSlideBoxDelegate, homeService, $location, $ionicSideMenuDelegate, listService, $stateParams, $ionicPopup, $rootScope, $state) {
 
 console.log(homeService)
 //////////////////////////////////
@@ -11,6 +11,8 @@ console.log(homeService)
 let currentUser = JSON.parse(localStorage.getItem("currentUser"));
 let user_id = currentUser.user_id;
 let list_id = Number($stateParams.list_id);
+let home_id = $stateParams.home_id;
+$scope.list_name = $stateParams.list_name;
 
 //get all homes by list_id
 $scope.getAllHomesByList = function(list_id) {
@@ -20,7 +22,6 @@ $scope.getAllHomesByList = function(list_id) {
     });
 };
 $scope.getAllHomesByList(list_id);
-
 
 
 //delete home
@@ -51,25 +52,19 @@ $scope.createHome = function(home) {
     year_build: home.year,
     description: home.description,
     days_listed: home.daysListed,
-
-  }
-
-  console.log(newHome);
+  };
   listService.createHome(newHome).then(function(response){
-    console.log(response);
+    console.log('list service create home response', JSON.stringify(response));
     // $location.path('myHome');
-    $scope.getAllHomesByList(list_id);
+    if(response.data.status === 200) {
+      $scope.showCreatedAlert();
+      $scope.getAllHomesByList(list_id);
+      $scope.createHome_homeId = response.data.home_id;
+    }
+
   })
 }
 
-//duplicate effort, already in home ctrl / home service
-// $scope.createHome = function(newHome) {
-//   listService.createHome(newHome)
-//     .then(function(response) {
-//
-//       console.log("in add home ctr", response);
-//     })
-// }
 
 //ionic specific, don't touch
 $scope.shouldShowDelete = false;
@@ -93,11 +88,14 @@ $scope.showEditHome = function($index) {
     // console.log($scope.homesInList[selectedIndex])
     listService.saveEditedHome($scope.homeToEdit)
       .then(function(response) {
-        console.log(response);
-      })
-  }
+        console.log("hello form save edited home funciton", JSON.stringify(response));
+        $scope.currentHome = response;
+      });
+  };
   $scope.showModal('./views/editHome.html');
 };
+
+
 
 $scope.showAddHome = function(list_id) {
   $scope.showModal('./views/add-home-modal.html');
@@ -115,17 +113,19 @@ $scope.showModal = function(templateUrl) {
 
 
 
+
 // Close the modal
 $scope.closeModal = function() {
   $scope.modal.hide();
-  $scope.modal.remove()
+  $scope.modal.remove();
 };
 
-$scope.toggleLeft = function() {
-  $ionicSideMenuDelegate.toggleLeft()
-}
 
-//confirm alert
+$scope.toggleLeft = function() {
+  $ionicSideMenuDelegate.toggleLeft();
+};
+
+//confirm alert for updating home
 $scope.showAlert = function() {
   var alertPopup = $ionicPopup.alert({
     title: 'Home updated!',
@@ -133,12 +133,33 @@ $scope.showAlert = function() {
   });
 };
 
+//show newly created home alert //confirm update alert alert
+ $scope.showCreatedAlert = function() {
+   var alertPopup = $ionicPopup.alert({
+     title: 'Home created!',
+     template: 'New home officially created 🏡 '
+   });
+   alertPopup.then(function(res) {
+     if(res) {
+      console.log("this is the home id", home_id);
+       $state.go('myHome', {home_id: $scope.createHome_homeId});
+       $scope.closeModal();
+     }
+   });
+ };
+
 
 }) //end listCtrl
 
-.service('listService', function($http) {
+
+.service('listService', function($http, $rootScope) {
 // let baseUrl = 'http://localhost:3000/';
-let baseUrl = 'http://192.168.1.24:3000/';
+let baseUrl = 'http://138.68.17.238/';
+// let baseUrl = 'http://192.168.1.24:3000/';
+
+
+// let baseUrl = 'http://138.68.17.238/';
+
 
     //get all homes by list
     this.getAllHomesByList = function(list_id) {
@@ -160,11 +181,12 @@ let baseUrl = 'http://192.168.1.24:3000/';
 
     //edit home
     this.saveEditedHome = function(home) {
-      return $http.put(baseUrl + "lists/homes/", home)
+      return $http.put(baseUrl + "lists/homes/edit", home)
         .then(function(response) {
-          console.log('saving edited home from service', response.data);
-          return response.data
-        });
+          $rootScope.$emit('editHome', response.data);
+          console.log('hello from rootscope in ctrl', data);
+            return response.data;
+          });
     };
 
     // add home
@@ -176,6 +198,8 @@ let baseUrl = 'http://192.168.1.24:3000/';
         data: home
       })
     }
+
+
 
 
 

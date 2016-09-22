@@ -1,8 +1,8 @@
 angular.module('homeBuyer')
-  .controller('ratingsCtrl', function($scope, ratingsService, prioritiesService, $stateParams, $ionicSideMenuDelegate, $ionicSlideBoxDelegate) {
+  .controller('ratingsCtrl', function($scope, ratingsService, prioritiesService, $stateParams, $ionicSideMenuDelegate, $ionicSlideBoxDelegate, $ionicPopup, $state) {
 
       //current user information
-      var currentUser = JSON.parse(localStorage.getItem('localUser'));
+      var currentUser = JSON.parse(localStorage.getItem('currentUser'));
       var home_id = $stateParams.home_id;
       var user_id = currentUser.user_id;
 
@@ -37,7 +37,23 @@ $scope.editRatings = (myRatings) => {
    $ionicSideMenuDelegate.toggleLeft()
  };
 
-    }) //end ratingsCtrl
+ //confirm update alert alert
+ $scope.showUpdatedAlert = function() {
+   var alertPopup = $ionicPopup.alert({
+     title: 'Ratings updated!',
+     template: 'Ratings are officially updated 🏡 '
+   });
+   alertPopup.then(function(res) {
+     if(res) {
+      //  console.log("don't");
+      console.log("this is the home id", home_id);
+       $state.go('myHome', {home_id: home_id});
+     }
+   })
+ };
+
+
+}) //end ratingsCtrl
 
 
 
@@ -46,16 +62,14 @@ $scope.editRatings = (myRatings) => {
 /////////////////////////
 
     .service('ratingsService', function($http) {
-      let baseUrl = 'http://192.168.1.24:3000'
-
-
-      // console.log('from service', newRatings);
-
+      // let baseUrl = 'http://138.68.17.238'
+      let baseUrl = 'http://192.168.1.24:3000';
+      // let baseUrl = 'http://138.68.17.238'
 
 
       //get priority list by user and user's list
       this.getRatings = function(home_id, user_id) {
-        return $http.get('http://192.168.1.24:3000/ratings?home_id=' + home_id + "&user_id=" + user_id)
+        return $http.get(baseUrl + '/ratings?home_id=' + home_id + "&user_id=" + user_id)
           .then(function(response) {
             console.log(response);
             return response.data;
@@ -67,7 +81,7 @@ $scope.editRatings = (myRatings) => {
         console.log('hey dan', ratings)
         return $http({
           method: "PUT",
-          url: baseUrl + '/ratings',
+          url: baseUrl + 'ratings',
           data: ratings
         }).then((response)=> {
           return response.data;

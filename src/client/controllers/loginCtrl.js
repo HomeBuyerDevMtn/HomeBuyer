@@ -3,18 +3,14 @@ angular.module('homeBuyer').controller('loginCtrl', function($scope, $cordovaOau
 
 
 $scope.googleLogin = function(){
-  console.log('suh dude');
+  // console.log('suh dude', 'what is going on', 'yayaya');
 
      $cordovaOauth.google("766659347642-s0ls1h1po2h618ugeb02vb02i9thf5tv.apps.googleusercontent.com", ["email","profile"]).then(function(result) {
          $scope.showProfile = false;
          $http.get("https://www.googleapis.com/plus/v1/people/me", {params: {access_token: result.access_token }})
          .then(function(res) {
-          //  userService.readUserById(res).then(function(response){
-          //   //  userService.registerUser(res).then(function(response){
-          //   //    console.log(res);
-          //   //  })
-          //  })
-          console.log(res);
+
+          console.log('google response: ', res);
           $scope.showProfile = true;
           $scope.details = res.data;
           $scope.token = res;
@@ -28,11 +24,12 @@ $scope.googleLogin = function(){
             id: res.data.id
           };
           $scope.googleLogin = function(currentUser) {
-            console.log(currentUser.id);
+            console.log('This is the currentUser.id: ',JSON.stringify(currentUser.id));
             loginService.googleLogin(currentUser)
               .then(function(response) {
+                console.log('googleLogin response:', response)
                 if(response.user_id) {
-                  $state.go('userList')
+                  $state.go('userList');
                 }
                 return response;
               });
@@ -63,16 +60,19 @@ $scope.localLogin = (user) => {
 
 .service('loginService', function($http) {
   // let baseUrl = 'http://localhost:3000/';
-  let baseUrl = 'http://192.168.1.24:3000/'
+  let baseUrl = 'http://138.68.17.238/';
+  // let baseUrl = 'http://192.168.1.24:3000/';
+
     this.googleLogin = function(currentUser) {
+      console.log('googleLogin arg', JSON.stringify(currentUser));
       return $http({
         method: 'POST',
         //change IP address to the server you are working on
-        url: baseUrl + '/auth/google',
+        url: baseUrl + 'auth/google',
         data: currentUser
       }).then(function(response) {
-        localStorage.setItem('localUser', JSON.stringify(response.data));
-        console.log("this is local user in storage", localStorage.getItem('localUser'));
+        localStorage.setItem('currentUser', JSON.stringify(response.data));
+        console.log("this is local user in storage", localStorage.getItem('currentUser'));
         return response.data;
       })
 

@@ -3,25 +3,58 @@ const db = app.get('db');
 module.exports = {
 
     createList: (req, res, next) => {
-      console.log('hello there');
-        db.create_list([req.body.user_id, req.body.list_name], (error, response) => {
-            if (error) {
+        console.log('You are in createList', req.body);
+        db.create_list([req.body.user_id, req.body.list_name], (CLerror, CLresponse) => {
+            if (CLerror) {
                 res.json({
                     status: 500,
                     message: error,
                     method: 'createList'
                 })
             }
-            else {
-                 res.json({
+            else if (CLresponse) {
+                for (var i = 0; i < req.body.priorities.length; i++) {
+                    db.create_priorities([Number(CLresponse[0].id), Number(req.body.user_id), req.body.priorities[i].priority_description, Number(req.body.priorities[i].priority_value)], (CPerror, CPresponse) => {
+                        if (CPerror) {
+                            res.json({
+                                status: 500,
+                                message: error,
+                                method: 'createList, create_priorities'
+                            })
+                        }
+
+                    })
+                }
+                res.json({
+                    message: "Priorities added successfully",
                     status: 200,
-                    message: "List added successfully",
-                    method: 'createList'
+                    method: 'CreateList, create_priorities'
                 })
             }
         })
     },
+    deactivateList:(req,res,next) => {
+     db.deactivate_list(req.params.id, (error, response) => {
+         if (error) {
+                res.json({
+                    status: 500,
+                    message: error,
+                    method: 'deactivateList, deactivate_list'
+                })
+            }
+        else if (response) {
+            res.json({
+                    status: 200,
+                    message: "List deactivated successfully",
+                    method: 'deactivateList, deactivate_list'
+                })
+        }
+     })
+    },
+
+    
     readListByUserId: (req, res, next) => {
+        console.log('you are in readListByUserId', req.params)
         db.read_list_by_user_id(req.params.user_id,(error, response) => {
             if (error) {
                 res.json({
@@ -31,9 +64,11 @@ module.exports = {
                 })
             }
             else {
+                console.log('This is the response from readHomesByUserId', response)
                 res.json(response);
             }
         })
+        
     },
     readHomesByListId: (req, res, next) => {
         // console.log('Your in readHomesByListId', req.params)

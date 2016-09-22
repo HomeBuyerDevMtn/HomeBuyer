@@ -80,6 +80,7 @@ app.get('/test', users.authenticateRequest, function (req, res, next) {
 app.get('/users/:email', users.readUserById);
 
 //LIST ENDPOINTS
+app.put('/lists/:id', lists.deactivateList);
 app.get('/lists/:user_id', lists.readListByUserId);
 app.get('/lists/homes/:list_id', lists.readHomesByListId);
 app.get('/lists/homes/id/:home_id', homes.readHomesByHomeId);
@@ -88,7 +89,7 @@ app.post('/lists', lists.createList);
 //HOME ENDPOINTS
 app.post('/lists/homes', homes.createHome);
 app.post('/lists/homes/deactivate/:home_id', homes.deactivateHome);
-app.put('/lists/homes', homes.editHome);
+app.put('/lists/homes/edit', homes.editHome);
 
 //PRIORITIES ENDPOINTS
 app.post('/priorities', priorities.createPriorities);
