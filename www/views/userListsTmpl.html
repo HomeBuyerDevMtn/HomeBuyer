@@ -5,7 +5,7 @@
   </ion-header-bar>
   <ion-content>
 <ion-list>
-  <ion-item id='list-of-lists-item' ng-repeat="list in lists track by $index" ui-sref='list({list_id: list.id})' show-delete="shouldShowDelete" show-reorder="shouldShowReorder" can-swipe="listCanSwipe">
+  <ion-item id='list-of-lists-item' ng-repeat="list in lists track by $index" ui-sref='list({list_id: list.id, list_name: list.name})' show-delete="shouldShowDelete" show-reorder="shouldShowReorder" can-swipe="listCanSwipe">
     {{list.name}}
     <i id='home-icon' class='ion-home'> </i>
 

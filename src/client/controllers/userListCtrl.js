@@ -1,7 +1,7 @@
 angular.module('homeBuyer')
 
 
-    .controller('userListCtrl', function($scope, userListService, $ionicSideMenuDelegate){
+    .controller('userListCtrl', function($scope, userListService, $ionicSideMenuDelegate, $ionicListDelegate){
 
       let currentUser = JSON.parse(localStorage.getItem("currentUser"));
       console.log(currentUser.user_id);
@@ -46,9 +46,10 @@ angular.module('homeBuyer')
 
         //archive list
         $scope.deactivateList = function(id, $index) {
-          userListService.deactivateList(id)
+          userListService.deactivateList(id, $index)
             .then(function(response) {
               $scope.lists.splice($index, 1);
+              $ionicListDelegate.closeOptionButtons();
               console.log(response);
               $scope.getUserListsCtrl(currentUser.user_id);
             });
@@ -110,9 +111,9 @@ angular.module('homeBuyer')
           console.log(id);
             return $http({
                 method: 'PUT',
-                url: baseUrl + 'lists/' + id,
-                data: id
+                url: baseUrl + 'lists/deactivate/' + id
             }).then((response) => {
+              console.log(response);
               return response.data;
             })
         }

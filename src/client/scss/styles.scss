@@ -399,12 +399,12 @@ textarea::-webkit-input-placeholder {
 }
 
 #rate-home-button {
-  margin: auto;
   background: #1976D2;
+  padding: 10px;
   color: white;
   font-weight: bold;
   font-size: 2.5vh;
-  height: 30px;
+  
   border-radius: 25px;
   border: none;
   position: fixed;
@@ -486,7 +486,7 @@ textarea::-webkit-input-placeholder {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #303F9F;
+  background: #1976D2;
   margin-right: 10px;
 }
 

@@ -1,6 +1,6 @@
 angular.module('homeBuyer')
   .controller('prioritiesCtrl', function($scope, prioritiesService, $state, $ionicSideMenuDelegate, $ionicModal, $stateParams, userListService) {
-   
+
    // GET INFO FROM $stateParams
    $scope.list_name = $stateParams.list_name;
    $scope.list_id = $stateParams.list_id;
@@ -18,14 +18,14 @@ angular.module('homeBuyer')
       $scope.defaultPriorities = prioritiesService.getDefaultPriorities();
     }
 
-       //if there is a defined list id we will get the data from the api because it will be for a user that is editing their priorities. 
-    else if ($scope.list_id !== null) {  
-    console.log('list_id was not null')  
+       //if there is a defined list id we will get the data from the api because it will be for a user that is editing their priorities.
+    else if ($scope.list_id !== null) {
+    console.log('list_id was not null')
     $scope.getPriorities($scope.list_id, user_id);
     }
 
 
-  
+
 //METHODS & FUNCTIONS
 $scope.addListorSavePriorities
 
@@ -82,7 +82,7 @@ $scope.addNewList = function() {
               priorities: $scope.defaultPriorities
             }
             userListService.addNewList(newListObj).then(function(response) {
-                $state.go('list')
+                $state.go('list', {list_name: response.list_name, list_id: response.list_id});
             })
         }
 
@@ -151,7 +151,9 @@ $scope.clearInput = function() {
 
   .service('prioritiesService', function($http) {
 let baseUrl = 'http://138.68.17.238/'
-// let baseUrl = 'http://localhost:3000/'
+
+// let baseUrl = 'http://localhost:3000'
+
     //default values for priorities
     var defaultPriorities = [
       {

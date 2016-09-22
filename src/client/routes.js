@@ -1,6 +1,6 @@
 angular.module('homeBuyer').config(function($stateProvider, $urlRouterProvider){
 
-$urlRouterProvider.otherwise('/login');
+$urlRouterProvider.otherwise('/HomeBuyer');
 
  $stateProvider
 
@@ -54,7 +54,8 @@ $urlRouterProvider.otherwise('/login');
    controller: 'listCtrl',
    cache: false,
    params: {
-     list_id: null
+     list_id: null,
+     list_name: null
    }
  })
 
