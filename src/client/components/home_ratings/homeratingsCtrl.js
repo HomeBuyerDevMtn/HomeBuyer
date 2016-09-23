@@ -10,6 +10,7 @@ angular.module('homeBuyer')
 $scope.getRatings = (home_id, user_id) => {
   console.log(home_id, user_id)
   ratingsService.getRatings(home_id, user_id).then((response) => {
+    console.log('myRatings :', response)
     $scope.myRatings = response;
   })
 }
@@ -17,6 +18,7 @@ $scope.getRatings(home_id, user_id);
 
 //edit ratings
 $scope.editRatings = (myRatings) => {
+  console.log(myRatings)
   console.log('ctrl myRatings', myRatings);
   let ratings = {ratings:[]};
   for (var i = 0; i < myRatings.length; i++) {
@@ -62,8 +64,8 @@ $scope.editRatings = (myRatings) => {
 /////////////////////////
 
     .service('ratingsService', function($http) {
-      // let baseUrl = 'http://138.68.17.238'
-      let baseUrl = 'http://192.168.1.26:3000/';
+      let baseUrl = 'http://138.68.17.238/'
+      // let baseUrl = 'http://192.168.1.26:3000/';
       // let baseUrl = 'http://138.68.17.238'
 
 

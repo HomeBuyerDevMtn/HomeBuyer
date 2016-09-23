@@ -39,7 +39,7 @@ module.exports = {
         })
     },
     editRatings: (req, res, next) => {
-        // console.log('editRatings req.body', req.body);
+        console.log('editRatings req.body', req.body);
         for (var i = 0; i < req.body.ratings.length; i++) {
             db.update_ratings([req.body.ratings[i].rating_description, req.body.ratings[i].rating_value, req.body.ratings[i].id], (error, response) => {
                 if (error) {

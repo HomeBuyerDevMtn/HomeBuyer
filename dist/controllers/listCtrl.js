@@ -10,7 +10,7 @@ module.exports = {
             if (CLerror) {
                 res.json({
                     status: 500,
-                    message: error,
+                    message: CLerror,
                     method: 'createList'
                 });
             } else if (CLresponse) {
@@ -19,7 +19,7 @@ module.exports = {
                         if (CPerror) {
                             res.json({
                                 status: 500,
-                                message: error,
+                                message: CPerror,
                                 method: 'createList, create_priorities'
                             });
                         }
@@ -69,7 +69,7 @@ module.exports = {
         });
     },
     readHomesByListId: function readHomesByListId(req, res, next) {
-        // console.log('Your in readHomesByListId', req.params)
+        console.log('Your in readHomesByListId', req.params);
         db.read_homes_by_list_id(Number(req.params.list_id), function (error, response) {
             if (error) {
                 res.json({
@@ -78,7 +78,7 @@ module.exports = {
                     method: 'readHomesByListId'
                 });
             } else if (response) {
-                // console.log('This is the response: ', response)
+                console.log('This is the response: ', response);
                 res.json(response);
             }
         });
