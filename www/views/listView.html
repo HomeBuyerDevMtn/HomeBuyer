@@ -6,7 +6,7 @@
   </ion-header-bar>
 <ion-content>
   <ion-list class='list'>
-  <ion-item class='item' id='list-card' ng-repeat="home in homesInList" ui-sref='myHome({home_id: home.id, list_id: home.list_id})' show-delete="shouldShowDelete"
+  <ion-item class='item' id='list-card' ng-repeat="home in homesInList" ui-sref='myHome({home_id: home.id, list_id: home.list_id, list_name: list_name})' show-delete="shouldShowDelete"
           show-reorder="shouldShowReorder"
           can-swipe="listCanSwipe">
 
@@ -17,7 +17,7 @@
                 <p>{{home.city}}, {{home.province}}</p>
             </div>
             <div id='score-box'>
-              <h2 id='list-score'>{{home.score}}</h2>
+              <h2 id='list-score'>{{home.home_score}}</h2>
             </div>
 
         </div>

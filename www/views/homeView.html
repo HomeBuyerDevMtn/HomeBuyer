@@ -2,14 +2,15 @@
   <ion-header-bar class="bar-stable" id='header-bar'>
     <button id='nav-button' type="button" ng-click="toggleLeft()" class="button icon button-clear ion-navicon-round"></button>
     <h1 class="title">{{currentHome.nickname}}</h1>
-    <button type="button" ng-click="showEditHome()" class="button" style='background: transparent !important; color: black !important;'>Edit</button>
+    <i class="ion-ios-arrow-back" style='position: absolute; right: 10px; top: 10px; font-size: 30px;' ui-sref='list({list_id: list_id, list_name: list_name})'></i>
+    <!-- <button type="button" ng-click="showEditHome()" class="button" style='background: transparent !important; color: black !important;'>Edit</button> -->
   </ion-header-bar>
 
   <ion-content>
     <section class='main-house-pic-section'>
       <img id='home-picture' src="./img/house.jpg"/>
       <div class='home-top-right'>
-        <h1 id='house-score'>{{currentHomeScore}}</h1>
+        <h1 id='house-score'>{{currentHome.home_score}}</h1>
       </div>
       <!-- <div class='home-top-right-background'>
         <h1 id='house-score'>4.8</h1>
