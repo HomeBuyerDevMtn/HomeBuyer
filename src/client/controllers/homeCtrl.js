@@ -5,6 +5,7 @@ angular.module('homeBuyer')
       let home_id = $stateParams.home_id;
       let user_id = currentUser.user_id;
       let list_id = $stateParams.list_id;
+      $scope.list_name = $stateParams.list_name;
 
   //get home info by home id
   $scope.getHomeById = function(home_id) {
@@ -141,7 +142,7 @@ $rootScope.$on('editHome', function(e, data) {
     prioritiesService.getPriorities(list_id, user_id)
       .then(function(response) {
         $scope.priority_values = [];
-
+        console.log('this is the prioritiesService response', JSON.stringify(response));
         response.forEach(function(item, index) {
           $scope.priority_values.push(item.priority_value)
         })
@@ -171,17 +172,17 @@ $rootScope.$on('editHome', function(e, data) {
 
 
 .service('homeviewService', function($http) {
-// let baseUrl = 'http://192.168.1.24:3000/';
+let baseUrl = 'http://192.168.1.26:3000/';
 // let baseUrl = 'http://localhost:3000/';
-let baseUrl = 'http://138.68.17.238/'
+// let baseUrl = 'http://138.68.17.238/'
 
 this.getHomeById = function(home_id) {
   return $http({
     method: "GET",
     url: baseUrl + "lists/homes/id/" + home_id
   }).then(function(response){
-    console.log(response.data[0]);
-    return response.data[0];
+    console.log(response.data);
+    return response.data;
   })
 };
 

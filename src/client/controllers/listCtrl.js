@@ -209,8 +209,8 @@ for (var i = 0; i < arr.length; i++) {
 
 .service('listService', function($http, $rootScope) {
 // let baseUrl = 'http://localhost:3000/';
-let baseUrl = 'http://138.68.17.238/';
-// let baseUrl = 'http://192.168.1.24:3000/';
+// let baseUrl = 'http://138.68.17.238/';
+let baseUrl = 'http://192.168.1.26:3000/';
 
 
 
