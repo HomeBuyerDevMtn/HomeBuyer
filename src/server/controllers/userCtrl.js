@@ -166,7 +166,6 @@ module.exports = {
                     console.log("user does not exist")
                     let newUser = { name: req.body.name, email: req.body.email, random: Math.random() };
                     let token = jwt.encode(newUser, config.secret)
-                    let currentUser = new User(req.body.name, req.body.email, token, 1);
                     bcrypt.hash(req.body.password, 10, (err, hash) => {
                         if (err) console.log(err);
                         db.add_user_local([req.body.name, req.body.email, hash, token], (error, response) => {
@@ -179,6 +178,7 @@ module.exports = {
                                 })
                             }
                             else if (response) {
+                                let currentUser = new User(response[0].id, req.body.name, req.body.email, token, 1);
                                 res.json(currentUser);
                             }
                         })

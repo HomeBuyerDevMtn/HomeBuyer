@@ -121,44 +121,44 @@ $rootScope.$on('editHome', function(e, data) {
   //////////////////////////////////
 
   //get ratings in home by home id
-  $scope.getRatings = function(home_id, user_id) {
-    ratingsService.getRatings(home_id, user_id)
-      .then(function(response) {
+  // $scope.getRatings = function(home_id, user_id) {
+  //   ratingsService.getRatings(home_id, user_id)
+  //     .then(function(response) {
         // console.log("this is ratings for", home_id, user_id, JSON.stringify(response));
-        $scope.rating_values = []
-        $scope.priority_ids = []
+        // $scope.rating_values = []
+        // $scope.priority_ids = []
 
-        response.forEach(function(item, index) {
-          $scope.rating_values.push(item.rating_value);
-          $scope.priority_ids.push(item.priority_id)
-        })
-      });
-  };
-  $scope.getRatings(home_id, user_id);
+        // response.forEach(function(item, index) {
+        //   $scope.rating_values.push(item.rating_value);
+        //   $scope.priority_ids.push(item.priority_id)
+        // })
+  //     });
+  // };
+  // $scope.getRatings(home_id, user_id);
 
   //get priorities for home by list_id
-  $scope.getPriorities = function(list_id, user_id) {
-    prioritiesService.getPriorities(list_id, user_id)
-      .then(function(response) {
-        $scope.priority_values = [];
+  // $scope.getPriorities = function(list_id, user_id) {
+  //   prioritiesService.getPriorities(list_id, user_id)
+  //     .then(function(response) {
+  //       $scope.priority_values = [];
 
-        response.forEach(function(item, index) {
-          $scope.priority_values.push(item.priority_value)
-        })
+  //       response.forEach(function(item, index) {
+  //         $scope.priority_values.push(item.priority_value)
+  //       })
 
-        $scope.getHouseScore = function(arr1, arr2) {
-            var total = 0;
-            for (var i = 0; i < arr1.length; i++) {
-              total += ((arr1[i] / 100) * (arr2[i] / 100));
-            };
-            $scope.currentHomeScore = total * 100;
-            console.log("home score", JSON.stringify($scope.currentHomeScore));
-        };
-        $scope.getHouseScore($scope.priority_values, $scope.rating_values);
+  //       $scope.getHouseScore = function(arr1, arr2) {
+  //           var total = 0;
+  //           for (var i = 0; i < arr1.length; i++) {
+  //             total += ((arr1[i] / 100) * (arr2[i] / 100));
+  //           };
+  //           $scope.currentHomeScore = total * 100;
+  //           console.log("home score", JSON.stringify($scope.currentHomeScore));
+  //       };
+  //       $scope.getHouseScore($scope.priority_values, $scope.rating_values);
 
-      });
-  };
-  $scope.getPriorities(list_id, user_id);
+  //     });
+  // };
+  // $scope.getPriorities(list_id, user_id);
 
 
 
@@ -180,8 +180,8 @@ this.getHomeById = function(home_id) {
     method: "GET",
     url: baseUrl + "lists/homes/id/" + home_id
   }).then(function(response){
-    console.log(response.data[0]);
-    return response.data[0];
+    console.log(response.data);
+    return response.data;
   })
 };
 
