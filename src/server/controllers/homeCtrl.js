@@ -75,17 +75,30 @@ module.exports = {
     },
     readHomesByHomeId: (req, res, next) => {
         console.log('You\'re in readHomesByHomeId: ', req.params)
-        db.read_homes_by_home_id(req.params.home_id, (error, response) => {
-            if (error) {
+        db.read_homes_by_home_id(req.params.home_id, (RHerror, RHresponse) => {
+            if (RHerror) {
                 res.json({
                     status: 500,
-                    message: error,
+                    message: RHerror,
                     method: 'createHome'
                 })
             }
-            else if (response) {
-                console.log('This is the response', response);
-                res.json(response);
+            else if (RHresponse) {
+               db.get_homescore_by_home_id(req.params.home_id, (GHerror, GHresponse) => {
+                   if (GHerror) {
+                       res.json({
+                           status: 500,
+                           message: error,
+                           method: 'createHome'
+                       })
+                   }
+                   else if (GHresponse){
+                     let newResponse = RHresponse[0];
+                     newResponse.home_score = GHresponse[0].home_score;
+                     console.log('newResponse :', newResponse)
+                     res.json(newResponse)
+                   }
+               })
             }
         })
     },
