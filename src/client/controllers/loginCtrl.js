@@ -48,6 +48,7 @@ $scope.googleLogin = function(){
    }
 
 $scope.localLogin = (user) => {
+  console.log('$scope.localLogin argument', user)
   loginService.localLogin(user).then((response) => {
     console.log('Controller response', response)
     localStorage.setItem('currentUser', JSON.stringify(response));
@@ -59,8 +60,8 @@ $scope.localLogin = (user) => {
 }) // end loginCtrl
 
 .service('loginService', function($http) {
-  // let baseUrl = 'http://localhost:3000/';
-  let baseUrl = 'http://138.68.17.238/';
+  let baseUrl = 'http://localhost:3000/';
+  // let baseUrl = 'http://138.68.17.238/';
   // let baseUrl = 'http://192.168.1.24:3000/';
 
     this.googleLogin = function(currentUser) {
