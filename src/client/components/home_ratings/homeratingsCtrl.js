@@ -24,7 +24,7 @@ $scope.editRatings = (myRatings) => {
   for (var i = 0; i < myRatings.length; i++) {
     ratings.ratings.push({id: myRatings[i].id, rating_description: myRatings[i].rating_description, rating_value: myRatings[i].rating_value})
   }
-  console.log('ratings', ratings);
+  console.log('ratings', JSON.stringify(ratings));
   ratingsService.editRatings(ratings).then((response) => {
     return response;
   })
@@ -64,15 +64,15 @@ $scope.editRatings = (myRatings) => {
 /////////////////////////
 
     .service('ratingsService', function($http) {
-      let baseUrl = 'http://138.68.17.238'
-      // let baseUrl = 'http://192.168.1.24:3000';
-      // let baseUrl = 'http://138.68.17.238'
+      let baseUrl = 'http://138.68.17.238/'
+      // let baseUrl = 'http://192.168.1.26:3000/';
+      // let baseUrl = 'http://localhost:3000/'
 
 
 
       //get priority list by user and user's list
       this.getRatings = function(home_id, user_id) {
-        return $http.get(baseUrl + '/ratings?home_id=' + home_id + "&user_id=" + user_id)
+        return $http.get(baseUrl + 'ratings?home_id=' + home_id + "&user_id=" + user_id)
           .then(function(response) {
             console.log(response);
             return response.data;
@@ -81,7 +81,7 @@ $scope.editRatings = (myRatings) => {
 
       //edit ratings
       this.editRatings = (ratings) => {
-        console.log('hey dan', ratings)
+        console.log('hey dan', JSON.stringify(ratings));
         return $http({
           method: "PUT",
           url: baseUrl + 'ratings',

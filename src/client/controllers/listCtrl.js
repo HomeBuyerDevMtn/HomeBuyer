@@ -210,7 +210,7 @@ for (var i = 0; i < arr.length; i++) {
 .service('listService', function($http, $rootScope) {
 // let baseUrl = 'http://localhost:3000/';
 let baseUrl = 'http://138.68.17.238/';
-// let baseUrl = 'http://192.168.1.24:3000/';
+// let baseUrl = 'http://192.168.1.26:3000/';
 
 
 
@@ -225,6 +225,7 @@ let baseUrl = 'http://138.68.17.238/';
 
     //delete home
     this.deactivateHome = function(home_id) {
+      console.log(home_id);
       return $http.post(baseUrl + "lists/homes/deactivate/" + home_id)
         .then(function(response) {
           console.log("deleting from service", response.data);

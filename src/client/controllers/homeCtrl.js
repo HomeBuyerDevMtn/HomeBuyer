@@ -5,6 +5,7 @@ angular.module('homeBuyer')
       let home_id = $stateParams.home_id;
       let user_id = currentUser.user_id;
       let list_id = $stateParams.list_id;
+      $scope.list_name = $stateParams.list_name;
 
   //get home info by home id
   $scope.getHomeById = function(home_id) {
@@ -146,6 +147,7 @@ $rootScope.$on('editHome', function(e, data) {
   //         $scope.priority_values.push(item.priority_value)
   //       })
 
+
   //       $scope.getHouseScore = function(arr1, arr2) {
   //           var total = 0;
   //           for (var i = 0; i < arr1.length; i++) {
@@ -171,7 +173,7 @@ $rootScope.$on('editHome', function(e, data) {
 
 
 .service('homeviewService', function($http) {
-// let baseUrl = 'http://192.168.1.24:3000/';
+// let baseUrl = 'http://192.168.1.26:3000/';
 // let baseUrl = 'http://localhost:3000/';
 let baseUrl = 'http://138.68.17.238/'
 
