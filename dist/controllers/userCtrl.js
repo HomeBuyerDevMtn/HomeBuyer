@@ -159,7 +159,6 @@ module.exports = {
                             console.log("user does not exist");
                             var newUser = { name: req.body.name, email: req.body.email, random: Math.random() };
                             var token = jwt.encode(newUser, config.secret);
-                            var currentUser = new User(req.body.name, req.body.email, token, 1);
                             bcrypt.hash(req.body.password, 10, function (err, hash) {
                                 if (err) console.log(err);
                                 db.add_user_local([req.body.name, req.body.email, hash, token], function (error, response) {
@@ -171,6 +170,7 @@ module.exports = {
                                             method: 'localRegister'
                                         });
                                     } else if (response) {
+                                        var currentUser = new User(response[0].id, req.body.name, req.body.email, token, 1);
                                         res.json(currentUser);
                                     }
                                 });

@@ -225,6 +225,7 @@ let baseUrl = 'http://138.68.17.238/';
 
     //delete home
     this.deactivateHome = function(home_id) {
+      console.log(home_id);
       return $http.post(baseUrl + "lists/homes/deactivate/" + home_id)
         .then(function(response) {
           console.log("deleting from service", response.data);
